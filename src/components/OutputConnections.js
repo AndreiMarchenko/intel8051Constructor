@@ -1,12 +1,14 @@
 import BlockConnection from "./BlockConnection";
 
-export default function OutputConnections({names, blockCoords, blockId}) {
+export default function OutputConnections({names, blockGlobalCoords, blockId}) {
     const connections = names.map((name, i) => {
         return <BlockConnection
-            id={blockId + name}
+            id={blockId + '.' + name}
+            key={blockId + '.' + name}
             name={name}
-            x={blockCoords.endX - 10}
-            y={blockCoords.startY + i * 20}
+            x={40}
+            y={i * 20}
+            blockGlobalCoords={blockGlobalCoords}
             output
         />
     });

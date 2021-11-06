@@ -1,16 +1,22 @@
 import { Group, Rect, Text } from 'react-konva';
 import { useDispatch, useSelector } from "react-redux";
 import { startWire, endWire, resetWire } from "../store/slices/wiresSlice";
+import {addConnectionPosition} from "../store/slices/connectionsSlice";
+import {useEffect} from "react";
 
-export default function BlockConnection(props) {
+export default function BlockConnection({id, x, y, name, blockGlobalCoords, input}) {
     const dispatch = useDispatch();
     const startPosition = useSelector(state => state.wireReducer.startPosition);
-    const blockPosition = useSelector(state => {
-        return state.blocksReducer.positions.find(position => position.id === props.id);
-    });
     const wiresPositions = useSelector(state => state.wireReducer.wiresPositions);
 
 
+    useEffect(() => {
+        dispatch(addConnectionPosition({
+            x: blockGlobalCoords.startX + x,
+            y: blockGlobalCoords.startY + y,
+            id: id
+        }));
+    });
 
     const positionIsTaken = (x, y) => wiresPositions.some(position => {
         const wireStartCoordinates = {
@@ -32,9 +38,9 @@ export default function BlockConnection(props) {
         event.cancelBubble = true;
 
         const wireEndInfo = {
-            x: blockPosition.x + 45,
-            y: blockPosition.y + 25,
-            connectionId: props.id,
+            x: blockGlobalCoords.startX + x + 5,
+            y: blockGlobalCoords.startY + y + 5,
+            connectionId: id,
         };
 
         const startPositionExistsAndNotEqualsEndPosition = startPosition
@@ -51,17 +57,17 @@ export default function BlockConnection(props) {
         <Group>
             <Rect
                 onClick={handleClick}
-                x={props.x}
-                y={props.y}
+                x={x}
+                y={y}
                 width={10}
                 height={10}
                 fill={'yellow'}
                 shadowBlur={5}
             />
             <Text
-                x={props.input ? props.x - 20 : props.x + 20}
-                y={props.y}
-                text={props.name}
+                x={input ? x - 20 : x + 20}
+                y={y}
+                text={name}
                 fontSize='12'
                 fontFamily='Calibri'
                 fill='black'

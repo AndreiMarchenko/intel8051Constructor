@@ -1,33 +1,14 @@
 import { useState, useEffect, Fragment } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
-import { ReactReduxContext, Provider, connect, useDispatch, useSelector } from "react-redux";
-import { startWire, endWire, addWirePosition } from "../store/slices/wiresSlice";
+import { ReactReduxContext, Provider, useDispatch, useSelector } from "react-redux";
+import { startWire, resetWire, addWirePosition } from "../store/slices/wiresSlice";
+import { addBlockPosition } from '../store/slices/blocksSlice';
 import { cloneDeep } from 'lodash';
 import usePrevious from '../hooks/usePrevious';
-import store from '../store/store';
 
 import Block from './Block';
 
 const BLOCKS_AMOUNT = 4;
-
-const createBlocks = blocksPositions => {
-    const blocks = [];
-    for (let i = 0; i < BLOCKS_AMOUNT; i++) {
-        let x;
-        let y;
-        let block = blocksPositions.find(blockPosition => blockPosition.id === i);
-        if (block) {
-            x = block.x;
-            y = block.y;
-        }
-
-        blocks.push(
-            <Block x={ x ?? 20 } y={ y ?? (i + 1) * 20 + i*50} key={i} id={i}/>
-        )
-    }
-
-    return blocks;
-}
 
 export default function Field(props) {
     const newWireStartPosition = useSelector(state => state.wireReducer.startPosition);
@@ -36,6 +17,40 @@ export default function Field(props) {
     const blocksPositions =  useSelector(state => state.blocksReducer.positions);
     const lastChangedWireId = useSelector(state => state.wireReducer.lastChangedWireId);
     const wiresPositions = useSelector(state => state.wireReducer.wiresPositions);
+
+
+    const syncBlockPositionInStorage = position => {
+        dispatch(addBlockPosition({
+            x: position.x,
+            y: position.y,
+            id: position.id
+        }));
+    };
+
+    const createBlocks = blocksPositions => {
+        const blocks = [];
+        for (let i = 0; i < BLOCKS_AMOUNT; i++) {
+            let x;
+            let y;
+            let block = blocksPositions.find(blockPosition => blockPosition.id === `block${i}`);
+            if (block) {
+                x = block.x;
+                y = block.y;
+            }
+
+            blocks.push(
+                <Block
+                    x={ x ?? 20 }
+                    y={ y ?? (i + 1) * 20 + i*50}
+                    key={i}
+                    id={`block${i}`}
+                    passBlockPositionToParent={syncBlockPositionInStorage}
+                />
+            )
+        }
+
+        return blocks;
+    }
 
     const [blocks, setBlocks] = useState(createBlocks(blocksPositions));
     const [lines, setLines] = useState([]);
@@ -46,31 +61,33 @@ export default function Field(props) {
     const lastMovedBlock = blocksPositions.find(block => block.id === lastMovedBlockId);
     const prevWireStartPosition = usePrevious(newWireStartPosition);
 
-
     useEffect(() => {
-        const wireFromStorage = wiresPositions.find(wire => wire.id === lastChangedWireId);
-        const wireIndex = lines.findIndex(wire => +wire.props.id === +lastChangedWireId);
+        setBlocks(createBlocks(blocksPositions));
 
-        if (wireIndex === -1 || !wireFromStorage) return;
+        const changedWiresPositions = wiresPositions.filter(position => {
+            return position.fromConnection.includes(lastMovedBlock.id) ||
+                position.toConnection.includes(lastMovedBlock.id);
+        });
+
 
         const newLines = cloneDeep(lines);
-        newLines[wireIndex] = <Line
-            points={wireFromStorage.sequence}
-            stroke='black'
-            strokeWidth='4'
-            lineCap='round'
-            lineJoin='round'
-            id={`${lastChangedWireId}`}
-            key={lastChangedWireId}
-        />
-
+        changedWiresPositions.forEach(position => {
+            const wireIndex = lines.findIndex(wire => +wire.props.id === +position.id);
+            newLines[wireIndex] = <Line
+                points={position.sequence}
+                stroke='black'
+                strokeWidth='4'
+                lineCap='round'
+                lineJoin='round'
+                id={`${position.id}`}
+                key={position.id}
+            />
+        });
 
         setLines(newLines);
+        dispatch(resetWire());
 
-        dispatch(startWire(null));
-        dispatch(endWire(null));
-    }, [lastMovedBlock]);
-
+    }, [blocksPositions]);
 
     useEffect(() => {
         if (!newWireStartPosition) {
@@ -115,6 +132,7 @@ export default function Field(props) {
             toConnection: newWireEndPosition.connectionId,
         }));
 
+        dispatch(resetWire());
     }, [newWireEndPosition]);
 
 

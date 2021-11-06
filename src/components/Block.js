@@ -1,63 +1,60 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Rect, Group } from 'react-konva';
 import { useDispatch, useSelector } from "react-redux";
-import { addBlockPosition } from "../store/slices/blocksSlice";
 import { addWirePosition } from "../store/slices/wiresSlice";
 import { clone } from 'lodash';
 
 import InputConnections from "./InputConnections";
 import OutputConnections from "./OutputConnections";
 
-export default function Block(props) {
-    const className = `block blockId${props.blockId}`;
+export default function Block({id, x, y, passBlockPositionToParent}) {
     const dispatch = useDispatch();
     const wires = useSelector(state => state.wireReducer.wiresPositions);
-
-    const setBlockPositionInStorage = event => {
-        const newCoordinates = event.currentTarget.find(`#block${props.id}`)[0].getAbsolutePosition();
-        dispatch(addBlockPosition({
-            x: newCoordinates.x,
-            y: newCoordinates.y,
-            id: props.id
-        }));
-
-        const blockWire = wires.filter(wire => {
-            return wire.fromConnection === props.id || wire.toConnection === props.id;
-        });
-
-        if (blockWire.length) {
-            const changeWireBeginning = blockWire[0].fromConnection === props.id;
-            const newSequence = clone(blockWire[0].sequence);
-            if (changeWireBeginning) {
-                newSequence[0] = newCoordinates.x + 45;
-                newSequence[1] = newCoordinates.y + 25;
-            } else {
-                newSequence[newSequence.length - 2] = newCoordinates.x + 45;
-                newSequence[newSequence.length - 1] = newCoordinates.y + 25;
-            }
-            dispatch(addWirePosition({
-                id: blockWire[0].id,
-                sequence: newSequence,
-            }));
-        }
-    }
+    const blockPositions = useSelector(state => state.blocksReducer.positions);
 
     const rect = useRef();
 
-    useEffect(() => {
-        const coordinates = rect.current.getAbsolutePosition();
-        dispatch(addBlockPosition({
-            x: coordinates.x,
-            y: coordinates.y,
-            id: props.id
-        }));
-    });
+    const setBlockPositionInStorage = event => {
+        const newCoordinates = event.currentTarget.find(`#${id}`)[0].getAbsolutePosition();
+        const prevCoordinates = blockPositions.find(position => position.id === id);
+        const coordinateDiff = {
+            x: newCoordinates.x - prevCoordinates?.x,
+            y: newCoordinates.y - prevCoordinates?.y,
+        }
 
-    const blockCoords = {
-        startX: props.x,
-        startY: props.y,
-        endX: props.x + 50,
-        endY: props.y + 50,
+        const blockWires = wires.filter(wire => {
+            return wire.fromConnection.includes(id) || wire.toConnection.includes(id);
+        });
+
+        blockWires.forEach(blockWire => {
+            const changeWireBeginning = blockWire.fromConnection.includes(id);
+            const newSequence = clone(blockWire.sequence);
+            if (changeWireBeginning) {
+                newSequence[0] = blockWire.sequence[0] + coordinateDiff.x;
+                newSequence[1] = blockWire.sequence[1] + coordinateDiff.y;
+            } else {
+                newSequence[newSequence.length - 2] = blockWire.sequence[newSequence.length - 2] + coordinateDiff.x;
+                newSequence[newSequence.length - 1] = blockWire.sequence[newSequence.length - 1] + coordinateDiff.y;
+            }
+            dispatch(addWirePosition({
+                id: blockWire.id,
+                sequence: newSequence,
+            }));
+        });
+
+
+        passBlockPositionToParent({
+            x: newCoordinates.x,
+            y: newCoordinates.y,
+            id: id
+        });
+    }
+
+    const blockGlobalCoords = {
+        startX: x,
+        startY: y,
+        endX: x + 50,
+        endY: y + 50,
     };
 
 
@@ -65,21 +62,19 @@ export default function Block(props) {
     const outputConnectionNames = ['q', 'qn'];
 
     return (
-        <Group x={props.x} y={props.y} draggable onDragMove={setBlockPositionInStorage}>
+        <Group ref={rect} x={x} y={y} draggable onDragEnd={setBlockPositionInStorage}>
             <Rect
-                ref={rect}
-                x={blockCoords.startX}
-                y={blockCoords.startY}
-                width={blockCoords.endX - blockCoords.startX}
-                height={blockCoords.endY - blockCoords.startY}
+                x={0}
+                y={0}
+                width={50}
+                height={50}
                 fill={'red'}
                 shadowBlur={5}
 
-                id={`block${props.id}`}
-                className={className}
+                id={id}
             />
-            <InputConnections blockCoords={blockCoords} blockId={props.blockId} names={inputConnectionNames}/>
-            <OutputConnections blockCoords={blockCoords} blockId={props.blockId} names={outputConnectionNames}/>
+            <InputConnections blockGlobalCoords={blockGlobalCoords} blockId={id} names={inputConnectionNames}/>
+            <OutputConnections blockGlobalCoords={blockGlobalCoords} blockId={id} names={outputConnectionNames}/>
         </Group>
     );
 }
