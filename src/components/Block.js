@@ -22,11 +22,11 @@ export default function Block(props) {
         }));
 
         const blockWire = wires.filter(wire => {
-            return wire.fromBlock === props.id || wire.toBlock === props.id;
+            return wire.fromConnection === props.id || wire.toConnection === props.id;
         });
 
         if (blockWire.length) {
-            const changeWireBeginning = blockWire[0].fromBlock === props.id;
+            const changeWireBeginning = blockWire[0].fromConnection === props.id;
             const newSequence = clone(blockWire[0].sequence);
             if (changeWireBeginning) {
                 newSequence[0] = newCoordinates.x + 45;
