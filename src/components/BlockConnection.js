@@ -1,54 +1,39 @@
 import { Group, Rect, Text } from 'react-konva';
 import { useDispatch, useSelector } from "react-redux";
-import { startWire, endWire, resetWire } from "../store/slices/wiresSlice";
-import {addConnectionPosition} from "../store/slices/connectionsSlice";
-import {useEffect} from "react";
+import { startWire, resetWire, setWireToStorage } from "../store/slices/wireSlice";
+import { useState } from "react";
 
-export default function BlockConnection({id, x, y, name, blockGlobalCoords, input}) {
+export default function BlockConnection({id, x, y, name, input, connectedTo, blockId}) {
     const dispatch = useDispatch();
-    const startPosition = useSelector(state => state.wireReducer.startPosition);
-    const wiresPositions = useSelector(state => state.wireReducer.wiresPositions);
+    const activeConnection = useSelector(state => state.wireReducer.activeConnection);
 
-
-    useEffect(() => {
-        dispatch(addConnectionPosition({
-            x: blockGlobalCoords.startX + x,
-            y: blockGlobalCoords.startY + y,
-            id: id
-        }));
+    const [connection, setConnection] = useState({
+        id,
+        name,
+        position: {
+            x: x,
+            y: y,
+        },
+        connectedTo,
+        input,
+        blockId
     });
-
-    const positionIsTaken = (x, y) => wiresPositions.some(position => {
-        const wireStartCoordinates = {
-            x: position.sequence[0],
-            y: position.sequence[1],
-        };
-        const wireEndCoordinates = {
-            x: position.sequence[position.sequence.length - 2],
-            y: position.sequence[position.sequence.length - 1],
-        };
-        return (
-            (wireStartCoordinates.x === x && wireStartCoordinates.y === y) ||
-            (wireEndCoordinates.x === x && wireEndCoordinates.y === y)
-        );
-    });
-
 
     const handleClick = event => {
         event.cancelBubble = true;
 
-        const wireEndInfo = {
-            x: blockGlobalCoords.startX + x + 5,
-            y: blockGlobalCoords.startY + y + 5,
-            connectionId: id,
-        };
+        if (connectedTo) {
+            dispatch(resetWire());
+            return;
+        }
 
-        const startPositionExistsAndNotEqualsEndPosition = startPosition
-            && (startPosition.x !== wireEndInfo.x || startPosition.y !== wireEndInfo.y);
+        if (!activeConnection) {
+            dispatch(startWire(connection));
+            return;
+        }
 
-        if (!positionIsTaken(wireEndInfo.x, wireEndInfo.y)) {
-            dispatch(startPositionExistsAndNotEqualsEndPosition ? endWire(wireEndInfo) : startWire(wireEndInfo));
-        } else {
+        if (activeConnection.id !== connection.id) {
+            dispatch(setWireToStorage([activeConnection, connection]));
             dispatch(resetWire());
         }
     }

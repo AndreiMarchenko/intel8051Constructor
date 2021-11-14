@@ -1,80 +1,140 @@
-import { useRef } from "react";
+import {useRef, useState, Fragment, useEffect} from "react";
 import { Rect, Group } from 'react-konva';
 import { useDispatch, useSelector } from "react-redux";
-import { addWirePosition } from "../store/slices/wiresSlice";
-import { clone } from 'lodash';
+import { changeBlock, setBlockToStorage } from "../store/slices/blockSlice";
+import useThrottle from "../hooks/useThrottle";
 
-import InputConnections from "./InputConnections";
-import OutputConnections from "./OutputConnections";
+import BlockConnection from "./BlockConnection";
 
-export default function Block({id, x, y, passBlockPositionToParent}) {
+export default function Block({id, x, y}) {
     const dispatch = useDispatch();
-    const wires = useSelector(state => state.wireReducer.wiresPositions);
-    const blockPositions = useSelector(state => state.blocksReducer.positions);
+    const blockFromStorage = useSelector(state => state.blockReducer.blocks.find(block => block.id === id));
+    const connections = [
+        {
+            id: id + '.clk',
+            name: 'clk',
+            connectedTo: null,
+            type: 'in',
+            position: {
+                x: 0,
+                y: 0,
+            },
+            blockId: id,
+        },
+        {
+            id: id + '.d',
+            name: 'd',
+            connectedTo: null,
+            type: 'in',
+            position: {
+                x: 0,
+                y: 20,
+            },
+            blockId: id,
+        },
+        {
+            id: id + '.en',
+            name: 'en',
+            connectedTo: null,
+            type: 'in',
+            position: {
+                x: 0,
+                y: 40,
+            },
+            blockId: id,
+        },
+        {
+            id: id + '.q',
+            name: 'q',
+            connectedTo: null,
+            type: 'out',
+            position: {
+                x: 40,
+                y: 0,
+            },
+            blockId: id,
+        },
+        {
+            id: id + '.qn',
+            name: 'qn',
+            connectedTo: null,
+            type: 'out',
+            position: {
+                x: 40,
+                y: 20,
+            },
+            blockId: id,
+        },
+        {
+            id: id + '.qq',
+            name: 'qq',
+            connectedTo: null,
+            type: 'out',
+            position: {
+                x: 40,
+                y: 40,
+            },
+            blockId: id,
+        },
+    ];
+
+    const [block, setBlock] = useState({
+        id,
+        name: 'ram',
+        connections: connections,
+        position: {
+            x: x,
+            y: y,
+        }
+    });
 
     const rect = useRef();
 
-    const setBlockPositionInStorage = event => {
-        const newCoordinates = event.currentTarget.find(`#${id}`)[0].getAbsolutePosition();
-        const prevCoordinates = blockPositions.find(position => position.id === id);
-        const coordinateDiff = {
-            x: newCoordinates.x - prevCoordinates?.x,
-            y: newCoordinates.y - prevCoordinates?.y,
+    useEffect(() => {
+        dispatch(setBlockToStorage(block));
+    }, []);
+
+    useEffect(() => {
+        if (!blockFromStorage) {
+            return;
         }
 
-        const blockWires = wires.filter(wire => {
-            return wire.fromConnection.includes(id) || wire.toConnection.includes(id);
-        });
+        setBlock(blockFromStorage);
+    }, [blockFromStorage]);
 
-        blockWires.forEach(blockWire => {
-            const changeWireBeginning = blockWire.fromConnection.includes(id);
-            const newSequence = clone(blockWire.sequence);
-            if (changeWireBeginning) {
-                newSequence[0] = blockWire.sequence[0] + coordinateDiff.x;
-                newSequence[1] = blockWire.sequence[1] + coordinateDiff.y;
-            } else {
-                newSequence[newSequence.length - 2] = blockWire.sequence[newSequence.length - 2] + coordinateDiff.x;
-                newSequence[newSequence.length - 1] = blockWire.sequence[newSequence.length - 1] + coordinateDiff.y;
-            }
-            dispatch(addWirePosition({
-                id: blockWire.id,
-                sequence: newSequence,
-            }));
-        });
-
-
-        passBlockPositionToParent({
-            x: newCoordinates.x,
-            y: newCoordinates.y,
-            id: id
-        });
+    const changeBlockPosition = event => {
+        const newCoordinates = event.currentTarget.find(`#${id}`)[0].getAbsolutePosition();
+        dispatch(changeBlock({...block, position: newCoordinates}));
     }
 
-    const blockGlobalCoords = {
-        startX: x,
-        startY: y,
-        endX: x + 50,
-        endY: y + 50,
-    };
-
-
-    const inputConnectionNames = ['clk', 'd', 'r'];
-    const outputConnectionNames = ['q', 'qn'];
+    const blockConnectionsComponents = block.connections.map(connection => {
+        return <BlockConnection
+            id={connection.id}
+            key={connection.id}
+            name={connection.name}
+            x={connection.position.x}
+            y={connection.position.y}
+            connectedTo={connection.connectedTo}
+            blockId={connection.blockId}
+            input={connection.type === 'in'}
+        />
+    });
 
     return (
-        <Group ref={rect} x={x} y={y} draggable onDragEnd={setBlockPositionInStorage}>
-            <Rect
-                x={0}
-                y={0}
-                width={50}
-                height={50}
-                fill={'red'}
-                shadowBlur={5}
+        <Group ref={rect} x={x} y={y} draggable onDragMove={useThrottle(changeBlockPosition, 50)}>
+            <Fragment>
+                <Rect
+                    x={0}
+                    y={0}
+                    width={50}
+                    height={50}
+                    fill={'red'}
+                    shadowBlur={5}
 
-                id={id}
-            />
-            <InputConnections blockGlobalCoords={blockGlobalCoords} blockId={id} names={inputConnectionNames}/>
-            <OutputConnections blockGlobalCoords={blockGlobalCoords} blockId={id} names={outputConnectionNames}/>
+                    id={id}
+                />
+                { blockConnectionsComponents }
+            </Fragment>
         </Group>
     );
 }
