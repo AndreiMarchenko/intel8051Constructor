@@ -6,14 +6,14 @@ import { changeBlockConnection } from '../store/slices/blockSlice';
 import { cloneDeep, last, compact } from 'lodash';
 
 import Block from './Block';
+import ClkPanel from "./ClkPanel";
 
-const BLOCKS_AMOUNT = 7;
+const BLOCKS_AMOUNT = 2;
 
 export default function Field() {
     const blocks = useSelector(state => state.blockReducer.blocks);
     const wires = useSelector(state => state.wireReducer.wires);
     const lastMovedBlockId = useSelector(state => state.blockReducer.lastMovedBlockId);
-
 
     const createBlocksComponents = () => {
         const blocks = [];
@@ -131,16 +131,25 @@ export default function Field() {
     return (
         <ReactReduxContext.Consumer>
             {({ store }) => (
-                <Stage width={window.innerWidth} height={window.innerHeight} onClick={resetLineDrawing}>
-                    <Provider store={store}>
-                        <Layer>
-                            <Fragment>
-                                { blocksComponents }
-                                { lines }
-                            </Fragment>
-                        </Layer>
-                    </Provider>
-                </Stage>
+                <Fragment>
+                    <Stage width={window.innerWidth} height={70} onClick={resetLineDrawing}>
+                        <Provider store={store}>
+                            <Layer>
+                                <ClkPanel/>
+                            </Layer>
+                        </Provider>
+                    </Stage>
+                    <Stage width={window.innerWidth} height={window.innerHeight - 70} onClick={resetLineDrawing}>
+                        <Provider store={store}>
+                            <Layer>
+                                <Fragment>
+                                    { blocksComponents }
+                                    { lines }
+                                </Fragment>
+                            </Layer>
+                        </Provider>
+                    </Stage>
+                </Fragment>
             )}
         </ReactReduxContext.Consumer>
     );
