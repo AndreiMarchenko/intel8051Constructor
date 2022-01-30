@@ -7,7 +7,7 @@ export const clkSlice = createSlice({
     },
     reducers: {
         setClk: (state, action) => {
-            state.clk = action;
+            state.clk = action.payload;
         },
     }
 })

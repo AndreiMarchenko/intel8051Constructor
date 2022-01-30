@@ -1,21 +1,23 @@
 import {Line, Group, Text} from 'react-konva';
 import { useEffect, useState } from "react";
-import { setClk } from "../store/slices/clkSlice";
+import { setClk as setClkToStorage } from "../../store/slices/clkSlice";
 import { useDispatch } from "react-redux";
+import BeforeRisingEdge  from './BeforeRisingEdge';
 
-const CLK_PERIOD = 4000;
+const CLK_PERIOD = 1000;
 
 export default function ClkPanel() {
     const dispatch = useDispatch();
     const [linePoints, setLinePoints] = useState([50, 50]);
+    const [clk, setClk] = useState(0);
 
-    let clk = 0;
+    // let clk = 0;
     useEffect(() => {
         let drawCounter = 1;
         const clkDrawInterval = setInterval(() => {
-            if (!linePoints) {
-                return;
-            }
+            // if (!linePoints) {
+            //     return;
+            // }
 
             setLinePoints(linePoints => {
                 const lastPointX = linePoints[linePoints.length - 2];
@@ -26,12 +28,11 @@ export default function ClkPanel() {
                 const fallingLinePoint = [lastPointX, lastPointY + 20];
 
                 if ([2, 3].includes(drawCounter)) {
-                    clk = 1;
+                    setClk(1);
                 }
                 if ([1, 4].includes(drawCounter)) {
-                    clk = 0;
+                    setClk(0);
                 }
-                dispatch(setClk(clk));
 
                 const counterPointMap = {
                     1: horizontalLinePoint,
@@ -54,6 +55,10 @@ export default function ClkPanel() {
         };
     }, []);
 
+    useEffect(() => {
+        dispatch(setClkToStorage(clk));
+    }, [clk])
+
     return (
         <Group>
             <Line
@@ -72,6 +77,7 @@ export default function ClkPanel() {
                 fontFamily='Calibri'
                 fill='black'
             />
+            <BeforeRisingEdge clk={clk}/>
         </Group>
     );
 }
