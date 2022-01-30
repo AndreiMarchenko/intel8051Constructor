@@ -1,6 +1,6 @@
 import {Line, Group, Text} from 'react-konva';
 import { useEffect, useState } from "react";
-import { setClk as setClkToStorage } from "../../store/slices/clkSlice";
+import { setClk as setClkToStorage } from "../../../store/slices/clkSlice";
 import { useDispatch } from "react-redux";
 import BeforeRisingEdge  from './BeforeRisingEdge';
 

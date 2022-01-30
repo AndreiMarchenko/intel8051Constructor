@@ -1,10 +1,10 @@
 import Block from "../../Block";
 
-import {INC_BLOCK_SIZE, INC_BLOCK_COLOR} from "../../../utils/globals";
+import {INC_BLOCK_SIZE, INC_BLOCK_COLOR} from "../../../../utils/globals";
 import getConnections from './connections';
 import {useSelector, useDispatch} from "react-redux";
 import {useEffect} from "react";
-import {updateWirePayload} from "../../../store/slices/wireSlice";
+import {updateWirePayload} from "../../../../store/slices/wireSlice";
 import {Text} from "react-konva";
 
 export default function Inc({id, x, y}) {

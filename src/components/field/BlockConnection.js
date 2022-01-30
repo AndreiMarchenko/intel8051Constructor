@@ -1,9 +1,9 @@
 import { Group, Rect, Text } from 'react-konva';
 import { useDispatch, useSelector } from "react-redux";
-import { startWire, resetWire, setWireToStorage } from "../store/slices/wireSlice";
+import { startWire, resetWire, setWireToStorage } from "../../store/slices/wireSlice";
 import { useState } from "react";
 
-import { BLOCK_CONNECTION_SIZE } from '../utils/globals';
+import { BLOCK_CONNECTION_SIZE } from '../../utils/globals';
 
 export default function BlockConnection({id, x, y, name, input, connectedTo, blockId}) {
     const dispatch = useDispatch();

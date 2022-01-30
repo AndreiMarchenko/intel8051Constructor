@@ -1,5 +1,5 @@
 import {Group, Rect, Text} from "react-konva";
-import {REGISTER_BLOCK_SIZE} from "../../../utils/globals";
+import {REGISTER_BLOCK_SIZE} from "../../../../utils/globals";
 
 export default function StateDisplayRectangle({ state }) {
   const size = 50;

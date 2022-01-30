@@ -1,8 +1,8 @@
 import { useState, useEffect, Fragment } from 'react';
 import { Stage, Layer } from 'react-konva';
 import { ReactReduxContext, Provider, useDispatch, useSelector } from "react-redux";
-import { startWire, resetWire, updateActiveWirePath } from "../store/slices/wireSlice";
-import { changeBlockConnection } from '../store/slices/blockSlice';
+import { startWire, resetWire, updateActiveWirePath } from "../../store/slices/wireSlice";
+import { changeBlockConnection } from '../../store/slices/blockSlice';
 import { cloneDeep, last, compact, isEmpty } from 'lodash';
 
 import Register from './logic-blocks/register/Register';

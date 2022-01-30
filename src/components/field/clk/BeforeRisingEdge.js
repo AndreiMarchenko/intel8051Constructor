@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import { setWiresPrevValue } from "../../store/slices/wireSlice";
+import { setWiresPrevValue } from "../../../store/slices/wireSlice";
 
 export default function BeforeRisingEdge({ clk }) {
     const clkFromStorage = useSelector(state => state.clkReducer.clk);

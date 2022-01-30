@@ -1,8 +1,8 @@
 import {useRef, useState, Fragment, useEffect} from "react";
 import { Rect, Group } from 'react-konva';
 import { useDispatch, useSelector } from "react-redux";
-import { changeBlock, setBlockToStorage } from "../store/slices/blockSlice";
-import useThrottle from "../hooks/useThrottle";
+import { changeBlock, setBlockToStorage } from "../../store/slices/blockSlice";
+import useThrottle from "../../hooks/useThrottle";
 
 import BlockConnection from "./BlockConnection";
 

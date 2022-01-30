@@ -4,8 +4,8 @@ import store from './store/store';
 import { Provider } from 'react-redux';
 
 import './index.css'
-import Field from './components/Field';
-import Block from "./components/Block";
+import Field from './components/field/Field';
+import Block from "./components/field/Block";
 
 ReactDOM.render(
     <Provider store={store}>

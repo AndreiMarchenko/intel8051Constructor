@@ -1,11 +1,11 @@
 import Block from "../../Block";
 import StateDisplayRectangle from "./StateDisplayRectangle";
 
-import {REGISTER_BLOCK_SIZE, REGISTER_BLOCK_COLOR} from "../../../utils/globals";
+import {REGISTER_BLOCK_SIZE, REGISTER_BLOCK_COLOR} from "../../../../utils/globals";
 import getConnections from './connections';
 import {useSelector, useDispatch} from "react-redux";
 import {Fragment, useEffect, useState} from "react";
-import {updateWirePayload} from "../../../store/slices/wireSlice";
+import {updateWirePayload} from "../../../../store/slices/wireSlice";
 import {Text} from "react-konva";
 
 export default function Register({id, x, y}) {
