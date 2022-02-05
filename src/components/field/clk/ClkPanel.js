@@ -4,7 +4,7 @@ import { setClk as setClkToStorage } from "../../../store/slices/clkSlice";
 import { useDispatch } from "react-redux";
 import BeforeRisingEdge  from './BeforeRisingEdge';
 
-const CLK_PERIOD = 1000;
+const CLK_PERIOD = 4000;
 
 export default function ClkPanel() {
     const dispatch = useDispatch();
@@ -64,7 +64,7 @@ export default function ClkPanel() {
             <Line
                 points={linePoints}
                 stroke='black'
-                strokeWidth='4'
+                strokeWidth={3}
                 lineCap='round'
                 lineJoin='round'
                 id='clk'
@@ -73,7 +73,7 @@ export default function ClkPanel() {
                 x={15}
                 y={35}
                 text='Clk'
-                fontSize='16'
+                fontSize={16}
                 fontFamily='Calibri'
                 fill='black'
             />

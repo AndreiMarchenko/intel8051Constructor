@@ -1,6 +1,6 @@
 import Block from "../../Block";
 
-import {INC_BLOCK_SIZE, INC_BLOCK_COLOR} from "../../../../utils/globals";
+import {INC_BLOCK_SIZE, INC_BLOCK_COLOR} from "../../../../globals/globals";
 import getConnections from './connections';
 import {useSelector, useDispatch} from "react-redux";
 import {useEffect} from "react";
@@ -44,7 +44,7 @@ export default function Inc({id, x, y}) {
             x={0}
             y={0}
             text={'Inc'}
-            fontSize='22'
+            fontSize={22}
             fontFamily='Calibri'
             fill='black'
         />
@@ -60,6 +60,7 @@ export default function Inc({id, x, y}) {
             connections={connections}
             slot={slot}
             color={INC_BLOCK_COLOR}
+            name="Inc"
         />
     );
 }

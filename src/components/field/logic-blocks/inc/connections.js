@@ -1,4 +1,4 @@
-import { BLOCK_CONNECTION_SIZE, INC_BLOCK_SIZE } from '../../../../utils/globals';
+import { BLOCK_CONNECTION_SIZE, INC_BLOCK_SIZE } from '../../../../globals/globals';
 
 export default function (id) {
     let inputConnections = [

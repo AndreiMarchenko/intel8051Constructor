@@ -1,5 +1,5 @@
 import {Group, Rect, Text} from "react-konva";
-import {REGISTER_BLOCK_SIZE} from "../../../../utils/globals";
+import {REGISTER_BLOCK_SIZE} from "../../../../globals/globals";
 
 export default function StateDisplayRectangle({ state }) {
   const size = 50;
@@ -18,7 +18,7 @@ export default function StateDisplayRectangle({ state }) {
         x={0}
         y={0}
         text={state}
-        fontSize='22'
+        fontSize={22}
         fontFamily='Calibri'
         fill='black'
       />

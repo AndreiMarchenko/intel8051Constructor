@@ -24,7 +24,7 @@ export default function Wire({points, id}) {
             <Line
                 points={points}
                 stroke='black'
-                strokeWidth='4'
+                strokeWidth={3}
                 lineCap='round'
                 lineJoin='round'
             />
@@ -32,7 +32,7 @@ export default function Wire({points, id}) {
                 x={text.x}
                 y={text.y}
                 text={text.content}
-                fontSize='22'
+                fontSize={22}
                 fontFamily='Calibri'
                 fill='red'
             />

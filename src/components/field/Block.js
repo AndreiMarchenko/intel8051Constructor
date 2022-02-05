@@ -1,25 +1,27 @@
 import {useRef, useState, Fragment, useEffect} from "react";
 import { Rect, Group } from 'react-konva';
 import { useDispatch, useSelector } from "react-redux";
-import { changeBlock, setBlockToStorage } from "../../store/slices/blockSlice";
+import { changeBlockPosition, setBlockToStorage } from "../../store/slices/blockSlice";
 import useThrottle from "../../hooks/useThrottle";
 
 import BlockConnection from "./BlockConnection";
 
-export default function Block({id, x, y, width, height, connections, slot, color}) {
+export default function Block({id, x, y, width, height, connections, slot, color, name}) {
     const dispatch = useDispatch();
     const blockFromStorage = useSelector(state => state.blockReducer.blocks.find(block => block.id === id));
     const activeConnection = useSelector(state => state.wireReducer.activeConnection);
 
     const [block, setBlock] = useState({
         id,
-        name: 'ram',
+        name: name,
         connections: connections,
         position: {
             x: x,
             y: y,
         }
     });
+
+    const [blockConnectionsComponents, setBlockConnectionsComponents] = useState([]);
 
     const blockRef = useRef();
 
@@ -35,32 +37,37 @@ export default function Block({id, x, y, width, height, connections, slot, color
         setBlock(blockFromStorage);
     }, [blockFromStorage]);
 
-    const changeBlockPosition = event => {
+    const moveBlock = () => {
         if (activeConnection) {
             blockRef.current.stopDrag();
             return;
         }
 
-        const newCoordinates = event.currentTarget.find(`#${id}`)[0].getAbsolutePosition();
-        dispatch(changeBlock({...block, position: newCoordinates}));
+        const newCoordinates = blockRef.current.children[0].getAbsolutePosition();
+        dispatch(changeBlockPosition({blockId: block.id, position: newCoordinates}));
     }
 
-    const blockConnectionsComponents = block.connections.map(connection => {
-        return <BlockConnection
-            id={connection.id}
-            key={connection.id}
-            name={connection.name}
-            x={connection.position.x}
-            y={connection.position.y}
-            connectedTo={connection.connectedTo}
-            blockId={connection.blockId}
-            input={connection.type === 'in'}
-        />
-    });
+    useEffect(() => {
+        setBlock({...block, connections});
+        let blockConnections = block.connections.map(connection => {
+            return <BlockConnection
+                id={connection.id}
+                key={connection.id}
+                name={connection.name}
+                x={connection.position.x}
+                y={connection.position.y}
+                connectedTo={connection.connectedTo}
+                blockId={connection.blockId}
+                input={connection.type === 'in'}
+            />
+        });
+
+        setBlockConnectionsComponents(blockConnections);
+    }, [connections]);
 
 
     return (
-        <Group x={x} y={y} draggable ref={blockRef} onDragMove={useThrottle(changeBlockPosition, 50)}>
+        <Group x={x} y={y} draggable ref={blockRef} onDragMove={useThrottle(moveBlock, 50)}>
             <Fragment>
                 <Rect
                     x={0}

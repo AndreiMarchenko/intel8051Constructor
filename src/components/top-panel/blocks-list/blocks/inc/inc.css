@@ -1,0 +1,12 @@
+.inc {
+}
+.inc-body {
+    width: var(--default-block-dimensions);
+    height: var(--default-block-dimensions);
+
+    background-color: blue;
+}
+.inc-label {
+    font-size: 12px;
+    font-family: 'Lato', 'sans-serif';
+}

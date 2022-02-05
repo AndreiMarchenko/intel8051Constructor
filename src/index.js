@@ -4,12 +4,11 @@ import store from './store/store';
 import { Provider } from 'react-redux';
 
 import './index.css'
-import Field from './components/field/Field';
-import Block from "./components/field/Block";
+import WorkBench from "./components/WorkBench";
 
 ReactDOM.render(
     <Provider store={store}>
-        <Field />
+        <WorkBench />
     </Provider>,
     document.getElementById('root')
 );

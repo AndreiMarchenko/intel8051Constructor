@@ -14,11 +14,10 @@ export const blockSlice = createSlice({
         lastMovedBlockId: null,
     },
     reducers: {
-        changeBlock: (state, action) => {
-            state.lastMovedBlockId = action.payload.id;
-
-            let blockIndex = state.blocks.findIndex(block => block.id === action.payload.id);
-            state.blocks.splice(blockIndex, 1, action.payload);
+        changeBlockPosition: (state, action) => {
+            const block = state.blocks.find(block => block.id === action.payload.blockId);
+            block.position = action.payload.position;
+            state.lastMovedBlockId = block.id;
         },
         changeBlockConnection: (state, action) => {
             let blockIndex = state.blocks.findIndex(block => block.id === action.payload.blockId);
@@ -29,11 +28,15 @@ export const blockSlice = createSlice({
         },
         setBlockToStorage: (state, action) => {
             state.blocks.push(action.payload);
+        },
+        deleteBlock: (state, action) => {
+            let blockIndex = state.blocks.findIndex(block => block.id === action.payload.blockId);
+            state.blocks.splice(blockIndex, 1);
         }
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { changeBlock, setBlockToStorage, changeBlockConnection } = blockSlice.actions
+export const { changeBlockPosition, setBlockToStorage, changeBlockConnection, deleteBlock } = blockSlice.actions
 
 export default blockSlice.reducer

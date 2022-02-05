@@ -1,0 +1,14 @@
+:root {
+    --default-block-dimensions: 50px;
+}
+
+.blocks-list {
+    display: flex;
+    justify-content: flex-start;
+
+    margin-left: 10px;
+}
+
+.blocks-list__item {
+    margin: 10px 20px 10px 0;
+}
