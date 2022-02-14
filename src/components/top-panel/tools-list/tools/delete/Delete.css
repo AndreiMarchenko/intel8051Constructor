@@ -1,0 +1,33 @@
+.delete-cross {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+    cursor: pointer;
+    margin-right: 30px;
+}
+
+.delete-cross:hover {
+    opacity: 1;
+}
+
+.delete-cross:before, .delete-cross:after {
+    position: absolute;
+    left: 15px;
+    content: '';
+    height: 33px;
+    width: 2px;
+    background-color: red;
+}
+
+.delete-cross:before {
+    transform: rotate(45deg);
+}
+
+.delete-cross:after {
+    transform: rotate(-45deg);
+}
+
+.delete-cross_active {
+    opacity: 1;
+}

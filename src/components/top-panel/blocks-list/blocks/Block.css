@@ -1,3 +1,7 @@
 .active {
     border: black 3px solid;
 }
+
+.blocks-list__item {
+    cursor: pointer;
+}

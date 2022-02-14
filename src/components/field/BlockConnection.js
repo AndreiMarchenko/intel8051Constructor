@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { startWire, resetWire, setWireToStorage } from "../../store/slices/wireSlice";
 import { useState } from "react";
 
+import { STATES} from "../../globals/globalStates";
 import { BLOCK_CONNECTION_SIZE } from '../../globals/globals';
 
 export default function BlockConnection({id, x, y, name, input, connectedTo, blockId}) {
     const dispatch = useDispatch();
     const activeConnection = useSelector(state => state.wireReducer.activeConnection);
     const block = useSelector(state => state.blockReducer.blocks.find(block => block.id === blockId));
+    const globalState = useSelector(state => state.globalStateReducer.globalState);
 
     const [connection, setConnection] = useState({
         id,
@@ -30,13 +32,8 @@ export default function BlockConnection({id, x, y, name, input, connectedTo, blo
             return;
         }
 
-
         if (!activeConnection) {
             let connectionWithAbsoluteCoords = connection;
-            // connectionWithAbsoluteCoords.position = {
-            //     x: x + block.position.x,
-            //     y: y + block.position.y,
-            // };
 
             setConnection(connectionWithAbsoluteCoords);
             dispatch(startWire({connection, block}));
@@ -49,12 +46,25 @@ export default function BlockConnection({id, x, y, name, input, connectedTo, blo
                 secondConnection: connection,
                 secondBlock: block,
             }));
-            // dispatch(resetWire());
         }
     }
 
     return (
-        <Group>
+        <Group
+            onMouseEnter={e => {
+                const container = e.target.getStage().container();
+                container.style.cursor = "pointer";
+            }}
+            onMouseLeave={e => {
+                const container = e.target.getStage().container();
+
+                if (globalState === STATES.DELETING) {
+                    container.style.cursor = "crosshair";
+                } else {
+                    container.style.cursor = "default";
+                }
+            }}
+        >
             <Rect
                 onClick={handleClick}
                 x={x}
