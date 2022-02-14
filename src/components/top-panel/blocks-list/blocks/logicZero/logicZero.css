@@ -1,0 +1,12 @@
+.logic-zero {
+}
+.logic-zero-body {
+    width: var(--default-block-dimensions);
+    height: var(--default-block-dimensions);
+
+    background-color: green;
+}
+.logic-zero-label {
+    font-size: 12px;
+    font-family: 'Lato', 'sans-serif';
+}

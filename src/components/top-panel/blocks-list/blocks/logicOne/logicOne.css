@@ -1,0 +1,12 @@
+.logic-one {
+}
+.logic-one-body {
+    width: var(--default-block-dimensions);
+    height: var(--default-block-dimensions);
+
+    background-color: yellow;
+}
+.logic-one-label {
+    font-size: 12px;
+    font-family: 'Lato', 'sans-serif';
+}

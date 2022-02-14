@@ -11,13 +11,9 @@ export default function ClkPanel() {
     const [linePoints, setLinePoints] = useState([50, 50]);
     const [clk, setClk] = useState(0);
 
-    // let clk = 0;
     useEffect(() => {
         let drawCounter = 1;
         const clkDrawInterval = setInterval(() => {
-            // if (!linePoints) {
-            //     return;
-            // }
 
             setLinePoints(linePoints => {
                 const lastPointX = linePoints[linePoints.length - 2];

@@ -24,13 +24,16 @@ export default function Register({id, x, y}) {
         if (clk === 1) {
             const dWire = wires.find(wire => wire.connections.find(connection => connection.id === `${id}.d`));
             const qWire = wires.find(wire => wire.connections.find(connection => connection.id === `${id}.q`));
+            const enWire = wires.find(wire => wire.connections.find(connection => connection.id === `${id}.en`));
             if (qWire) {
                 dispatch(updateWirePayload({
                     id: qWire.id,
                     payload: state,
                 }));
             }
-            if (dWire) {
+            if (enWire?.payload && dWire) {
+                console.log(enWire);
+                console.log(typeof enWire);
                 if (dWire.payload !== 'z') {
                     setState(dWire.payload);
                 }

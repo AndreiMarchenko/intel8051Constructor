@@ -33,10 +33,6 @@ export default function BlockConnection({id, x, y, name, input, connectedTo, blo
 
         if (!activeConnection) {
             let connectionWithAbsoluteCoords = connection;
-            // connectionWithAbsoluteCoords.position = {
-            //     x: x + block.position.x,
-            //     y: y + block.position.y,
-            // };
 
             setConnection(connectionWithAbsoluteCoords);
             dispatch(startWire({connection, block}));
@@ -49,12 +45,21 @@ export default function BlockConnection({id, x, y, name, input, connectedTo, blo
                 secondConnection: connection,
                 secondBlock: block,
             }));
-            // dispatch(resetWire());
         }
     }
 
     return (
-        <Group>
+        <Group
+            onMouseEnter={e => {
+                const container = e.target.getStage().container();
+                container.style.cursor = "pointer";
+            }}
+            onMouseLeave={e => {
+                const container = e.target.getStage().container();
+                container.style.cursor = "default";
+            }}
+
+        >
             <Rect
                 onClick={handleClick}
                 x={x}
