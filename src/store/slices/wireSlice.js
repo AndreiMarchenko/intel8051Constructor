@@ -61,10 +61,14 @@ export const wireSlice = createSlice({
                 return wire;
             })
         },
+        deleteWire: (state, action) => {
+            let wireIndex = state.wires.findIndex(wire => wire.id === action.payload.wireId);
+            state.wires.splice(wireIndex, 1);
+        },
     }
 })
 
 // Action creators are generated for each case reducer function
-export const {startWire, resetWire, setWireToStorage, updateWirePayload, updateActiveWirePath, setWiresPrevValue} = wireSlice.actions
+export const {startWire, resetWire, setWireToStorage, updateWirePayload, updateActiveWirePath, setWiresPrevValue, deleteWire} = wireSlice.actions
 
 export default wireSlice.reducer

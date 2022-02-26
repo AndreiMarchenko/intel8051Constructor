@@ -1,8 +1,9 @@
 import Field from "./field/Field";
 import TopPanel from "./top-panel/TopPanel";
+import { TOP_PANEL_HEIGHT } from '../globals/globals';
+
 
 export default function WorkBench() {
-    const TOP_PANEL_HEIGHT = 80;
     const CLK_PANEL_HEIGHT = 70;
 
     const topPanelDimensions = {

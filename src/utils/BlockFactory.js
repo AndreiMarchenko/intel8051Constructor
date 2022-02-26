@@ -4,6 +4,7 @@ import LogicOne from "../components/field/logic-blocks/logic-one/LogicOne";
 import LogicZero from "../components/field/logic-blocks/logic-zero/LogicZero";
 
 export default function BlockFactory(type, blockId, x = 0, y = 0) {
+    blockId = blockId.toString();
     switch(type.toLowerCase()) {
         case 'register':
             return <Register id={blockId} key={blockId} x={x} y={y} />;

@@ -27,16 +27,25 @@ export const blockSlice = createSlice({
             changedConnection.connectedTo = action.payload.connectedTo;
         },
         setBlockToStorage: (state, action) => {
+            console.log(action.payload);
             state.blocks.push(action.payload);
         },
         deleteBlock: (state, action) => {
             let blockIndex = state.blocks.findIndex(block => block.id === action.payload.blockId);
             state.blocks.splice(blockIndex, 1);
+        },
+        resetConnection: (state, action) => {
+            let block = state.blocks.find(block => block.id === action.payload.blockId);
+            let connection = block.connections.find(connection => connection.name === action.payload.name);
+            connection.connectedTo = null;
+        },
+        resetLastMovedBlock: (state, action) => {
+            state.lastMovedBlockId = null;
         }
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { changeBlockPosition, setBlockToStorage, changeBlockConnection, deleteBlock } = blockSlice.actions
+export const { changeBlockPosition, setBlockToStorage, changeBlockConnection, deleteBlock, resetConnection, resetLastMovedBlock } = blockSlice.actions
 
 export default blockSlice.reducer

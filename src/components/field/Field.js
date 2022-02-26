@@ -1,15 +1,17 @@
 import { useState, useEffect, Fragment } from 'react';
-import { Stage, Layer } from 'react-konva';
+import {Stage, Layer, Group} from 'react-konva';
 import { ReactReduxContext, Provider, useDispatch, useSelector } from "react-redux";
-import { resetWire, updateActiveWirePath } from "../../store/slices/wireSlice";
-import { changeBlockConnection, changeBlockPosition, deleteBlock } from '../../store/slices/blockSlice';
-import { cloneDeep, last, compact } from 'lodash';
+import { resetWire, updateActiveWirePath, deleteWire } from "../../store/slices/wireSlice";
+import { changeBlockConnection, changeBlockPosition, deleteBlock, resetConnection, resetLastMovedBlock } from '../../store/slices/blockSlice';
+import { cloneDeep, last, compact, chunk } from 'lodash';
 import { STATES } from '../../globals/globalStates';
 import { changeState } from "../../store/slices/globalStateSlice";
+import {BLOCK_SIZES, TOP_PANEL_HEIGHT} from "../../globals/globals";
 
 import Wire from './Wire';
 import ClkPanel from "./clk/ClkPanel";
 import BlockFactory from "../../utils/BlockFactory";
+import useThrottle from "../../hooks/useThrottle";
 
 
 export default function Field({ clkPanelDimensions, fieldDimensions }) {
@@ -35,11 +37,11 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
 
         const lastMovedBlock = blocks.find(block => block.id === lastMovedBlockId);
 
-        const changedWires = compact(
+        const changedWires = lastMovedBlock ? compact(
             lastMovedBlock.connections.map(connection => {
                 return connection.connectedTo;
             })
-        );
+        ) : [];
 
         const newLines = cloneDeep(lines);
         changedWires.forEach(wire => {
@@ -74,8 +76,8 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
             return;
         }
 
-        const wireFromBlock = blocks.find(block => block.id ===  newWire.connections[0].blockId);
-        const wireToBlock = blocks.find(block => block.id ===  newWire.connections[1].blockId);
+        const wireFromBlock = blocks.find(block => block.id === newWire.connections[0].blockId);
+        const wireToBlock = blocks.find(block => block.id === newWire.connections[1].blockId);
 
         dispatch(changeBlockConnection({
             blockId: wireFromBlock.id,
@@ -93,21 +95,106 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
         dispatch(resetWire());
     }, [wires.length]);
 
-
     const handleClickOnField = event => {
         if (globalState === STATES.ADDING_BLOCKS) {
             dispatch(changeBlockPosition({
                 blockId: last(blocks).id,
                 position: {
                     x: event.evt.clientX,
-                    y: event.evt.clientY - 150,
+                    y: event.evt.clientY - TOP_PANEL_HEIGHT,
                 }
             }));
             dispatch(changeState(STATES.GENERAL));
+        } else if (globalState === STATES.DELETING) {
+            dispatch(resetLastMovedBlock());
+
+            const deleteX = event.evt.clientX;
+            const deleteY = event.evt.clientY - TOP_PANEL_HEIGHT;
+
+            const wire = wires.find(wire => {
+                return wire.path.find((_, index) => {
+                    if (index % 2 !== 0) {
+                        return false;
+                    }
+                    if (!wire.path[index + 3]) {
+                        return false;
+                    }
+
+                    const firstPoint = [wire.path[index], wire.path[index + 1]];
+                    const secondPoint = [wire.path[index + 2], wire.path[index + 3]];
+
+                    const A = firstPoint[1] - secondPoint[1];
+                    const B = secondPoint[0] - firstPoint[0];
+                    const C = firstPoint[0] * secondPoint[1] - secondPoint[0] * firstPoint[1];
+                    const distanceToWire = Math.abs(A * deleteX + B * deleteY + C) / (Math.sqrt(A * A + B * B));
+
+                    const clickedOnWire = distanceToWire < 5;
+
+                    return clickedOnWire;
+                });
+            });
+
+            if (wire) {
+                dispatch(deleteWire({
+                    wireId: wire.id
+                }));
+
+                const localWiresIndex = lines.findIndex(localWire => localWire.props.id === wire.id);
+
+                const newLines = cloneDeep(lines);
+                newLines.splice(localWiresIndex, 1);
+
+                setLines(newLines);
+                return;
+            }
+
+            const block = blocks.find(block => {
+                return  (deleteX >= block.position.x && deleteX <= block.position.x + BLOCK_SIZES[block.name])
+                    && (deleteY >= block.position.y && deleteY <= block.position.y + BLOCK_SIZES[block.name])
+            });
+
+            if (!block) {
+                return;
+            }
+
+            for (let connection of block.connections) {
+                if (connection.connectedTo) {
+                    const wire = connection.connectedTo;
+                    dispatch(deleteWire({
+                        wireId: wire.id
+                    }));
+
+                    wire.connections.forEach(connection => {
+                        dispatch(resetConnection({
+                            blockId: connection.blockId,
+                            name: connection.name,
+                        }));
+                    })
+
+                    setLines(lines => {
+                        const localWiresIndex = lines.findIndex(localWire => localWire.props.id === wire.id);
+                        const linesCopy = cloneDeep(lines);
+                        console.log(linesCopy);
+                        linesCopy.splice(localWiresIndex, 1)
+                        return linesCopy;
+                    });
+                }
+            }
+
+            dispatch(deleteBlock({
+                blockId: block.id
+            }));
+
+            const blockComponentIndex = blocksComponents.findIndex(blockComponent => blockComponent.props.id === block.id);
+
+            const newBlockComponents = cloneDeep(blocksComponents);
+            newBlockComponents.splice(blockComponentIndex, 1);
+
+            setBlocksComponents(newBlockComponents);
         } else if (activeConnection) {
             dispatch(updateActiveWirePath({
                 x: event.evt.clientX,
-                y: event.evt.clientY - clkPanelDimensions.height - 80,
+                y: event.evt.clientY - 80,
             }));
         }
     }
@@ -156,26 +243,32 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
         if (globalState === STATES.ADDING_BLOCKS) {
             const lastBlockId = last(blocks)?.id || 0;
 
-            const block = BlockFactory(globalStatePayload.blockType, lastBlockId + 1);
+            const block = BlockFactory(globalStatePayload.blockType, +lastBlockId + 1);
             addBlockToField(block);
         }
     }, [globalState, globalStatePayload]);
 
-    const handleMouseMove = event => {
+    const handleMouseMove = useThrottle(event => {
         if (globalState === STATES.ADDING_BLOCKS) {
-            let movedBlock = BlockFactory(globalStatePayload.blockType, blocksComponents.length, event.evt.clientX, event.evt.clientY - 150);
-            setBlocksComponents([...blocksComponents.slice(0, -1), movedBlock]);
+            const lastBlockId = last(blocks)?.id || 0;
+
+            // dispatch(deleteBlock({
+            //     blockId: lastBlockId
+            // }));
+            let movedBlock = BlockFactory(globalStatePayload.blockType, +lastBlockId, event.evt.clientX, event.evt.clientY - 80);
+            const slicedBlockComponents = cloneDeep(blocksComponents).slice(0, -1);
+            setBlocksComponents([...slicedBlockComponents, movedBlock]);
         } else if (activeConnection) {
             const line = <Wire
-                points={[...activePath, event.evt.clientX - 3, event.evt.clientY - clkPanelDimensions.height - 80 - 3]}
+                points={[...activePath, event.evt.clientX - 3, event.evt.clientY - 80 - 3]}
                 id={'movingLine'}
                 key={'movingLine'}
             />
-
-            setLines([...lines.slice(0, -1), line]);
+            const slicedLines = cloneDeep(lines).slice(0, -1);
+            setLines([...slicedLines, line]);
             setCreatingWireFlag(true);
         }
-    }
+    }, 40);
 
     const addBlockToField = block => {
         if (globalStatePayload.alreadyMoving) {
@@ -183,28 +276,45 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
                 blockId: last(blocksComponents).id
             }));
         }
+        const slicedBlocksComponents = cloneDeep(blocksComponents).slice(0, -1);
 
-        setBlocksComponents([...(globalStatePayload.alreadyMoving ? blocksComponents.slice(0, -1) : blocksComponents), block]);
+        setBlocksComponents([...(globalStatePayload.alreadyMoving ? slicedBlocksComponents : blocksComponents), block]);
     };
 
     return (
         <ReactReduxContext.Consumer>
             {({ store }) => (
                 <Fragment>
-                    <Stage width={clkPanelDimensions.width} height={clkPanelDimensions.height}>
-                        <Provider store={store}>
-                            <Layer>
-                                <ClkPanel/>
-                            </Layer>
-                        </Provider>
-                    </Stage>
-                    <Stage width={fieldDimensions.width} height={fieldDimensions.height} onClick={handleClickOnField} onMouseMove={handleMouseMove}>
+                    <Stage
+                        width={fieldDimensions.width}
+                        height={fieldDimensions.height}
+                        onClick={handleClickOnField}
+                        onMouseMove={handleMouseMove}
+                        onMouseEnter={e => {
+                            const container = e.target.getStage().container();
+                            if (globalState === STATES.DELETING) {
+                                container.style.cursor = "crosshair";
+                            } else  {
+                                container.style.cursor = "default";
+                            }
+                        }}
+                    >
                         <Provider store={store}>
                             <Layer>
                                 <Fragment>
                                     { blocksComponents }
                                     { lines }
                                 </Fragment>
+                            </Layer>
+                        </Provider>
+                    </Stage>
+                    <Stage
+                        width={clkPanelDimensions.width}
+                        height={clkPanelDimensions.height}
+                    >
+                        <Provider store={store}>
+                            <Layer>
+                                <ClkPanel/>
                             </Layer>
                         </Provider>
                     </Stage>

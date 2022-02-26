@@ -3,6 +3,7 @@ import { Rect, Group } from 'react-konva';
 import { useDispatch, useSelector } from "react-redux";
 import { changeBlockPosition, setBlockToStorage } from "../../store/slices/blockSlice";
 import useThrottle from "../../hooks/useThrottle";
+import { TOP_PANEL_HEIGHT } from '../../globals/globals';
 
 import BlockConnection from "./BlockConnection";
 
@@ -33,7 +34,6 @@ export default function Block({id, x, y, width, height, connections, slot, color
         if (!blockFromStorage) {
             return;
         }
-
         setBlock(blockFromStorage);
     }, [blockFromStorage]);
 

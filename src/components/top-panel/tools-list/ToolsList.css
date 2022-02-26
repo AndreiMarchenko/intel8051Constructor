@@ -1,0 +1,8 @@
+.tools-list {
+    display: flex;
+    justify-content: flex-end;
+    /*background-color: darkgray;*/
+    background-color: lightgrey;
+    flex: 30%;
+    align-items: center;
+}

@@ -1,3 +1,4 @@
 .top-panel {
+    display: flex;
     background-color: lightgrey;
 }

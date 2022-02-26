@@ -32,8 +32,6 @@ export default function Register({id, x, y}) {
                 }));
             }
             if (enWire?.payload && dWire) {
-                console.log(enWire);
-                console.log(typeof enWire);
                 if (dWire.payload !== 'z') {
                     setState(dWire.payload);
                 }

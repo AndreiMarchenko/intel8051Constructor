@@ -1,5 +1,5 @@
-import {Line, Group, Text} from 'react-konva';
-import { useEffect, useState } from "react";
+import {Line, Group, Text, Layer, Rect} from 'react-konva';
+import {Fragment, useEffect, useState} from "react";
 import { setClk as setClkToStorage } from "../../../store/slices/clkSlice";
 import { useDispatch } from "react-redux";
 import BeforeRisingEdge  from './BeforeRisingEdge';
@@ -56,7 +56,19 @@ export default function ClkPanel() {
     }, [clk])
 
     return (
-        <Group>
+        <Group
+            strokeWidth={1} // border width
+            stroke="red" // border color
+        >
+            <Rect
+                x={0}
+                y={0}
+                width={window.innerWidth}
+                height={70}
+                stroke='black'
+                strokeWidth={3}
+                fill={'transparent'}
+            />
             <Line
                 points={linePoints}
                 stroke='black'
