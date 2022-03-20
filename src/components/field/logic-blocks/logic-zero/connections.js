@@ -6,6 +6,7 @@ export default function (id) {
             id: id + '.q',
             name: 'q',
             connectedTo: null,
+            connectedToType: null,
             type: 'out',
             blockId: id,
         },

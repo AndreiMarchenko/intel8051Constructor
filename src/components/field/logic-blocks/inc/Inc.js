@@ -12,7 +12,7 @@ export default function Inc({id, x, y}) {
 
     const clk = useSelector(state => state.clkReducer.clk);
     const wires = useSelector(state => state.wireReducer.wires.filter(wire => {
-            return wire.connections.find(connection => connection.blockId === id);
+            return wire.connections.find(connection => connection.split('.')[0] === id);
         })
     );
 
@@ -20,8 +20,8 @@ export default function Inc({id, x, y}) {
 
     useEffect(() => {
         if (clk === 1) {
-            const inWire = wires.find(wire => wire.connections.find(connection => connection.id === `${id}.in`));
-            const outWire = wires.find(wire => wire.connections.find(connection => connection.id === `${id}.out`));
+            const inWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.in`));
+            const outWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.out`));
 
             if (!outWire || !inWire) {
                 return;

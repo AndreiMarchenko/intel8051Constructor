@@ -1,41 +1,16 @@
-import {useRef, useState, Fragment, useEffect} from "react";
+import {useRef, Fragment} from "react";
 import { Rect, Group } from 'react-konva';
 import { useDispatch, useSelector } from "react-redux";
-import { changeBlockPosition, setBlockToStorage } from "../../store/slices/blockSlice";
-import useThrottle from "../../hooks/useThrottle";
-import { TOP_PANEL_HEIGHT } from '../../globals/globals';
+import { changeBlockPosition } from "../../store/slices/blockSlice";
 
 import BlockConnection from "./BlockConnection";
+import useThrottle from "../../hooks/useThrottle";
 
-export default function Block({id, x, y, width, height, connections, slot, color, name}) {
+export default function Block({id, x, y, width, height, connections, slot, color}) {
     const dispatch = useDispatch();
-    const blockFromStorage = useSelector(state => state.blockReducer.blocks.find(block => block.id === id));
     const activeConnection = useSelector(state => state.wireReducer.activeConnection);
 
-    const [block, setBlock] = useState({
-        id,
-        name: name,
-        connections: connections,
-        position: {
-            x: x,
-            y: y,
-        }
-    });
-
-    const [blockConnectionsComponents, setBlockConnectionsComponents] = useState([]);
-
     const blockRef = useRef();
-
-    useEffect(() => {
-        dispatch(setBlockToStorage(block));
-    }, []);
-
-    useEffect(() => {
-        if (!blockFromStorage) {
-            return;
-        }
-        setBlock(blockFromStorage);
-    }, [blockFromStorage]);
 
     const moveBlock = () => {
         if (activeConnection) {
@@ -44,26 +19,8 @@ export default function Block({id, x, y, width, height, connections, slot, color
         }
 
         const newCoordinates = blockRef.current.children[0].getAbsolutePosition();
-        dispatch(changeBlockPosition({blockId: block.id, position: newCoordinates}));
+        dispatch(changeBlockPosition({blockId:id, position: newCoordinates}));
     }
-
-    useEffect(() => {
-        setBlock({...block, connections});
-        let blockConnections = block.connections.map(connection => {
-            return <BlockConnection
-                id={connection.id}
-                key={connection.id}
-                name={connection.name}
-                x={connection.position.x}
-                y={connection.position.y}
-                connectedTo={connection.connectedTo}
-                blockId={connection.blockId}
-                input={connection.type === 'in'}
-            />
-        });
-
-        setBlockConnectionsComponents(blockConnections);
-    }, [connections]);
 
 
     return (
@@ -79,8 +36,21 @@ export default function Block({id, x, y, width, height, connections, slot, color
 
                     id={id}
                 />
+                {
+                    connections.map(connection => {
+                        return <BlockConnection
+                            id={connection.id}
+                            key={connection.id}
+                            name={connection.name}
+                            x={connection.position.x}
+                            y={connection.position.y}
+                            connectedTo={connection.connectedTo}
+                            blockId={connection.blockId}
+                            input={connection.type === 'in'}
+                        />
+                    })
+                }
                 { slot }
-                { blockConnectionsComponents }
             </Fragment>
         </Group>
     );

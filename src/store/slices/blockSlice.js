@@ -25,9 +25,9 @@ export const blockSlice = createSlice({
                 return connection.id === action.payload.connectionId;
             });
             changedConnection.connectedTo = action.payload.connectedTo;
+            changedConnection.connectedToType = action.payload.connectedToType;
         },
         setBlockToStorage: (state, action) => {
-            console.log(action.payload);
             state.blocks.push(action.payload);
         },
         deleteBlock: (state, action) => {
@@ -36,16 +36,36 @@ export const blockSlice = createSlice({
         },
         resetConnection: (state, action) => {
             let block = state.blocks.find(block => block.id === action.payload.blockId);
-            let connection = block.connections.find(connection => connection.name === action.payload.name);
+            let connection = block.connections.find(connection => {
+                return connection.id === action.payload.connection
+            });
             connection.connectedTo = null;
         },
         resetLastMovedBlock: (state, action) => {
             state.lastMovedBlockId = null;
-        }
+        },
+        resetBlockConnectionsAttachedToWire: (state, action) => {
+            state.blocks.forEach(block => {
+                block.connections.forEach(connection => {
+                    if (connection.connectedTo === action.payload.wireId) {
+                        connection.connectedTo = null;
+                    }
+                });
+            });
+        },
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { changeBlockPosition, setBlockToStorage, changeBlockConnection, deleteBlock, resetConnection, resetLastMovedBlock } = blockSlice.actions
+export const {
+    changeBlockPosition,
+    setBlockToStorage,
+    changeBlockConnection,
+    deleteBlock,
+    resetConnection,
+    resetLastMovedBlock,
+    updateBlockConnections,
+    resetBlockConnectionsAttachedToWire,
+} = blockSlice.actions
 
 export default blockSlice.reducer

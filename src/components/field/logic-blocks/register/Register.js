@@ -11,20 +11,22 @@ import {Text} from "react-konva";
 export default function Register({id, x, y}) {
     const dispatch = useDispatch();
     const clk = useSelector(state => state.clkReducer.clk);
+    const connections = getConnections(id);
     const wires = useSelector(state => state.wireReducer.wires.filter(wire => {
-            return wire.connections.find(connection => connection.blockId === id);
+            return wire.connections.find(connection => {
+                return connection.split('.')[0] === id
+            });
         })
     );
-
-    const connections = getConnections(id);
 
     const [state, setState] = useState(2);
 
     useEffect(() => {
         if (clk === 1) {
-            const dWire = wires.find(wire => wire.connections.find(connection => connection.id === `${id}.d`));
-            const qWire = wires.find(wire => wire.connections.find(connection => connection.id === `${id}.q`));
-            const enWire = wires.find(wire => wire.connections.find(connection => connection.id === `${id}.en`));
+            const dWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.d`));
+            const qWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.q`));
+            const enWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.en`));
+
             if (qWire) {
                 dispatch(updateWirePayload({
                     id: qWire.id,

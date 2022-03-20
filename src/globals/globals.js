@@ -1,10 +1,11 @@
 export const BLOCK_CONNECTION_SIZE = 10;
+export const WIRE_CONNECTION_SIZE = 10;
 
 export const BLOCK_SIZES = {
-    'Register': 100,
-    'Inc': 70,
-    '1': 30,
-    '0': 30,
+    'register': 100,
+    'inc': 70,
+    'logic-one': 30,
+    'logic-zero': 30,
 };
 
 

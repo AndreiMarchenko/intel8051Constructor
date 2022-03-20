@@ -6,7 +6,7 @@ import { useState } from "react";
 import { STATES} from "../../globals/globalStates";
 import { BLOCK_CONNECTION_SIZE } from '../../globals/globals';
 
-export default function BlockConnection({id, x, y, name, input, connectedTo, blockId}) {
+export default function BlockConnection({id, x, y, name, input, connectedTo, connectedToType, blockId}) {
     const dispatch = useDispatch();
     const activeConnection = useSelector(state => state.wireReducer.activeConnection);
     const block = useSelector(state => state.blockReducer.blocks.find(block => block.id === blockId));
@@ -20,6 +20,7 @@ export default function BlockConnection({id, x, y, name, input, connectedTo, blo
             y: y,
         },
         connectedTo,
+        connectedToType,
         input,
         blockId
     });
@@ -32,18 +33,21 @@ export default function BlockConnection({id, x, y, name, input, connectedTo, blo
             return;
         }
 
-        if (!activeConnection) {
+        if (activeConnection === null) {
             let connectionWithAbsoluteCoords = connection;
 
             setConnection(connectionWithAbsoluteCoords);
-            dispatch(startWire({connection, block}));
+            dispatch(startWire({
+                connection: connection.id,
+                block
+            }));
             return;
         }
 
         if (activeConnection.id !== connection.id) {
             dispatch(setWireToStorage({
                 firstConnection: activeConnection,
-                secondConnection: connection,
+                secondConnection: connection.id,
                 secondBlock: block,
             }));
         }

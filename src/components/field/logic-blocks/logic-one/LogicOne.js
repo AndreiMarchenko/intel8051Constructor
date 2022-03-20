@@ -11,7 +11,7 @@ export default function LogicOne({id, x, y}) {
     const dispatch = useDispatch();
     const clk = useSelector(state => state.clkReducer.clk);
     const wires = useSelector(state => state.wireReducer.wires.filter(wire => {
-            return wire.connections.find(connection => connection.blockId === id);
+            return wire.connections.find(connection => connection.split('.')[0] === id);
         })
     );
 
@@ -20,7 +20,7 @@ export default function LogicOne({id, x, y}) {
 
     useEffect(() => {
         if (clk === 1) {
-            const qWire = wires.find(wire => wire.connections.find(connection => connection.id === `${id}.q`));
+            const qWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.q`));
             if (qWire) {
                 dispatch(updateWirePayload({
                     id: qWire.id,
