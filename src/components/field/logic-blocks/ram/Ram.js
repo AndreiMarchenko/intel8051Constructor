@@ -32,6 +32,10 @@ export default function Ram({id, x, y, name}) {
             const rNw = wires.find(wire => wire.connections.find(connection => connection === `${id}.r/!w`));
             const data = wires.find(wire => wire.connections.find(connection => connection === `${id}.data`));
 
+            if (!addr || !readAddr || !en || !rNw || !data) {
+                return;
+            }
+
             if (readAddr.payload === 1) {
                 setRaoAddr(addr.payload);
             }

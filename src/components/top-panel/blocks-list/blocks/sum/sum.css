@@ -1,0 +1,12 @@
+.sum {
+}
+.sum-body {
+    width: var(--default-block-dimensions);
+    height: var(--default-block-dimensions);
+
+    background-color: wheat;
+}
+.sum-label {
+    font-size: 12px;
+    font-family: 'Lato', 'sans-serif';
+}

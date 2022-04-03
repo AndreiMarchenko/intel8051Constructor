@@ -22,6 +22,7 @@ import LogicOne from "./logic-blocks/logic-one/LogicOne";
 import LogicZero from "./logic-blocks/logic-zero/LogicZero";
 import Rom from './logic-blocks/rom/Rom';
 import Ram from './logic-blocks/ram/Ram';
+import Sum from './logic-blocks/sum/Sum';
 import InstructionRegister from './logic-blocks/instruction-register/InstructionRegister';
 import getConnections from '../../utils/getConnections';
 import './field.css'
@@ -246,6 +247,14 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
                                                 />;
                                             case 'ram':
                                                 return <Ram
+                                                    id={block.id}
+                                                    key={block.id}
+                                                    x={block.position.x}
+                                                    y={block.position.y}
+                                                    name={block.name}
+                                                />;
+                                            case 'sum':
+                                                return <Sum
                                                     id={block.id}
                                                     key={block.id}
                                                     x={block.position.x}

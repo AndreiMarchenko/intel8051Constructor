@@ -6,6 +6,7 @@ import LogicOne from "./blocks/logicOne/logicOne";
 import LogicZero from "./blocks/logicZero/logicZero";
 import Rom from "./blocks/rom/Rom";
 import Ram from "./blocks/ram/Ram";
+import Sum from "./blocks/sum/Sum";
 import GlobalSig from "./blocks/globalSig/globalSig";
 import InstructionRegister from "./blocks/instructionRegister/instructionRegister";
 
@@ -17,8 +18,9 @@ export default function BlocksList() {
         <LogicZero key={4} />,
         <Rom key={5} />,
         <Ram key={6} />,
-        <GlobalSig key={7} />,
-        <InstructionRegister key={8} />,
+        <Sum key={7} />,
+        <GlobalSig key={8} />,
+        <InstructionRegister key={9} />,
     ];
 
 

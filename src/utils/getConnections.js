@@ -4,6 +4,7 @@ import logicOneConnections from '../components/field/logic-blocks/logic-one/conn
 import logicZeroConnections from '../components/field/logic-blocks/logic-zero/connections';
 import RomConnections from '../components/field/logic-blocks/rom/connections';
 import RamConnections from '../components/field/logic-blocks/ram/connections';
+import SumConnections from '../components/field/logic-blocks/sum/connections';
 import globalSigConnections from '../components/field/logic-blocks/global-sig/connections';
 import instructionRegisterConnections from '../components/field/logic-blocks/instruction-register/connections';
 
@@ -21,6 +22,8 @@ export default function(type, id) {
             return RomConnections(id);
         case 'ram':
             return RamConnections(id);
+        case 'sum':
+            return SumConnections(id);
         case 'global-sig':
             return globalSigConnections(id);
         case 'instruction-register':

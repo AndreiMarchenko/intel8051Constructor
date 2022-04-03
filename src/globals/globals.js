@@ -29,6 +29,9 @@ export const RAM_BLOCK_HEIGHT = 300;
 export const RAM_BLOCK_WIDTH = 200;
 export const RAM_BLOCK_COLOR = 'teal';
 
+export const SUM_BLOCK_SIZE = 90;
+export const SUM_BLOCK_COLOR = 'wheat';
+
 export const GLOBAL_SIG_BLOCK_SIZE = 70;
 export const GLOBAL_SIG_BLOCK_COLOR = 'purple';
 

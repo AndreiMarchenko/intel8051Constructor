@@ -29,6 +29,10 @@ export default function Rom({id, x, y, name}) {
             const enWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.en`));
             const outWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.out`));
 
+            if (!incWire || !enWire || !outWire) {
+                return;
+            }
+
             if (enWire && enWire.payload === 1) {
                 dispatch(updateWirePayload({
                     id: outWire.id,
