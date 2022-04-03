@@ -1,41 +1,39 @@
 import Block from "../../Block";
 
-import {LOGIC_ONE_BLOCK_SIZE, LOGIC_ONE_BLOCK_COLOR} from "../../../../globals/globals";
+import {INSTRUCTION_REGISTER_BLOCK_SIZE, INSTRUCTION_REGISTER_BLOCK_COLOR} from "../../../../globals/globals";
 import getConnections from './connections';
 import {useSelector, useDispatch} from "react-redux";
-import {Fragment, useEffect} from "react";
+import {Fragment, useEffect, useState} from "react";
 import {updateWirePayload} from "../../../../store/slices/wireSlice";
 import {Text} from "react-konva";
+import StateDisplayRectangle from "./StateDisplayRectangle";
 
-export default function LogicOne({id, x, y, name}) {
+export default function InstructionRegister({id, x, y, name}) {
     const dispatch = useDispatch();
+
     const clk = useSelector(state => state.clkReducer.clk);
     const wires = useSelector(state => state.wireReducer.wires.filter(wire => {
             return wire.connections.find(connection => connection.split('.')[0] === id);
         })
     );
+    const [state, setState] = useState(2);
 
     const connections = getConnections(id);
 
-
     useEffect(() => {
         if (clk === 1) {
-            const qWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.q`));
-            if (qWire) {
-                dispatch(updateWirePayload({
-                    id: qWire.id,
-                    payload: 1,
-                }));
-            }
+
         }
     }, [clk]);
 
+
     const slot = (
         <Fragment>
+            <StateDisplayRectangle state={state} />
             <Text
                 x={0}
                 y={0}
-                text={name ?? '1'}
+                text={name ?? 'InstructionRegister'}
                 fontSize={22}
                 fontFamily='Calibri'
                 fill='black'
@@ -48,11 +46,12 @@ export default function LogicOne({id, x, y, name}) {
             id={id}
             x={x}
             y={y}
-            width={LOGIC_ONE_BLOCK_SIZE}
-            height={LOGIC_ONE_BLOCK_SIZE}
+            width={INSTRUCTION_REGISTER_BLOCK_SIZE}
+            height={INSTRUCTION_REGISTER_BLOCK_SIZE}
             connections={connections}
             slot={slot}
-            color={LOGIC_ONE_BLOCK_COLOR}
+            color={INSTRUCTION_REGISTER_BLOCK_COLOR}
+            name="InstructionRegister"
         />
     );
 }

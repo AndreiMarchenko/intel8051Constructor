@@ -1,7 +1,7 @@
-import {useRef, Fragment} from "react";
+import {useRef, Fragment, useState} from "react";
 import { Rect, Group } from 'react-konva';
 import { useDispatch, useSelector } from "react-redux";
-import { changeBlockPosition } from "../../store/slices/blockSlice";
+import { changeBlockPosition, setSelectedBlockId } from "../../store/slices/blockSlice";
 
 import BlockConnection from "./BlockConnection";
 import useThrottle from "../../hooks/useThrottle";
@@ -9,6 +9,8 @@ import useThrottle from "../../hooks/useThrottle";
 export default function Block({id, x, y, width, height, connections, slot, color}) {
     const dispatch = useDispatch();
     const activeConnection = useSelector(state => state.wireReducer.activeConnection);
+
+    let [isActive, setIsActive] = useState(false);
 
     const blockRef = useRef();
 
@@ -22,9 +24,23 @@ export default function Block({id, x, y, width, height, connections, slot, color
         dispatch(changeBlockPosition({blockId:id, position: newCoordinates}));
     }
 
+    const handleBlockClick = () => {
+
+        setIsActive(oldValue => {
+            if (oldValue) {
+                dispatch(setSelectedBlockId({ blockId: null }));
+            } else {
+                dispatch(setSelectedBlockId({ blockId: id }));
+            }
+
+            return !oldValue
+        });
+
+
+    };
 
     return (
-        <Group x={x} y={y} draggable ref={blockRef} onDragMove={useThrottle(moveBlock, 50)}>
+        <Group x={x} y={y} draggable ref={blockRef} onDragMove={useThrottle(moveBlock, 50)} onClick={handleBlockClick}>
             <Fragment>
                 <Rect
                     x={0}
@@ -33,6 +49,9 @@ export default function Block({id, x, y, width, height, connections, slot, color
                     height={height} //50
                     fill={color}
                     shadowBlur={5}
+
+                    strokeWidth={isActive ? 3 : 0} // border width
+                    stroke="black"
 
                     id={id}
                 />

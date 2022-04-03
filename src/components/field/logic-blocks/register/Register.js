@@ -8,7 +8,7 @@ import {Fragment, useEffect, useState} from "react";
 import {updateWirePayload} from "../../../../store/slices/wireSlice";
 import {Text} from "react-konva";
 
-export default function Register({id, x, y}) {
+export default function Register({id, x, y, name}) {
     const dispatch = useDispatch();
     const clk = useSelector(state => state.clkReducer.clk);
     const connections = getConnections(id);
@@ -26,12 +26,15 @@ export default function Register({id, x, y}) {
             const dWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.d`));
             const qWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.q`));
             const enWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.en`));
+            const oEnWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.oEn`));
 
-            if (qWire) {
-                dispatch(updateWirePayload({
-                    id: qWire.id,
-                    payload: state,
-                }));
+            if (qWire && oEnWire) {
+                if (oEnWire.payload === 1) {
+                    dispatch(updateWirePayload({
+                        id: qWire.id,
+                        payload: state,
+                    }));
+                }
             }
             if (enWire?.payload && dWire) {
                 if (dWire.payload !== 'z') {
@@ -47,7 +50,7 @@ export default function Register({id, x, y}) {
           <Text
               x={0}
               y={0}
-              text={'Register'}
+              text={name ?? 'Register'}
               fontSize={22}
               fontFamily='Calibri'
               fill='black'

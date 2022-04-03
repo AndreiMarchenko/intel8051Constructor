@@ -21,4 +21,15 @@ export const LOGIC_ONE_BLOCK_COLOR = 'yellow';
 export const LOGIC_ZERO_BLOCK_SIZE = 30;
 export const LOGIC_ZERO_BLOCK_COLOR = 'green';
 
+export const ROM_BLOCK_HEIGHT = 300;
+export const ROM_BLOCK_WIDTH = 200;
+export const ROM_BLOCK_COLOR = 'orange';
+
+export const GLOBAL_SIG_BLOCK_SIZE = 70;
+export const GLOBAL_SIG_BLOCK_COLOR = 'purple';
+
+export const INSTRUCTION_REGISTER_BLOCK_SIZE = 150;
+export const INSTRUCTION_REGISTER_BLOCK_COLOR = 'coral';
+
+
 export const TOP_PANEL_HEIGHT = 80;

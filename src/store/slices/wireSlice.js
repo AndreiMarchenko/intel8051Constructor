@@ -26,6 +26,7 @@ export const wireSlice = createSlice({
             if (!isWireConnection) {
                 const connection = action.payload.connection;
                 const block = action.payload.block;
+
                 const connectionObject = block.connections.find(obj => obj.id === connection);
 
                 state.activeConnection = connection;

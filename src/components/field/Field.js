@@ -6,8 +6,7 @@ import {
     changeBlockConnection,
     changeBlockPosition,
     deleteBlock,
-    resetLastMovedBlock,
-    setBlockToStorage,
+    setBlockToStorage, setSelectedBlockId,
 } from '../../store/slices/blockSlice';
 import { last } from 'lodash';
 import { STATES } from '../../globals/globalStates';
@@ -21,7 +20,12 @@ import Register from "./logic-blocks/register/Register";
 import Inc from "./logic-blocks/inc/Inc";
 import LogicOne from "./logic-blocks/logic-one/LogicOne";
 import LogicZero from "./logic-blocks/logic-zero/LogicZero";
+import Rom from './logic-blocks/rom/Rom';
+import InstructionRegister from './logic-blocks/instruction-register/InstructionRegister';
 import getConnections from '../../utils/getConnections';
+import './field.css'
+import GlobalSig from "./logic-blocks/global-sig/GlobalSig";
+import BlockTypeNameMap from '../../utils/blockTypeNameMap';
 
 
 export default function Field({ clkPanelDimensions, fieldDimensions }) {
@@ -72,15 +76,14 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
             dispatch(changeBlockPosition({
                 blockId: last(blocks).id,
                 position: {
-                    x: event.evt.clientX,
+                    x: event.evt.clientX - 170,
                     y: event.evt.clientY - TOP_PANEL_HEIGHT,
                 }
             }));
             dispatch(changeState(STATES.GENERAL));
         } else if (globalState === STATES.DELETING) {
-            dispatch(resetLastMovedBlock());
 
-            const deleteX = event.evt.clientX;
+            const deleteX = event.evt.clientX - 170;
             const deleteY = event.evt.clientY - TOP_PANEL_HEIGHT;
 
             const wire = wires.find(wire => {
@@ -128,7 +131,7 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
         } else if (activeConnection !== null) {
             dispatch(setActivePathNodesCount(activePathNodesCount + 1));
             dispatch(updateActiveWirePath({
-                x: event.evt.clientX,
+                x: event.evt.clientX - 170,
                 y: event.evt.clientY - 80,
             }));
         }
@@ -148,7 +151,8 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
             const lastBlockId = +last(blocks)?.id + 1 || 0;
             dispatch(setBlockToStorage({
                 id: lastBlockId.toString(),
-                name: globalStatePayload.blockType,
+                type: globalStatePayload.blockType,
+                name: BlockTypeNameMap[globalStatePayload.blockType],
                 position: {x: 100, y: 100},
                 connections: getConnections(globalStatePayload.blockType, lastBlockId)
             }));
@@ -163,13 +167,13 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
             dispatch(changeBlockPosition({
                 blockId: lastBlockId,
                 position: {
-                    x: event.evt.clientX,
+                    x: event.evt.clientX - 170,
                     y: event.evt.clientY - 80
                 }
             }));
         } else if (activeConnection !== null) {
             dispatch(updateActiveWirePath({
-                x: event.evt.clientX - 3,
+                x: event.evt.clientX - 170 - 3,
                 y: event.evt.clientY - 80 - 3,
             }));
         }
@@ -180,6 +184,7 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
             {({ store }) => (
                 <Fragment>
                     <Stage
+                        className={'field'}
                         width={fieldDimensions.width}
                         height={fieldDimensions.height}
                         onClick={handleClickOnField}
@@ -197,13 +202,14 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
                             <Layer>
                                 <Fragment>
                                     {blocks.map((block, i) => {
-                                        switch (block.name) {
+                                        switch (block.type) {
                                             case 'register':
                                                 return <Register
                                                     id={block.id}
                                                     key={block.id}
                                                     x={block.position.x}
                                                     y={block.position.y}
+                                                    name={block.name}
                                                 />;
                                             case 'inc':
                                                 return <Inc
@@ -211,6 +217,7 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
                                                     key={block.id}
                                                     x={block.position.x}
                                                     y={block.position.y}
+                                                    name={block.name}
                                                 />;
                                             case 'logic-one':
                                                 return <LogicOne
@@ -218,6 +225,7 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
                                                     key={block.id}
                                                     x={block.position.x}
                                                     y={block.position.y}
+                                                    name={block.name}
                                                 />;
                                             case 'logic-zero':
                                                 return <LogicZero
@@ -225,6 +233,31 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
                                                     key={block.id}
                                                     x={block.position.x}
                                                     y={block.position.y}
+                                                    name={block.name}
+                                                />;
+                                            case 'rom':
+                                                return <Rom
+                                                    id={block.id}
+                                                    key={block.id}
+                                                    x={block.position.x}
+                                                    y={block.position.y}
+                                                    name={block.name}
+                                                />;
+                                            case 'global-sig':
+                                                return <GlobalSig
+                                                    id={block.id}
+                                                    key={block.id}
+                                                    x={block.position.x}
+                                                    y={block.position.y}
+                                                    name={block.name}
+                                                />;
+                                            case 'instruction-register':
+                                                return <InstructionRegister
+                                                    id={block.id}
+                                                    key={block.id}
+                                                    x={block.position.x}
+                                                    y={block.position.y}
+                                                    name={block.name}
                                                 />;
                                         }
                                     })}

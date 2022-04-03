@@ -1,0 +1,48 @@
+.sidebar {
+    width: 170px;
+    height: calc(100vh - 150px);
+    position: fixed;
+    left: 0;
+    top: 80px;
+    background-color: #E4EAEE;
+    border-right: 1px solid black;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.block-name {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.block-name__title {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.block-name__input {
+    display: block;
+}
+
+.clk-buttons {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 5px;
+}
+
+.clk-stop {
+    margin: 0 5px 5px;
+}
+
+.clk-start {
+    margin: 0 5px 5px;
+}

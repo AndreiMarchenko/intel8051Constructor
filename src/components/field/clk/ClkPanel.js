@@ -1,19 +1,25 @@
-import {Line, Group, Text, Layer, Rect} from 'react-konva';
-import {Fragment, useEffect, useState} from "react";
+import {Line, Group, Text, Rect} from 'react-konva';
+import { useEffect, useState} from "react";
 import { setClk as setClkToStorage } from "../../../store/slices/clkSlice";
-import { useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import BeforeRisingEdge  from './BeforeRisingEdge';
+import { STOP_CLK_STATE } from "../../../globals/clkStates";
+import { incrementClkPosition } from '../../../store/slices/clkSlice';
 
 const CLK_PERIOD = 4000;
 
 export default function ClkPanel() {
     const dispatch = useDispatch();
+    const clkState = useSelector(state => state.clkReducer.clkState);
     const [linePoints, setLinePoints] = useState([50, 50]);
+    const [drawCounter, setDrawCounter] = useState(1);
     const [clk, setClk] = useState(0);
 
     useEffect(() => {
-        let drawCounter = 1;
         const clkDrawInterval = setInterval(() => {
+            if (clkState === STOP_CLK_STATE) {
+                return;
+            }
 
             setLinePoints(linePoints => {
                 const lastPointX = linePoints[linePoints.length - 2];
@@ -37,23 +43,27 @@ export default function ClkPanel() {
                     4: fallingLinePoint,
                 }
 
+                if (linePoints[linePoints.length - 2] > window.innerWidth) {
+                    setDrawCounter(1);
+                    dispatch(incrementClkPosition());
+                    return [50, 50];
+                }
+
                 return [...linePoints, ...counterPointMap[drawCounter]];
             });
 
-            drawCounter++;
-            if (drawCounter > 4) {
-                drawCounter = 1;
-            }
+            setDrawCounter(counter => counter === 4 ? 1 : counter + 1);
+            dispatch(incrementClkPosition());
         }, CLK_PERIOD / 4)
 
         return () => {
             clearInterval(clkDrawInterval);
         };
-    }, []);
+    }, [clkState, drawCounter]);
 
     useEffect(() => {
         dispatch(setClkToStorage(clk));
-    }, [clk])
+    }, [clk]);
 
     return (
         <Group

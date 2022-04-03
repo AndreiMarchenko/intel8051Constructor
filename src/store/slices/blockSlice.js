@@ -11,13 +11,18 @@ export const blockSlice = createSlice({
     name: 'blocks',
     initialState: {
         blocks: [],
-        lastMovedBlockId: null,
+        selectedBlockId: null,
+        globalSignals: [
+            {
+                name: 'romInc',
+                value: 0,
+            }
+        ],
     },
     reducers: {
         changeBlockPosition: (state, action) => {
             const block = state.blocks.find(block => block.id === action.payload.blockId);
             block.position = action.payload.position;
-            state.lastMovedBlockId = block.id;
         },
         changeBlockConnection: (state, action) => {
             let blockIndex = state.blocks.findIndex(block => block.id === action.payload.blockId);
@@ -41,9 +46,6 @@ export const blockSlice = createSlice({
             });
             connection.connectedTo = null;
         },
-        resetLastMovedBlock: (state, action) => {
-            state.lastMovedBlockId = null;
-        },
         resetBlockConnectionsAttachedToWire: (state, action) => {
             state.blocks.forEach(block => {
                 block.connections.forEach(connection => {
@@ -52,6 +54,17 @@ export const blockSlice = createSlice({
                     }
                 });
             });
+        },
+        setSelectedBlockId: (state, action) => {
+            state.selectedBlockId = action.payload.blockId;
+        },
+        changeBlockName: (state, action) => {
+            const block = state.blocks.find(block => block.id === action.payload.blockId);
+            block.name = action.payload.name;
+        },
+        updateGlobalSignal: (state, action) => {
+            const signal = state.globalSignals.find(signal => signal.name === action.payload.signalName);
+            signal.value = action.payload.value;
         },
     }
 })
@@ -62,10 +75,9 @@ export const {
     setBlockToStorage,
     changeBlockConnection,
     deleteBlock,
-    resetConnection,
-    resetLastMovedBlock,
-    updateBlockConnections,
-    resetBlockConnectionsAttachedToWire,
+    setSelectedBlockId,
+    changeBlockName,
+    updateGlobalSignal
 } = blockSlice.actions
 
 export default blockSlice.reducer

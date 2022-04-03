@@ -7,7 +7,7 @@ import {Fragment, useEffect} from "react";
 import {updateWirePayload} from "../../../../store/slices/wireSlice";
 import {Text} from "react-konva";
 
-export default function LogicZero({id, x, y}) {
+export default function LogicZero({id, x, y, name}) {
     const dispatch = useDispatch();
     const clk = useSelector(state => state.clkReducer.clk);
     const wires = useSelector(state => state.wireReducer.wires.filter(wire => {
@@ -35,7 +35,7 @@ export default function LogicZero({id, x, y}) {
             <Text
                 x={0}
                 y={0}
-                text={'0'}
+                text={name ?? '0'}
                 fontSize={22}
                 fontFamily='Calibri'
                 fill='black'

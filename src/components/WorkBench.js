@@ -1,6 +1,8 @@
 import Field from "./field/Field";
 import TopPanel from "./top-panel/TopPanel";
+import ControlUnit from "./ControlUnit";
 import { TOP_PANEL_HEIGHT } from '../globals/globals';
+import Sidebar from "./sidebar/Sidebar";
 
 
 export default function WorkBench() {
@@ -17,7 +19,7 @@ export default function WorkBench() {
     };
 
     const fieldDimensions = {
-        width: window.innerWidth,
+        width: window.innerWidth - 170,
         height: window.innerHeight - TOP_PANEL_HEIGHT - CLK_PANEL_HEIGHT
     };
 
@@ -26,10 +28,12 @@ export default function WorkBench() {
             <TopPanel
                 topPanelDimensions={topPanelDimensions}
             />
+            <Sidebar />
             <Field
                 fieldDimensions={fieldDimensions}
                 clkPanelDimensions={clkPanelDimensions}
             />
+            <ControlUnit />
         </div>
     );
 }

@@ -1,0 +1,12 @@
+.global-sig {
+}
+.global-sig-body {
+    width: var(--default-block-dimensions);
+    height: var(--default-block-dimensions);
+
+    background-color: purple;
+}
+.global-sig-label {
+    font-size: 12px;
+    font-family: 'Lato', 'sans-serif';
+}
