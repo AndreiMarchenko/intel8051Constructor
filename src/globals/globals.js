@@ -25,6 +25,10 @@ export const ROM_BLOCK_HEIGHT = 300;
 export const ROM_BLOCK_WIDTH = 200;
 export const ROM_BLOCK_COLOR = 'orange';
 
+export const RAM_BLOCK_HEIGHT = 300;
+export const RAM_BLOCK_WIDTH = 200;
+export const RAM_BLOCK_COLOR = 'teal';
+
 export const GLOBAL_SIG_BLOCK_SIZE = 70;
 export const GLOBAL_SIG_BLOCK_COLOR = 'purple';
 

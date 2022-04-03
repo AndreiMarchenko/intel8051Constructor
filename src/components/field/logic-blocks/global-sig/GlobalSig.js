@@ -32,7 +32,6 @@ export default function GlobalSig({id, x, y, name}) {
             if (!outWire || !signal) {
                 return;
             }
-            console.log(outWire.id, signal.value);
 
             dispatch(updateWirePayload({
                 id: outWire.id,

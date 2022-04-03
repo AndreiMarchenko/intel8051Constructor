@@ -10,7 +10,6 @@ export default function ControlUnit() {
     const clkPosition = useSelector(state => state.clkReducer.clkPosition);
 
     useEffect(() => {
-        console.log('test');
         dispatch(updateGlobalSignal({
             signalName: 'romInc',
             value: 1,
@@ -20,7 +19,6 @@ export default function ControlUnit() {
 
     useEffect(() => {
         if (clkPosition === 7) {
-            console.log('test2');
             dispatch(updateGlobalSignal({
                 signalName: 'romInc',
                 value: 0,

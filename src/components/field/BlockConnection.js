@@ -79,7 +79,7 @@ export default function BlockConnection({id, x, y, name, input, connectedTo, con
                 shadowBlur={5}
             />
             <Text
-                x={input ? x - 20 : x + 20}
+                x={input ? x - name.length*5 - 10 : x + name.length*5 + 10}
                 y={y}
                 text={name}
                 fontSize={12}
