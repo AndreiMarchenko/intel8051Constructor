@@ -6,8 +6,18 @@ export const BLOCK_SIZES = {
     'inc': 70,
     'logic-one': 30,
     'logic-zero': 30,
+    'rom': {
+        height: 300,
+        width: 200,
+    },
+    'ram': {
+        height: 300,
+        width: 200,
+    },
+    'sum': 90,
+    'global-sig': 70,
+    'instruction-register': 150,
 };
-
 
 export const REGISTER_BLOCK_SIZE = 100;
 export const REGISTER_BLOCK_COLOR = 'red';

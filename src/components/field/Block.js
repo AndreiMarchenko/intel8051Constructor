@@ -34,15 +34,11 @@ export default function Block({id, x, y, width, height, connections, slot, color
     }
 
     const handleBlockClick = () => {
-        setIsActive(oldValue => {
-            if (oldValue) {
-                dispatch(setSelectedBlockId({ blockId: null }));
-            } else {
-                dispatch(setSelectedBlockId({ blockId: id }));
-            }
-
-            return !oldValue
-        });
+        if (isActive) {
+            dispatch(setSelectedBlockId({ blockId: null }));
+        } else {
+            dispatch(setSelectedBlockId({ blockId: id }));
+        }
     };
 
     return (

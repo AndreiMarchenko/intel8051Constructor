@@ -42,6 +42,15 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
 
     const dispatch = useDispatch();
 
+    document.onkeydown = function(evt) {
+        evt = evt || window.event;
+        const escKeyPressed = evt.keyCode === 27;
+        if (escKeyPressed) {
+            dispatch(resetWire());
+        }
+    };
+
+
     useEffect(() => {
         const newWire = last(wires);
         if (!newWire) {
@@ -60,15 +69,16 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
             }));
         }
 
-        const wireToBlock = blocks.find(block => (block.id).toString() === newWire.connections[1].split('.')[0]);
+        const isToWire = newWire.connections[1].includes('wire');
 
-
-        dispatch(changeBlockConnection({
-            blockId: wireToBlock.id,
-            connectionId: newWire.connections[1],
-            connectedTo: newWire.id,
-        }));
-
+        if (!isToWire) {
+            const wireToBlock = blocks.find(block => (block.id).toString() === newWire.connections[1].split('.')[0]);
+            dispatch(changeBlockConnection({
+                blockId: wireToBlock.id,
+                connectionId: newWire.connections[1],
+                connectedTo: newWire.id,
+            }));
+        }
 
         dispatch(resetWire());
     }, [wires.length]);
@@ -104,8 +114,8 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
                     const B = secondPoint[0] - firstPoint[0];
                     const C = firstPoint[0] * secondPoint[1] - secondPoint[0] * firstPoint[1];
                     const distanceToWire = Math.abs(A * deleteX + B * deleteY + C) / (Math.sqrt(A * A + B * B));
-                    const clickedOnWire = distanceToWire < 5;
 
+                    const clickedOnWire = distanceToWire < 5;
                     return clickedOnWire;
                 });
             });
@@ -118,8 +128,11 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
             }
 
             const block = blocks.find(block => {
-                return  (deleteX >= block.position.x && deleteX <= block.position.x + BLOCK_SIZES[block.name])
-                    && (deleteY >= block.position.y && deleteY <= block.position.y + BLOCK_SIZES[block.name])
+                const blockWidth = BLOCK_SIZES[block.type].width ?? BLOCK_SIZES[block.name];
+                const blockHeight = BLOCK_SIZES[block.type].height ??  BLOCK_SIZES[block.name];
+
+                return  (deleteX >= block.position.x && deleteX <= block.position.x + blockWidth)
+                    && (deleteY >= block.position.y && deleteY <= block.position.y + blockHeight)
             });
 
             if (!block) {
@@ -297,8 +310,8 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
                                     })}
                                     {activePath &&
                                         <Wire
-                                            id={'lalalal'}
-                                            key={'lalalal'}
+                                            id={'activeWire'}
+                                            key={'activeWire'}
                                             points={[...activePath]}
                                         />
                                     }
