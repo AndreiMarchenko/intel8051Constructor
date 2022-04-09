@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
 import { cloneDeep } from 'lodash'
+import { BLOCK_CONNECTION_SIZE } from '../../globals/globals';
 
 /*
     wire: {id, connections, path, payload, prevPayload}
@@ -30,13 +31,25 @@ export const wireSlice = createSlice({
                 const connectionObject = block.connections.find(obj => obj.id === connection);
 
                 state.activeConnection = connection;
-                state.activePath = [connectionObject.position.x + block.position.x, connectionObject.position.y + block.position.y];
+                state.activePath = [
+                    connectionObject.position.x + BLOCK_CONNECTION_SIZE / 2 + block.position.x,
+                    connectionObject.position.y + BLOCK_CONNECTION_SIZE / 2 + block.position.y,
+                ];
             } else {
                 state.activeConnection = action.payload.connection.id;
-                state.activePath = [action.payload.connection.position.x, action.payload.connection.position.y];
+                state.activePath = [
+                    action.payload.connection.position.x + BLOCK_CONNECTION_SIZE / 2,
+                    action.payload.connection.position.y + BLOCK_CONNECTION_SIZE / 2,
+                ];
             }
         },
         resetWire: (state) => {
+            const index = state.wireConnections.findIndex(connection =>  {
+                return connection.id === state.activeConnection;
+            });
+            if (index !== -1) {
+                state.wireConnections.splice(index, 1);
+            }
             state.activeConnection = null;
             state.activePath = null;
         },
@@ -45,17 +58,33 @@ export const wireSlice = createSlice({
             const wirePath = cloneDeep(state.activePath);
             state.activePath = null;
             state.activePathNodesCount = 1;
-            const {
+            let {
                 firstConnection,
                 secondConnection,
                 secondBlock
             } = action.payload
 
-            const secondBlockConnectionObj = secondBlock.connections.find(connection => connection.id === secondConnection);
-
+            let secondBlockConnectionObj = null;
+            if (secondBlock) {
+                secondBlockConnectionObj = secondBlock.connections.find(connection => connection.id === secondConnection);
+            }
 
             const wireFrom = state.wires.find(wire => wire.id === firstConnection.split('.')[1]);
             const globalId = firstConnection.includes('wire') ? wireFrom.globalId : state.wires.length.toString();
+
+            let destinationPoint = null;
+            if (secondBlock) {
+                destinationPoint = [
+                    secondBlock.position.x + secondBlockConnectionObj.position.x + BLOCK_CONNECTION_SIZE / 2,
+                    secondBlock.position.y + secondBlockConnectionObj.position.y + BLOCK_CONNECTION_SIZE / 2
+                ];
+            } else {
+                destinationPoint = [
+                    secondConnection.position.x + BLOCK_CONNECTION_SIZE / 2,
+                    secondConnection.position.y + BLOCK_CONNECTION_SIZE / 2,
+                ];
+                secondConnection = secondConnection.id;
+            }
 
             state.wires.push({
                 id: state.wires.length.toString(),
@@ -64,8 +93,7 @@ export const wireSlice = createSlice({
                 payload: 'z',
                 path: [
                     ...wirePath.slice(0, -2),
-                    secondBlock.position.x + secondBlockConnectionObj.position.x,
-                    secondBlock.position.y + secondBlockConnectionObj.position.y
+                    ...destinationPoint
                 ],
             });
         },
@@ -115,10 +143,8 @@ export const wireSlice = createSlice({
             }
         },
         deleteWire: (state, action) => {
-            const wireIndex = state.wires.findIndex(wire => wire.id === action.payload.wireId);
-            const newWires = cloneDeep(state.wires);
-            newWires.splice(wireIndex, 1);
-            state.wires = [];
+            const wiresToStay = state.wires.filter(wire => wire.globalId !== action.payload.wireId);
+            state.wires = wiresToStay;
         },
         createWireConnection: (state, action) => {
             state.wireConnections.push(action.payload);

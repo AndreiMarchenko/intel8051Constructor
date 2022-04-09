@@ -2,6 +2,7 @@ import { Group, Line, Text } from 'react-konva';
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {STATES} from "../../globals/globalStates";
+import { BLOCK_CONNECTION_SIZE } from '../../globals/globals';
 import {
     createWireConnection,
     startWire,
@@ -9,7 +10,7 @@ import {
     updateWirePath,
     updateWirePayload,
     deleteWire,
-    deleteWireConnections
+    deleteWireConnections, setWireToStorage
 } from "../../store/slices/wireSlice";
 import usePrevious from "../../hooks/usePrevious";
 
@@ -17,12 +18,16 @@ export default function Wire({points, id}) {
     const wire = useSelector(state => state.wireReducer.wires.find(wire => wire.id === id));
     const wires = useSelector(state => state.wireReducer.wires);
     const activePath = useSelector(state => state.wireReducer.activePath);
+    const activeConnection = useSelector(state => state.wireReducer.activeConnection);
     const payload = useSelector(state => state.wireReducer.wires.find(wire => +wire.id === +id)?.payload);
     const wireConnections = useSelector(state => state.wireReducer.wireConnections);
     const wireFromBlock = useSelector(state => state.blockReducer.blocks.find(block => block.connections.find(connection => connection.id === wire?.connections[0])));
     const wireToBlock = useSelector(state => state.blockReducer.blocks.find(block => block.connections.find(connection => connection.id === wire?.connections[1])));
     const wireFromWire = useSelector(state => state.wireReducer.wires.find(storageWire => {
         return wire?.connections[0].split('.')[1] === storageWire.id;
+    }));
+    const wireToWire = useSelector(state => state.wireReducer.wires.find(storageWire => {
+        return wire?.connections[1].split('.')[1] === storageWire.id;
     }));
     const globalState = useSelector(state => state.globalStateReducer.globalState);
     const dispatch = useDispatch();
@@ -110,7 +115,7 @@ export default function Wire({points, id}) {
             return;
         }
 
-        if (!wireToBlock) {
+        if (!wireToBlock && !wireToWire) {
             dispatch(deleteWire({ wireId: id }));
             return;
         }
@@ -130,35 +135,45 @@ export default function Wire({points, id}) {
             const wireFromBlockConnection = wireFromBlock.connections.find(connection => connection.id === wire.connections[0]);
 
             wireStartCoords = [
-                wireFromBlockConnection.position.x + wireFromBlock.position.x,
-                wireFromBlockConnection.position.y + wireFromBlock.position.y,
+                wireFromBlockConnection.position.x + wireFromBlock.position.x + BLOCK_CONNECTION_SIZE / 2,
+                wireFromBlockConnection.position.y + wireFromBlock.position.y + BLOCK_CONNECTION_SIZE / 2,
             ];
         } else {
             const wireFromWireConnection = wireConnections.find(connection => connection.id === wire.connections[0]);
             wireStartCoords = [
-                wireFromWireConnection.position.x,
-                wireFromWireConnection.position.y,
+                wireFromWireConnection.position.x + BLOCK_CONNECTION_SIZE / 2,
+                wireFromWireConnection.position.y + BLOCK_CONNECTION_SIZE / 2,
             ];
         }
 
-        const wireToBlockConnection = wireToBlock.connections.find(connection => connection.id === wire.connections[1]);
+        let wireEndCoords;
+        const isToWire = wire.connections[1].includes('wire');
+        if (!isToWire) {
+            const wireToBlockConnection = wireToBlock.connections.find(connection => connection.id === wire.connections[1]);
 
-        const wireEndCoords = [
-            wireToBlockConnection.position.x + wireToBlock.position.x,
-            wireToBlockConnection.position.y + wireToBlock.position.y,
-        ];
+            wireEndCoords = [
+                wireToBlockConnection.position.x + wireToBlock.position.x + BLOCK_CONNECTION_SIZE / 2,
+                wireToBlockConnection.position.y + wireToBlock.position.y + BLOCK_CONNECTION_SIZE / 2,
+            ];
+        } else {
+            const wireToWireConnection = wireConnections.find(connection => connection.id === wire.connections[1]);
+            wireEndCoords = [
+                wireToWireConnection.position.x + BLOCK_CONNECTION_SIZE / 2,
+                wireToWireConnection.position.y + BLOCK_CONNECTION_SIZE / 2,
+            ];
+        }
 
         dispatch(updateWirePath({
             wireId: wire.id,
             path: [...wireStartCoords, ...wire.path.slice(2, -2), ...wireEndCoords],
         }));
-    }, [wireFromBlock, wireFromWire, wireToBlock]);
+    }, [wireFromBlock, wireFromWire, wireToBlock, wireToWire]);
 
     const handleWireClick = event => {
-        event.cancelBubble = true;
-        if (activePath || globalState === STATES.DELETING) {
+        if (globalState === STATES.DELETING || !wire) {
             return;
         }
+        event.cancelBubble = true;
 
         const connectionId = `wire.${id}.` + (wireConnections.length ? wireConnections.length + 1 : 0);
 
@@ -199,7 +214,15 @@ export default function Wire({points, id}) {
         };
 
         dispatch(createWireConnection(wireConnection));
-        dispatch(startWire({ connection: wireConnection }));
+
+        if (!activePath) {
+            dispatch(startWire({ connection: wireConnection }));
+        } else {
+            dispatch(setWireToStorage({
+                firstConnection: activeConnection,
+                secondConnection: wireConnection,
+            }));
+        }
     }
 
     return (
