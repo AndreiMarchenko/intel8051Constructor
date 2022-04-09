@@ -1,4 +1,4 @@
-import {useRef, Fragment, useState} from "react";
+import {useRef, Fragment, useState, useEffect} from "react";
 import { Rect, Group } from 'react-konva';
 import { useDispatch, useSelector } from "react-redux";
 import { changeBlockPosition, setSelectedBlockId } from "../../store/slices/blockSlice";
@@ -9,10 +9,19 @@ import useThrottle from "../../hooks/useThrottle";
 export default function Block({id, x, y, width, height, connections, slot, color}) {
     const dispatch = useDispatch();
     const activeConnection = useSelector(state => state.wireReducer.activeConnection);
+    const selectedBlockId = useSelector(state => state.blockReducer.selectedBlockId);
 
     let [isActive, setIsActive] = useState(false);
 
     const blockRef = useRef();
+
+    useEffect(() => {
+        if (selectedBlockId === id) {
+            setIsActive(true);
+        } else {
+            setIsActive(false);
+        }
+    }, [selectedBlockId]);
 
     const moveBlock = () => {
         if (activeConnection) {
@@ -25,7 +34,6 @@ export default function Block({id, x, y, width, height, connections, slot, color
     }
 
     const handleBlockClick = () => {
-
         setIsActive(oldValue => {
             if (oldValue) {
                 dispatch(setSelectedBlockId({ blockId: null }));
@@ -35,8 +43,6 @@ export default function Block({id, x, y, width, height, connections, slot, color
 
             return !oldValue
         });
-
-
     };
 
     return (

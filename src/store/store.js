@@ -16,5 +16,5 @@ export default configureStore({
         topPanelReducer,
         commandReducer,
     },
-    preloadedState: AddAdirectPreloadedState,
+    // preloadedState: AddAdirectPreloadedState,
 })
