@@ -18,6 +18,14 @@ export default function (id) {
             type: 'in',
             blockId: id,
         },
+        {
+            id: id + '.oEn',
+            name: 'oEn',
+            connectedTo: null,
+            connectedToType: null,
+            type: 'in',
+            blockId: id,
+        },
     ];
     let outputConnections = [
         {

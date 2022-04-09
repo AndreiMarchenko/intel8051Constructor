@@ -26,7 +26,7 @@ export default function GlobalSig({id, x, y, name}) {
     }, [name, globalSignals]);
 
     useEffect(() => {
-        if (clk === 1) {
+        // if (clk === 1) {
             const outWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.out`));
 
             if (!outWire || !signal) {
@@ -37,8 +37,8 @@ export default function GlobalSig({id, x, y, name}) {
                 id: outWire.id,
                 payload: signal.value,
             }));
-        }
-    }, [clk, signal]);
+        // }
+    }, [signal]);
 
 
     const slot = (

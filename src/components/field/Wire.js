@@ -11,7 +11,6 @@ import {
     deleteWire,
     deleteWireConnections
 } from "../../store/slices/wireSlice";
-import { maxBy} from 'lodash';
 import usePrevious from "../../hooks/usePrevious";
 
 export default function Wire({points, id}) {
@@ -117,12 +116,12 @@ export default function Wire({points, id}) {
         }
 
 
-        if (wireFromWire && wireFromWire.payload !== payload) {
-            dispatch(updateWirePayload({
-                id: id,
-                payload: wireFromWire.payload
-            }));
-        }
+        // if (wireFromWire && wireFromWire.payload !== payload) {
+        //     dispatch(updateWirePayload({
+        //         id: id,
+        //         payload: wireFromWire.payload
+        //     }));
+        // }
 
         let wireStartCoords;
 
@@ -161,7 +160,7 @@ export default function Wire({points, id}) {
             return;
         }
 
-        const connectionId = `wire.${id}.` + (wireConnections.length ? maxBy(wireConnections, 'id').id + 1 : 0);
+        const connectionId = `wire.${id}.` + (wireConnections.length ? wireConnections.length + 1 : 0);
 
         const x = event.evt.clientX - 170;
         const y = event.evt.clientY - 80;

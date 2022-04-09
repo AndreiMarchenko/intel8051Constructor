@@ -53,8 +53,13 @@ export const wireSlice = createSlice({
 
             const secondBlockConnectionObj = secondBlock.connections.find(connection => connection.id === secondConnection);
 
+
+            const wireFrom = state.wires.find(wire => wire.id === firstConnection.split('.')[1]);
+            const globalId = firstConnection.includes('wire') ? wireFrom.globalId : state.wires.length.toString();
+
             state.wires.push({
                 id: state.wires.length.toString(),
+                globalId: globalId,
                 connections: [firstConnection, secondConnection],
                 payload: 'z',
                 path: [
@@ -66,14 +71,27 @@ export const wireSlice = createSlice({
         },
         updateWirePayload: (state, action) => {
             const wireIndex = state.wires.findIndex(wire => wire.id === action.payload.id);
-            const updateWire =  state.wires[wireIndex];
-            updateWire.payload = action.payload.payload;
+            const updatedWire =  state.wires[wireIndex];
+            updatedWire.payload = action.payload.payload;
+
+            state.wires.forEach(wire => {
+                if (wire.globalId === updatedWire.globalId) {
+                    wire.payload = action.payload.payload;
+                }
+            });
+
 
             // const wiresFromWire = state.wires.filter(wire => {
             //     return wire.connections[0].includes('wire') &&
             //         wire.connections[0].split('.')[1] === updateWire.id;
             // });
-            // wiresFromWire.forEach(wire => {
+            //
+            // const wiresToWire = state.wires.filter(wire => {
+            //     return updateWire.connections[0].includes('wire') &&
+            //         updateWire.connections[0].split('.')[1] === wire.id;
+            // });
+            //
+            // [...wiresFromWire, ...wiresToWire].forEach(wire => {
             //     wire.payload = action.payload.payload;
             // });
         },

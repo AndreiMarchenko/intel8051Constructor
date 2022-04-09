@@ -6,7 +6,7 @@ import BeforeRisingEdge  from './BeforeRisingEdge';
 import { STOP_CLK_STATE } from "../../../globals/clkStates";
 import { incrementClkPosition } from '../../../store/slices/clkSlice';
 
-const CLK_PERIOD = 4000;
+const CLK_PERIOD = 6000;
 
 export default function ClkPanel() {
     const dispatch = useDispatch();

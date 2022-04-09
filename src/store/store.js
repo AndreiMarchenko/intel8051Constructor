@@ -4,7 +4,8 @@ import blockReducer from './slices/blockSlice';
 import clkReducer from './slices/clkSlice';
 import globalStateReducer from "./slices/globalStateSlice";
 import topPanelReducer from "./slices/topPanelSlice";
-import testPreloadedState from './preloadedStates/test';
+import commandReducer from "./slices/commandSlice";
+import AddAdirectPreloadedState from './preloadedStates/AddAdirectPreloadedState';
 
 export default configureStore({
     reducer: {
@@ -12,7 +13,8 @@ export default configureStore({
         blockReducer,
         clkReducer,
         globalStateReducer,
-        topPanelReducer
+        topPanelReducer,
+        commandReducer,
     },
-    // preloadedState: testPreloadedState,
+    preloadedState: AddAdirectPreloadedState,
 })

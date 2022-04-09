@@ -10,7 +10,10 @@ import {updateWirePayload} from "../../../../store/slices/wireSlice";
 import { cloneDeep } from 'lodash';
 
 export default function Ram({id, x, y, name}) {
-    let [lines, setLines] = useState(fill(Array(100), 'test123'));
+    const ramData = fill(Array(100), '0');
+    ramData[12] = 5;
+
+    let [lines, setLines] = useState(ramData);
     let [currentLineNumber, setCurrentLineNumber] = useState(1);
 
     let [raoAddr, setRaoAddr] = useState(0);
@@ -79,7 +82,7 @@ export default function Ram({id, x, y, name}) {
                     marginLeft: '20px',
                 },
             }}>
-                <input type={'text'} onInput={handleLineNumberInput} />
+                <input type={'text'} value={currentLineNumber} onInput={handleLineNumberInput} />
             </Html>
             <Text
                 x={50}
@@ -87,7 +90,7 @@ export default function Ram({id, x, y, name}) {
                 text={`${currentLineNumber - 1}: ${lines[currentLineNumber - 1]}` }
                 fontSize={22}
                 fontFamily='Calibri'
-                fill={'black'}
+                fill={raoAddr ===  currentLineNumber - 1 ? 'red' : 'black'}
             />
             <Text
                 x={50}
@@ -95,7 +98,7 @@ export default function Ram({id, x, y, name}) {
                 text={`${currentLineNumber}: ${lines[currentLineNumber]}`}
                 fontSize={22}
                 fontFamily='Calibri'
-                fill={'black'}
+                fill={raoAddr ===  currentLineNumber ? 'red' : 'black'}
             />
             <Text
                 x={50}
@@ -103,7 +106,7 @@ export default function Ram({id, x, y, name}) {
                 text={`${currentLineNumber + 1}: ${lines[currentLineNumber + 1]}`}
                 fontSize={22}
                 fontFamily='Calibri'
-                fill={'black'}
+                fill={raoAddr ===  currentLineNumber + 1 ? 'red' : 'black'}
             />
         </Fragment>
     );

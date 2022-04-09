@@ -9,7 +9,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateWirePayload} from "../../../../store/slices/wireSlice";
 
 export default function Rom({id, x, y, name}) {
-    let [lines, setLines] = useState(fill(Array(100), 'test123'));
+
+    const romData = fill(Array(100), '0000000');
+    romData[0] = '00110101'; // ADDC A,<direct>
+    romData[1] = 12; // <direct>
+
+    let [lines, setLines] = useState(romData);
 
     let [currentLineNumber, setCurrentLineNumber] = useState(1);
     let [executingLineNumber, setExecutingLineNumber] = useState(0);
@@ -66,7 +71,7 @@ export default function Rom({id, x, y, name}) {
                     marginLeft: '20px',
                 },
             }}>
-                <input type={'text'} onInput={handleLineNumberInput} />
+                <input type={'text'} value={currentLineNumber} onInput={handleLineNumberInput} />
             </Html>
             <Text
                 x={50}

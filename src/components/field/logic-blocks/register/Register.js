@@ -19,7 +19,7 @@ export default function Register({id, x, y, name}) {
         })
     );
 
-    const [state, setState] = useState(2);
+    const [state, setState] = useState(1);
 
     useEffect(() => {
         if (clk === 1) {
@@ -28,8 +28,13 @@ export default function Register({id, x, y, name}) {
             const enWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.en`));
             const oEnWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.oEn`));
 
-            if (qWire && oEnWire) {
-                if (oEnWire.payload === 1) {
+            if (qWire) {
+                if (!oEnWire) {
+                    dispatch(updateWirePayload({
+                        id: qWire.id,
+                        payload: state,
+                    }));
+                } else if (oEnWire.payload === 1) {
                     dispatch(updateWirePayload({
                         id: qWire.id,
                         payload: state,

@@ -4,9 +4,10 @@ import {INSTRUCTION_REGISTER_BLOCK_SIZE, INSTRUCTION_REGISTER_BLOCK_COLOR} from 
 import getConnections from './connections';
 import {useSelector, useDispatch} from "react-redux";
 import {Fragment, useEffect, useState} from "react";
-import {updateWirePayload} from "../../../../store/slices/wireSlice";
 import {Text} from "react-konva";
 import StateDisplayRectangle from "./StateDisplayRectangle";
+import { changeCurrentCommand } from '../../../../store/slices/commandSlice';
+import { commandsMap } from "../../../../globals/commands";
 
 export default function InstructionRegister({id, x, y, name}) {
     const dispatch = useDispatch();
@@ -16,20 +17,33 @@ export default function InstructionRegister({id, x, y, name}) {
             return wire.connections.find(connection => connection.split('.')[0] === id);
         })
     );
-    const [state, setState] = useState(2);
+    const [state, setState] = useState('0000000');
 
     const connections = getConnections(id);
 
     useEffect(() => {
         if (clk === 1) {
+            const inWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.in`));
+            const enWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.en`));
 
+            if (!inWire || !enWire) {
+                return;
+            }
+
+            if (enWire.payload === 1) {
+                setState(inWire.payload);
+            }
         }
     }, [clk]);
+
+    useEffect(() => {
+        dispatch(changeCurrentCommand(state));
+    }, [state]);
 
 
     const slot = (
         <Fragment>
-            <StateDisplayRectangle state={state} />
+            <StateDisplayRectangle state={commandsMap[state]} />
             <Text
                 x={0}
                 y={0}

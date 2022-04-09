@@ -16,7 +16,57 @@ export const blockSlice = createSlice({
             {
                 name: 'romInc',
                 value: 0,
-            }
+            },
+            {
+                name: 'romEn',
+                value: 0,
+            },
+
+            {
+                name: 'instRegEn',
+                value: 0,
+            },
+
+            {
+                name: 'ramEn',
+                value: 0,
+            },
+            {
+                name: 'ramRdAddr',
+                value: 0,
+            },
+            {
+                name: 'ramRnW',
+                value: 0,
+            },
+            {
+                name: 'regAccEn',
+                value: 0,
+            },
+            {
+                name: 'regAccOEn',
+                value: 0,
+            },
+            {
+                name: 'rvhEn',
+                value: 0,
+            },
+            {
+                name: 'rvhOEn',
+                value: 0,
+            },
+            {
+                name: 'sumEn',
+                value: 0,
+            },
+            {
+                name: 'accumEn',
+                value: 0,
+            },
+            {
+                name: 'accumOEn',
+                value: 0,
+            },
         ],
     },
     reducers: {

@@ -22,9 +22,10 @@ export default function Sum({id, x, y, name}) {
         if (clk === 1) {
             const in1Wire = wires.find(wire => wire.connections.find(connection => connection === `${id}.in1`));
             const in2Wire = wires.find(wire => wire.connections.find(connection => connection === `${id}.in2`));
+            const oEnWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.oEn`));
             const outWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.out`));
 
-            if (!in1Wire || !in2Wire || !outWire) {
+            if (!in1Wire || !in2Wire || !outWire || !oEnWire) {
                 return;
             }
 
@@ -32,10 +33,13 @@ export default function Sum({id, x, y, name}) {
                 return;
             }
 
-            dispatch(updateWirePayload({
-                id: outWire.id,
-                payload: in1Wire.payload + in2Wire.payload,
-            }));
+            if (oEnWire.payload === 1) {
+                dispatch(updateWirePayload({
+                    id: outWire.id,
+                    payload: in1Wire.payload + in2Wire.payload,
+                }));
+            }
+
         }
     }, [clk]);
 

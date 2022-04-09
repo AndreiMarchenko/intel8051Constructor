@@ -17,9 +17,9 @@ export default function StateDisplayRectangle({ state }) {
       />
       <Text
         x={0}
-        y={0}
+        y={20}
         text={state}
-        fontSize={22}
+        fontSize={14}
         fontFamily='Calibri'
         fill='black'
       />
