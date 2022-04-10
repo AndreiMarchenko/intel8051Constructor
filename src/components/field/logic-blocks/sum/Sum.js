@@ -1,6 +1,6 @@
 import Block from "../../Block";
 
-import {SUM_BLOCK_SIZE, SUM_BLOCK_COLOR} from "../../../../globals/globals";
+import {SUM_BLOCK_WIDTH, SUM_BLOCK_HEIGHT, SUM_BLOCK_COLOR} from "../../../../globals/globals";
 import getConnections from './connections';
 import {useSelector, useDispatch} from "react-redux";
 import {useEffect} from "react";
@@ -48,7 +48,7 @@ export default function Sum({id, x, y, name}) {
         <Text
             x={0}
             y={0}
-            text={name ?? 'Sum'}
+            text={name}
             fontSize={22}
             fontFamily='Calibri'
             fill='black'
@@ -60,12 +60,11 @@ export default function Sum({id, x, y, name}) {
             id={id}
             x={x}
             y={y}
-            width={SUM_BLOCK_SIZE}
-            height={SUM_BLOCK_SIZE}
+            width={SUM_BLOCK_WIDTH}
+            height={SUM_BLOCK_HEIGHT}
             connections={connections}
             slot={slot}
             color={SUM_BLOCK_COLOR}
-            name="Sum"
         />
     );
 }

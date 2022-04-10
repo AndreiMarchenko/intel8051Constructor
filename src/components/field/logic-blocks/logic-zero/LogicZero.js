@@ -1,6 +1,6 @@
 import Block from "../../Block";
 
-import {LOGIC_ZERO_BLOCK_SIZE, LOGIC_ZERO_BLOCK_COLOR} from "../../../../globals/globals";
+import {LOGIC_ZERO_BLOCK_WIDTH, LOGIC_ZERO_BLOCK_HEIGHT, LOGIC_ZERO_BLOCK_COLOR} from "../../../../globals/globals";
 import getConnections from './connections';
 import {useSelector, useDispatch} from "react-redux";
 import {Fragment, useEffect} from "react";
@@ -35,7 +35,7 @@ export default function LogicZero({id, x, y, name}) {
             <Text
                 x={0}
                 y={0}
-                text={name ?? '0'}
+                text={name}
                 fontSize={22}
                 fontFamily='Calibri'
                 fill='black'
@@ -48,12 +48,11 @@ export default function LogicZero({id, x, y, name}) {
             id={id}
             x={x}
             y={y}
-            width={LOGIC_ZERO_BLOCK_SIZE}
-            height={LOGIC_ZERO_BLOCK_SIZE}
+            width={LOGIC_ZERO_BLOCK_WIDTH}
+            height={LOGIC_ZERO_BLOCK_HEIGHT}
             connections={connections}
             slot={slot}
             color={LOGIC_ZERO_BLOCK_COLOR}
-            name="1"
         />
     );
 }

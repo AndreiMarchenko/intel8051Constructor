@@ -1,6 +1,6 @@
 import Block from "../../Block";
 
-import {INC_BLOCK_SIZE, INC_BLOCK_COLOR} from "../../../../globals/globals";
+import {INC_BLOCK_WIDTH, INC_BLOCK_HEIGHT, INC_BLOCK_COLOR} from "../../../../globals/globals";
 import getConnections from './connections';
 import {useSelector, useDispatch} from "react-redux";
 import {useEffect} from "react";
@@ -43,7 +43,7 @@ export default function InstructionRegister({id, x, y, name}) {
         <Text
             x={0}
             y={0}
-            text={name ?? 'Inc'}
+            text={name}
             fontSize={22}
             fontFamily='Calibri'
             fill='black'
@@ -55,12 +55,11 @@ export default function InstructionRegister({id, x, y, name}) {
             id={id}
             x={x}
             y={y}
-            width={INC_BLOCK_SIZE}
-            height={INC_BLOCK_SIZE}
+            width={INC_BLOCK_WIDTH}
+            height={INC_BLOCK_HEIGHT}
             connections={connections}
             slot={slot}
             color={INC_BLOCK_COLOR}
-            name="Inc"
         />
     );
 }

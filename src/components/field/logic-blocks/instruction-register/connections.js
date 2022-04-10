@@ -1,4 +1,4 @@
-import { BLOCK_CONNECTION_SIZE, INSTRUCTION_REGISTER_BLOCK_SIZE } from '../../../../globals/globals';
+import { BLOCK_CONNECTION_SIZE, INSTRUCTION_REGISTER_BLOCK_HEIGHT } from '../../../../globals/globals';
 
 export default function (id) {
     let inputConnections = [
@@ -20,7 +20,7 @@ export default function (id) {
         },
     ];
 
-    const inputConnectionsYOffset = INSTRUCTION_REGISTER_BLOCK_SIZE / (inputConnections.length + 1);
+    const inputConnectionsYOffset = INSTRUCTION_REGISTER_BLOCK_HEIGHT / (inputConnections.length + 1);
 
     inputConnections = inputConnections.map((connection, index) => {
         connection.position = {

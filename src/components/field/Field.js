@@ -1,4 +1,4 @@
-import {useState, useEffect, Fragment} from 'react';
+import {useRef, useEffect, Fragment} from 'react';
 import {Stage, Layer} from 'react-konva';
 import { ReactReduxContext, Provider, useDispatch, useSelector } from "react-redux";
 import { resetWire, updateActiveWirePath, deleteWire, setActivePathNodesCount } from "../../store/slices/wireSlice";
@@ -6,13 +6,11 @@ import {
     changeBlockConnection,
     changeBlockPosition,
     deleteBlock,
-    setBlockToStorage, setSelectedBlockId,
+    setBlockToStorage,
 } from '../../store/slices/blockSlice';
 import { last } from 'lodash';
 import { STATES } from '../../globals/globalStates';
 import { changeState } from "../../store/slices/globalStateSlice";
-import {BLOCK_SIZES, TOP_PANEL_HEIGHT} from "../../globals/globals";
-
 import Wire from './Wire';
 import ClkPanel from "./clk/ClkPanel";
 import WireConnection from "./WireConnection";
@@ -27,10 +25,29 @@ import InstructionRegister from './logic-blocks/instruction-register/Instruction
 import getConnections from '../../utils/getConnections';
 import './field.css'
 import GlobalSig from "./logic-blocks/global-sig/GlobalSig";
-import BlockTypeNameMap from '../../utils/blockTypeNameMap';
+
+import {
+    BLOCK_SIZES,
+    TOP_PANEL_HEIGHT,
+    FIELD_WIDTH,
+    FIELD_HEIGHT,
+    SIDEBAR_WIDTH,
+
+    REGISTER_BLOCK_TYPE,
+    INC_BLOCK_TYPE,
+    LOGIC_ONE_BLOCK_TYPE,
+    LOGIC_ZERO_BLOCK_TYPE,
+    ROM_BLOCK_TYPE,
+    RAM_BLOCK_TYPE,
+    SUM_BLOCK_TYPE,
+    GLOBAL_SIG_BLOCK_TYPE,
+    INSTRUCTION_REGISTER_BLOCK_TYPE,
+
+    BLOCK_TYPE_NAME_MAP
+} from "../../globals/globals";
 
 
-export default function Field({ clkPanelDimensions, fieldDimensions }) {
+export default function Field() {
     const blocks = useSelector(state => state.blockReducer.blocks);
     const wires = useSelector(state => state.wireReducer.wires);
     const activeConnection = useSelector(state => state.wireReducer.activeConnection);
@@ -40,6 +57,7 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
     const wireConnections = useSelector(state => state.wireReducer.wireConnections);
     const activePathNodesCount = useSelector(state => state.wireReducer.activePathNodesCount);
 
+    const layerRef = useRef();
     const dispatch = useDispatch();
 
     document.onkeydown = function(evt) {
@@ -84,19 +102,21 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
     }, [wires.length]);
 
     const handleClickOnField = event => {
+        const position = layerRef.current.getRelativePointerPosition();
+
         if (globalState === STATES.ADDING_BLOCKS) {
             dispatch(changeBlockPosition({
                 blockId: last(blocks).id,
                 position: {
-                    x: event.evt.clientX - 170,
-                    y: event.evt.clientY - TOP_PANEL_HEIGHT,
+                    x: position.x,
+                    y: position.y,
                 }
             }));
             dispatch(changeState(STATES.GENERAL));
         } else if (globalState === STATES.DELETING) {
 
-            const deleteX = event.evt.clientX - 170;
-            const deleteY = event.evt.clientY - TOP_PANEL_HEIGHT;
+            const deleteX = position.x;
+            const deleteY = position.y;
 
             const wire = wires.find(wire => {
                 return wire.path.find((_, index) => {
@@ -128,8 +148,8 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
             }
 
             const block = blocks.find(block => {
-                const blockWidth = BLOCK_SIZES[block.type].width ?? BLOCK_SIZES[block.name];
-                const blockHeight = BLOCK_SIZES[block.type].height ??  BLOCK_SIZES[block.name];
+                const blockWidth = BLOCK_SIZES[block.type].width;
+                const blockHeight = BLOCK_SIZES[block.type].height;
 
                 return  (deleteX >= block.position.x && deleteX <= block.position.x + blockWidth)
                     && (deleteY >= block.position.y && deleteY <= block.position.y + blockHeight)
@@ -146,8 +166,8 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
         } else if (activeConnection !== null) {
             dispatch(setActivePathNodesCount(activePathNodesCount + 1));
             dispatch(updateActiveWirePath({
-                x: event.evt.clientX - 170,
-                y: event.evt.clientY - 80,
+                x: position.x,
+                y: position.y,
             }));
         }
     }
@@ -167,7 +187,7 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
             dispatch(setBlockToStorage({
                 id: lastBlockId.toString(),
                 type: globalStatePayload.blockType,
-                name: BlockTypeNameMap[globalStatePayload.blockType],
+                name: BLOCK_TYPE_NAME_MAP[globalStatePayload.blockType],
                 position: {x: 100, y: 100},
                 connections: getConnections(globalStatePayload.blockType, lastBlockId)
             }));
@@ -175,6 +195,7 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
     }, [globalState, globalStatePayload]);
 
     const handleMouseMove = event => { //useThrottle
+        const position = layerRef.current.getRelativePointerPosition();
 
         if (globalState === STATES.ADDING_BLOCKS) {
             const lastBlockId = last(blocks)?.id || 0;
@@ -182,14 +203,14 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
             dispatch(changeBlockPosition({
                 blockId: lastBlockId,
                 position: {
-                    x: event.evt.clientX - 170,
-                    y: event.evt.clientY - 80
+                    x: position.x,
+                    y: position.y
                 }
             }));
         } else if (activeConnection !== null) {
             dispatch(updateActiveWirePath({
-                x: event.evt.clientX - 170 - 3,
-                y: event.evt.clientY - 80 - 3,
+                x: position.x - 3,
+                y: position.y - 3,
             }));
         }
     };
@@ -200,8 +221,8 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
                 <Fragment>
                     <Stage
                         className={'field'}
-                        width={fieldDimensions.width}
-                        height={fieldDimensions.height}
+                        width={FIELD_WIDTH}
+                        height={FIELD_HEIGHT}
                         onClick={handleClickOnField}
                         onMouseMove={handleMouseMove}
                         onMouseEnter={e => {
@@ -214,11 +235,11 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
                         }}
                     >
                         <Provider store={store}>
-                            <Layer>
+                            <Layer x={0} y={0} ref={layerRef}>
                                 <Fragment>
                                     {blocks.map((block, i) => {
                                         switch (block.type) {
-                                            case 'register':
+                                            case REGISTER_BLOCK_TYPE:
                                                 return <Register
                                                     id={block.id}
                                                     key={block.id}
@@ -226,7 +247,7 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
                                                     y={block.position.y}
                                                     name={block.name}
                                                 />;
-                                            case 'inc':
+                                            case INC_BLOCK_TYPE:
                                                 return <Inc
                                                     id={block.id}
                                                     key={block.id}
@@ -234,7 +255,7 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
                                                     y={block.position.y}
                                                     name={block.name}
                                                 />;
-                                            case 'logic-one':
+                                            case LOGIC_ONE_BLOCK_TYPE:
                                                 return <LogicOne
                                                     id={block.id}
                                                     key={block.id}
@@ -242,7 +263,7 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
                                                     y={block.position.y}
                                                     name={block.name}
                                                 />;
-                                            case 'logic-zero':
+                                            case LOGIC_ZERO_BLOCK_TYPE:
                                                 return <LogicZero
                                                     id={block.id}
                                                     key={block.id}
@@ -250,7 +271,7 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
                                                     y={block.position.y}
                                                     name={block.name}
                                                 />;
-                                            case 'rom':
+                                            case ROM_BLOCK_TYPE:
                                                 return <Rom
                                                     id={block.id}
                                                     key={block.id}
@@ -258,7 +279,7 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
                                                     y={block.position.y}
                                                     name={block.name}
                                                 />;
-                                            case 'ram':
+                                            case RAM_BLOCK_TYPE:
                                                 return <Ram
                                                     id={block.id}
                                                     key={block.id}
@@ -266,7 +287,7 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
                                                     y={block.position.y}
                                                     name={block.name}
                                                 />;
-                                            case 'sum':
+                                            case SUM_BLOCK_TYPE:
                                                 return <Sum
                                                     id={block.id}
                                                     key={block.id}
@@ -274,7 +295,7 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
                                                     y={block.position.y}
                                                     name={block.name}
                                                 />;
-                                            case 'global-sig':
+                                            case GLOBAL_SIG_BLOCK_TYPE:
                                                 return <GlobalSig
                                                     id={block.id}
                                                     key={block.id}
@@ -282,7 +303,7 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
                                                     y={block.position.y}
                                                     name={block.name}
                                                 />;
-                                            case 'instruction-register':
+                                            case INSTRUCTION_REGISTER_BLOCK_TYPE:
                                                 return <InstructionRegister
                                                     id={block.id}
                                                     key={block.id}
@@ -319,16 +340,7 @@ export default function Field({ clkPanelDimensions, fieldDimensions }) {
                             </Layer>
                         </Provider>
                     </Stage>
-                    <Stage
-                        width={clkPanelDimensions.width}
-                        height={clkPanelDimensions.height}
-                    >
-                        <Provider store={store}>
-                            <Layer>
-                                <ClkPanel/>
-                            </Layer>
-                        </Provider>
-                    </Stage>
+                    <ClkPanel/>
                 </Fragment>
             )}
         </ReactReduxContext.Consumer>

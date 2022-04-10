@@ -1,4 +1,4 @@
-import { BLOCK_CONNECTION_SIZE, GLOBAL_SIG_BLOCK_SIZE } from '../../../../globals/globals';
+import { BLOCK_CONNECTION_SIZE, GLOBAL_SIG_BLOCK_WIDTH, GLOBAL_SIG_BLOCK_HEIGHT } from '../../../../globals/globals';
 
 export default function (id) {
     let outputConnections = [
@@ -11,10 +11,10 @@ export default function (id) {
             blockId: id,
         },
     ];
-    const outputConnectionsYOffset = GLOBAL_SIG_BLOCK_SIZE / (outputConnections.length + 1);
+    const outputConnectionsYOffset = GLOBAL_SIG_BLOCK_HEIGHT / (outputConnections.length + 1);
     outputConnections = outputConnections.map((connection, index) => {
         connection.position = {
-            x: GLOBAL_SIG_BLOCK_SIZE - BLOCK_CONNECTION_SIZE,
+            x: GLOBAL_SIG_BLOCK_WIDTH - BLOCK_CONNECTION_SIZE,
             y: (index + 1) * outputConnectionsYOffset - BLOCK_CONNECTION_SIZE / 2
         };
         return connection;

@@ -1,12 +1,12 @@
 import {Group, Rect, Text} from "react-konva";
-import {INSTRUCTION_REGISTER_BLOCK_SIZE} from "../../../../globals/globals";
+import {INSTRUCTION_REGISTER_BLOCK_WIDTH, INSTRUCTION_REGISTER_BLOCK_HEIGHT} from "../../../../globals/globals";
 
 export default function StateDisplayRectangle({ state }) {
     const height = 50;
     const width = 100;
 
   return (
-    <Group x={INSTRUCTION_REGISTER_BLOCK_SIZE / 2 - width / 2} y={INSTRUCTION_REGISTER_BLOCK_SIZE / 2 - height / 2}>
+    <Group x={INSTRUCTION_REGISTER_BLOCK_WIDTH / 2 - width / 2} y={INSTRUCTION_REGISTER_BLOCK_HEIGHT / 2 - height / 2}>
       <Rect
         x={0}
         y={0}

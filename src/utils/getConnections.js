@@ -8,25 +8,38 @@ import SumConnections from '../components/field/logic-blocks/sum/connections';
 import globalSigConnections from '../components/field/logic-blocks/global-sig/connections';
 import instructionRegisterConnections from '../components/field/logic-blocks/instruction-register/connections';
 
+import {
+    REGISTER_BLOCK_TYPE,
+    INC_BLOCK_TYPE,
+    LOGIC_ONE_BLOCK_TYPE,
+    LOGIC_ZERO_BLOCK_TYPE,
+    ROM_BLOCK_TYPE,
+    RAM_BLOCK_TYPE,
+    SUM_BLOCK_TYPE,
+    GLOBAL_SIG_BLOCK_TYPE,
+    INSTRUCTION_REGISTER_BLOCK_TYPE,
+} from "../globals/globals";
+
+
 export default function(type, id) {
     switch(type.toLowerCase()) {
-        case 'register':
+        case REGISTER_BLOCK_TYPE:
             return registerConnections(id);
-        case 'inc':
+        case INC_BLOCK_TYPE:
             return incConnections(id);
-        case 'logic-one':
+        case LOGIC_ONE_BLOCK_TYPE:
             return logicOneConnections(id);
-        case 'logic-zero':
+        case LOGIC_ZERO_BLOCK_TYPE:
             return logicZeroConnections(id);
-        case 'rom':
+        case ROM_BLOCK_TYPE:
             return RomConnections(id);
-        case 'ram':
+        case RAM_BLOCK_TYPE:
             return RamConnections(id);
-        case 'sum':
+        case SUM_BLOCK_TYPE:
             return SumConnections(id);
-        case 'global-sig':
+        case GLOBAL_SIG_BLOCK_TYPE:
             return globalSigConnections(id);
-        case 'instruction-register':
+        case INSTRUCTION_REGISTER_BLOCK_TYPE:
             return instructionRegisterConnections(id);
     }
 }

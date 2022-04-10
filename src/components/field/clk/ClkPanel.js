@@ -1,12 +1,13 @@
-import {Line, Group, Text, Rect} from 'react-konva';
-import { useEffect, useState} from "react";
+import {Line, Group, Text, Rect, Layer, Stage} from 'react-konva';
+import { useEffect, useState } from "react";
 import { setClk as setClkToStorage } from "../../../store/slices/clkSlice";
-import {useDispatch, useSelector} from "react-redux";
+import {Provider, useDispatch, useSelector, ReactReduxContext} from "react-redux";
 import BeforeRisingEdge  from './BeforeRisingEdge';
 import { STOP_CLK_STATE } from "../../../globals/clkStates";
 import { incrementClkPosition } from '../../../store/slices/clkSlice';
+import { CLK_PANEL_WIDTH, CLK_PANEL_HEIGHT} from "../../../globals/globals";
 
-const CLK_PERIOD = 6000;
+const CLK_PERIOD = 1000;
 
 export default function ClkPanel() {
     const dispatch = useDispatch();
@@ -66,36 +67,49 @@ export default function ClkPanel() {
     }, [clk]);
 
     return (
-        <Group
-            strokeWidth={1} // border width
-            stroke="red" // border color
-        >
-            <Rect
-                x={0}
-                y={0}
-                width={window.innerWidth}
-                height={70}
-                stroke='black'
-                strokeWidth={3}
-                fill={'transparent'}
-            />
-            <Line
-                points={linePoints}
-                stroke='black'
-                strokeWidth={3}
-                lineCap='round'
-                lineJoin='round'
-                id='clk'
-            />
-            <Text
-                x={15}
-                y={35}
-                text='Clk'
-                fontSize={16}
-                fontFamily='Calibri'
-                fill='black'
-            />
-            <BeforeRisingEdge clk={clk}/>
-        </Group>
+        <ReactReduxContext.Consumer>
+            {({ store }) => (
+                <Stage
+                    width={CLK_PANEL_WIDTH}
+                    height={CLK_PANEL_HEIGHT}
+                >
+                    <Provider store={store}>
+                        <Layer>
+                            <Group
+                                strokeWidth={1} // border width
+                                stroke="red" // border color
+                            >
+                                <Rect
+                                    x={0}
+                                    y={0}
+                                    width={window.innerWidth}
+                                    height={70}
+                                    stroke='black'
+                                    strokeWidth={3}
+                                    fill={'transparent'}
+                                />
+                                <Line
+                                    points={linePoints}
+                                    stroke='black'
+                                    strokeWidth={3}
+                                    lineCap='round'
+                                    lineJoin='round'
+                                    id='clk'
+                                />
+                                <Text
+                                    x={15}
+                                    y={35}
+                                    text='Clk'
+                                    fontSize={16}
+                                    fontFamily='Calibri'
+                                    fill='black'
+                                />
+                                <BeforeRisingEdge clk={clk}/>
+                            </Group>
+                        </Layer>
+                    </Provider>
+                </Stage>
+            )}
+        </ReactReduxContext.Consumer>
     );
 }

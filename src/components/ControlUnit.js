@@ -33,12 +33,12 @@ export default function ControlUnit() {
     useEffect(() => {
         if (clkPosition === 7) {
             dispatch(updateGlobalSignal({
-                signalName: 'romEn',
-                value: 0,
-            }));
-            dispatch(updateGlobalSignal({
                 signalName: 'instRegEn',
                 value: 1,
+            }));
+            dispatch(updateGlobalSignal({
+                signalName: 'romEn',
+                value: 0,
             }));
         }
         if (clkPosition === 11) {

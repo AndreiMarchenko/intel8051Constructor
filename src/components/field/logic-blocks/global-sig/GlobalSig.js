@@ -1,6 +1,6 @@
 import Block from "../../Block";
 
-import {GLOBAL_SIG_BLOCK_SIZE, GLOBAL_SIG_BLOCK_COLOR} from "../../../../globals/globals";
+import {GLOBAL_SIG_BLOCK_WIDTH, GLOBAL_SIG_BLOCK_HEIGHT, GLOBAL_SIG_BLOCK_COLOR} from "../../../../globals/globals";
 import getConnections from './connections';
 import {useSelector, useDispatch} from "react-redux";
 import {useEffect, useState} from "react";
@@ -45,7 +45,7 @@ export default function GlobalSig({id, x, y, name}) {
         <Text
             x={0}
             y={0}
-            text={name ?? 'GlobalSig'}
+            text={name}
             fontSize={22}
             fontFamily='Calibri'
             fill='black'
@@ -57,12 +57,11 @@ export default function GlobalSig({id, x, y, name}) {
             id={id}
             x={x}
             y={y}
-            width={GLOBAL_SIG_BLOCK_SIZE}
-            height={GLOBAL_SIG_BLOCK_SIZE}
+            width={GLOBAL_SIG_BLOCK_WIDTH}
+            height={GLOBAL_SIG_BLOCK_HEIGHT}
             connections={connections}
             slot={slot}
             color={GLOBAL_SIG_BLOCK_COLOR}
-            name="Inc"
         />
     );
 }
