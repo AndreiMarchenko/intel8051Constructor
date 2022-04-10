@@ -60,7 +60,7 @@ export default function Rom({id, x, y, name}) {
             <Text
                 x={70}
                 y={10}
-                text={name ?? 'Rom'}
+                text={name}
                 fontSize={22}
                 fontFamily='Calibri'
                 fill='black'
@@ -110,7 +110,6 @@ export default function Rom({id, x, y, name}) {
             connections={getConnections(id)}
             slot={slot}
             color={ROM_BLOCK_COLOR}
-            name="Rom"
         />
     );
 }

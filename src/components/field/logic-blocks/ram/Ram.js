@@ -71,7 +71,7 @@ export default function Ram({id, x, y, name}) {
             <Text
                 x={70}
                 y={10}
-                text={name ?? 'Ram'}
+                text={name}
                 fontSize={22}
                 fontFamily='Calibri'
                 fill='black'
@@ -121,7 +121,6 @@ export default function Ram({id, x, y, name}) {
             connections={getConnections(id)}
             slot={slot}
             color={RAM_BLOCK_COLOR}
-            name="Ram"
         />
     );
 }

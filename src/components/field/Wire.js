@@ -170,6 +170,7 @@ export default function Wire({points, id}) {
     }, [wireFromBlock, wireFromWire, wireToBlock, wireToWire]);
 
     const handleWireClick = event => {
+        const position = event.target.getLayer().getRelativePointerPosition();
         if (globalState === STATES.DELETING || !wire) {
             return;
         }
@@ -177,8 +178,8 @@ export default function Wire({points, id}) {
 
         const connectionId = `wire.${id}.` + (wireConnections.length ? wireConnections.length + 1 : 0);
 
-        const x = event.evt.clientX - 170;
-        const y = event.evt.clientY - 80;
+        const x = position.x;
+        const y = position.y;
 
         let connectionIndex;
         let firstPartToLengthRatio;

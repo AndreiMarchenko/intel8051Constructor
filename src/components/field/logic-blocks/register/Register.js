@@ -1,7 +1,7 @@
 import Block from "../../Block";
 import StateDisplayRectangle from "./StateDisplayRectangle";
 
-import {REGISTER_BLOCK_SIZE, REGISTER_BLOCK_COLOR} from "../../../../globals/globals";
+import {REGISTER_BLOCK_WIDTH, REGISTER_BLOCK_HEIGHT, REGISTER_BLOCK_COLOR} from "../../../../globals/globals";
 import getConnections from './connections';
 import {useSelector, useDispatch} from "react-redux";
 import {Fragment, useEffect, useState} from "react";
@@ -55,7 +55,7 @@ export default function Register({id, x, y, name}) {
           <Text
               x={0}
               y={0}
-              text={name ?? 'Register'}
+              text={name}
               fontSize={22}
               fontFamily='Calibri'
               fill='black'
@@ -68,12 +68,11 @@ export default function Register({id, x, y, name}) {
             id={id}
             x={x}
             y={y}
-            width={REGISTER_BLOCK_SIZE}
-            height={REGISTER_BLOCK_SIZE}
+            width={REGISTER_BLOCK_WIDTH}
+            height={REGISTER_BLOCK_HEIGHT}
             connections={connections}
             slot={slot}
             color={REGISTER_BLOCK_COLOR}
-            name="Register"
         />
     );
 }

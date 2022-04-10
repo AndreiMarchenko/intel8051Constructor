@@ -1,4 +1,4 @@
-import { BLOCK_CONNECTION_SIZE, INC_BLOCK_SIZE } from '../../../../globals/globals';
+import { BLOCK_CONNECTION_SIZE, INC_BLOCK_WIDTH, INC_BLOCK_HEIGHT } from '../../../../globals/globals';
 
 export default function (id) {
     let inputConnections = [
@@ -22,8 +22,8 @@ export default function (id) {
         },
     ];
 
-    const inputConnectionsYOffset = INC_BLOCK_SIZE / (inputConnections.length + 1);
-    const outputConnectionsYOffset = INC_BLOCK_SIZE / (outputConnections.length + 1);
+    const inputConnectionsYOffset = INC_BLOCK_HEIGHT / (inputConnections.length + 1);
+    const outputConnectionsYOffset = INC_BLOCK_HEIGHT / (outputConnections.length + 1);
 
     inputConnections = inputConnections.map((connection, index) => {
         connection.position = {
@@ -35,7 +35,7 @@ export default function (id) {
 
     outputConnections = outputConnections.map((connection, index) => {
         connection.position = {
-            x: INC_BLOCK_SIZE - BLOCK_CONNECTION_SIZE,
+            x: INC_BLOCK_WIDTH - BLOCK_CONNECTION_SIZE,
             y: (index + 1) * outputConnectionsYOffset - BLOCK_CONNECTION_SIZE / 2
         };
         return connection;
