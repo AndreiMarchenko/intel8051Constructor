@@ -36,7 +36,7 @@ export default function Sum({id, x, y, name}) {
             if (oEnWire.payload === 1) {
                 dispatch(updateWirePayload({
                     id: outWire.id,
-                    payload: in1Wire.payload + in2Wire.payload,
+                    payload: +in1Wire.payload + +in2Wire.payload,
                 }));
             }
 

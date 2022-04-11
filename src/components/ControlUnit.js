@@ -97,6 +97,14 @@ export default function ControlUnit() {
                     signalName: 'rvhEn',
                     value: 1,
                 }));
+                dispatch(updateGlobalSignal({
+                    signalName: 'ramEn',
+                    value: 0,
+                }));
+                dispatch(updateGlobalSignal({
+                    signalName: 'ramRnW',
+                    value: 0,
+                }));
             }
 
             if (clkPosition === 35) {
@@ -133,6 +141,9 @@ export default function ControlUnit() {
             }
 
             if (clkPosition === 47) {
+            }
+
+            if (clkPosition === 51) {
                 dispatch(updateGlobalSignal({
                     signalName: 'accumEn',
                     value: 1,
@@ -143,7 +154,7 @@ export default function ControlUnit() {
                 }));
             }
 
-            if (clkPosition === 51) {
+            if (clkPosition === 55) {
                 dispatch(updateGlobalSignal({
                     signalName: 'accumEn',
                     value: 0,

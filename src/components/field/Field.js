@@ -189,7 +189,8 @@ export default function Field() {
                 type: globalStatePayload.blockType,
                 name: BLOCK_TYPE_NAME_MAP[globalStatePayload.blockType],
                 position: {x: 100, y: 100},
-                connections: getConnections(globalStatePayload.blockType, lastBlockId)
+                connections: getConnections(globalStatePayload.blockType, lastBlockId),
+                payload: 0,
             }));
         }
     }, [globalState, globalStatePayload]);

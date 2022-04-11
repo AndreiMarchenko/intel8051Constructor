@@ -70,7 +70,12 @@ export const wireSlice = createSlice({
             }
 
             const wireFrom = state.wires.find(wire => wire.id === firstConnection.split('.')[1]);
-            const globalId = firstConnection.includes('wire') ? wireFrom.globalId : state.wires.length.toString();
+            const wireTo = state.wires.find(wire => wire.id === secondConnection.id?.split('.')[1]);
+            let globalId = firstConnection.includes('wire') ? wireFrom.globalId : state.wires.length.toString();
+
+            if (wireTo) {
+                globalId = secondConnection.id.includes('wire') ? wireTo.globalId : globalId;
+            }
 
             let destinationPoint = null;
             if (secondBlock) {

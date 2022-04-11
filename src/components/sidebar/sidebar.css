@@ -20,6 +20,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    margin-bottom: 30px;
 }
 
 .block-name__title {
@@ -31,6 +32,15 @@
     display: block;
 }
 
+.register-state__title {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.register-state__input {
+    display: block;
+}
+
 .clk-buttons {
     height: 100%;
     display: flex;
@@ -39,10 +49,6 @@
     margin-bottom: 5px;
 }
 
-.clk-stop {
-    margin: 0 5px 5px;
-}
-
-.clk-start {
+.clk-button {
     margin: 0 5px 5px;
 }

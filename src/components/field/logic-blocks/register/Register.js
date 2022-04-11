@@ -6,11 +6,13 @@ import getConnections from './connections';
 import {useSelector, useDispatch} from "react-redux";
 import {Fragment, useEffect, useState} from "react";
 import {updateWirePayload} from "../../../../store/slices/wireSlice";
+import { changeBlockPayload } from "../../../../store/slices/blockSlice";
 import {Text} from "react-konva";
 
 export default function Register({id, x, y, name}) {
     const dispatch = useDispatch();
     const clk = useSelector(state => state.clkReducer.clk);
+    const block = useSelector(state => state.blockReducer.blocks.find(block => block.id === id));
     const connections = getConnections(id);
     const wires = useSelector(state => state.wireReducer.wires.filter(wire => {
             return wire.connections.find(connection => {
@@ -19,7 +21,18 @@ export default function Register({id, x, y, name}) {
         })
     );
 
-    const [state, setState] = useState(1);
+    const [state, setState] = useState(0);
+
+    useEffect(() => {
+        changeBlockPayload({
+            blockId: id,
+            payload: state,
+        });
+    }, [state]);
+
+    useEffect(() => {
+        setState(block.payload);
+    }, [block]);
 
     useEffect(() => {
         if (clk === 1) {

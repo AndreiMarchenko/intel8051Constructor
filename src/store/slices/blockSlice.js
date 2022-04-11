@@ -74,6 +74,10 @@ export const blockSlice = createSlice({
             const block = state.blocks.find(block => block.id === action.payload.blockId);
             block.position = action.payload.position;
         },
+        changeBlockPayload: (state, action) => {
+            const block = state.blocks.find(block => block.id === action.payload.blockId);
+            block.payload = action.payload.payload;
+        },
         changeBlockConnection: (state, action) => {
             let blockIndex = state.blocks.findIndex(block => block.id === action.payload.blockId);
             const changedConnection = state.blocks[blockIndex].connections.find(connection => {
@@ -122,6 +126,7 @@ export const blockSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {
     changeBlockPosition,
+    changeBlockPayload,
     setBlockToStorage,
     changeBlockConnection,
     deleteBlock,

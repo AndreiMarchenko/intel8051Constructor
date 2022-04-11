@@ -10,11 +10,12 @@ import {updateWirePayload} from "../../../../store/slices/wireSlice";
 import { cloneDeep } from 'lodash';
 
 export default function Ram({id, x, y, name}) {
-    const ramData = fill(Array(100), '0');
+    const ramSize = 100;
+    const ramData = fill(Array(ramSize), '0');
     ramData[12] = 5;
 
     let [lines, setLines] = useState(ramData);
-    let [currentLineNumber, setCurrentLineNumber] = useState(1);
+    let [currentLineNumber, setCurrentLineNumber] = useState(2);
 
     let [raoAddr, setRaoAddr] = useState(0);
 
@@ -63,7 +64,16 @@ export default function Ram({id, x, y, name}) {
     }, [clk]);
 
     const handleLineNumberInput = event => {
-        setCurrentLineNumber(+event.target.value);
+        console.log(event.target.value);
+        if (+event.target.value + 1 >= ramSize) {
+            event.target.value = ramSize - 2;
+        }
+
+        if (+event.target.value - 1 < 0) {
+            event.target.value = 1;
+        }
+
+        setCurrentLineNumber(isNaN(+event.target.value) ? 1: +event.target.value);
     };
 
     const slot = (
@@ -82,7 +92,7 @@ export default function Ram({id, x, y, name}) {
                     marginLeft: '20px',
                 },
             }}>
-                <input type={'text'} value={currentLineNumber} onInput={handleLineNumberInput} />
+                <input type={'text'} value={currentLineNumber} onInput={handleLineNumberInput}/>
             </Html>
             <Text
                 x={50}

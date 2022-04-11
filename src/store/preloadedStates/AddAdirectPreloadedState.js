@@ -10,14 +10,14 @@ export default {
                 ],
                 payload: 'z',
                 path: [
-                    447,
-                    201,
-                    574,
-                    203,
-                    570,
-                    120,
-                    873,
-                    122
+                    354.00028941979525,
+                    195,
+                    499.0009137656428,
+                    200,
+                    498.0009119453925,
+                    108,
+                    963.0017437997725,
+                    110
                 ]
             },
             {
@@ -29,12 +29,12 @@ export default {
                 ],
                 payload: 'z',
                 path: [
-                    573,
-                    202,
-                    574,
-                    474,
-                    1712,
-                    467
+                    464.7450610288844,
+                    203.64635573419577,
+                    457.00083731513087,
+                    520,
+                    1503.0027267349262,
+                    527
                 ]
             },
             {
@@ -46,12 +46,12 @@ export default {
                 ],
                 payload: 'z',
                 path: [
-                    575.4141868086496,
-                    473.9913011356234,
-                    577,
-                    618,
-                    654.0004295790671,
-                    613
+                    463.00082220429516,
+                    525.0066920473997,
+                    462.0008464163823,
+                    604,
+                    548.0009883959044,
+                    606
                 ]
             },
             {
@@ -63,12 +63,12 @@ export default {
                 ],
                 payload: 'z',
                 path: [
-                    577.9978983859806,
-                    617.9352017650137,
-                    582,
-                    822,
-                    653.000429579067,
-                    812
+                    468.41468285553304,
+                    609.0328798629074,
+                    465.00085187713313,
+                    772,
+                    546.0009847554039,
+                    770
                 ]
             },
             {
@@ -80,14 +80,14 @@ export default {
                 ],
                 payload: 'z',
                 path: [
-                    744.0004295790671,
-                    638,
-                    823,
-                    639,
-                    824,
-                    710,
-                    963.0004368600682,
-                    707.5
+                    638.0009883959044,
+                    631,
+                    708.0012941979522,
+                    629,
+                    708.0012941979522,
+                    687,
+                    797.0014416382254,
+                    689.5
                 ]
             },
             {
@@ -99,31 +99,31 @@ export default {
                 ],
                 payload: 'z',
                 path: [
-                    743.000429579067,
-                    837,
-                    812,
-                    837,
-                    820,
-                    734,
-                    963.0004368600682,
-                    730
+                    636.0009847554039,
+                    795,
+                    692.0012650739477,
+                    795,
+                    692.0012650739477,
+                    710,
+                    797.0014416382254,
+                    712
                 ]
             },
             {
                 id: '6',
                 globalId: '0',
                 connections: [
-                    'wire.1.4',
-                    '5.out'
+                    '5.out',
+                    'wire.1.4'
                 ],
                 payload: 'z',
                 path: [
-                    1102.9984989028476,
-                    470.7460549276626,
-                    1093,
-                    735,
-                    1043.0004368600682,
-                    730
+                    877.0014416382254,
+                    712,
+                    917.0016746302617,
+                    712,
+                    923.0011094581788,
+                    528.0850822906174
                 ]
             },
             {
@@ -135,46 +135,46 @@ export default {
                 ],
                 payload: 'z',
                 path: [
-                    1220.0001626883688,
-                    470.026361037945,
-                    1228,
-                    693,
-                    1324.0003931740612,
-                    686
+                    1012.0122438022798,
+                    528.6807580219054,
+                    1015.0018530147896,
+                    682,
+                    1091.0019767918088,
+                    683
                 ]
             },
             {
                 id: '8',
                 globalId: '0',
                 connections: [
-                    'wire.1.6',
-                    '6.q'
+                    '6.q',
+                    'wire.1.6'
                 ],
                 payload: 'z',
                 path: [
-                    1492.0093210756654,
-                    468.3531939828386,
-                    1487,
-                    717,
-                    1414.0003931740612,
-                    711
+                    1181.0019767918088,
+                    708,
+                    1252.002284414107,
+                    705,
+                    1247.0006062749799,
+                    530.2533350448983
                 ]
             },
             {
                 id: '9',
                 globalId: '0',
                 connections: [
-                    'wire.1.7',
-                    '1.data'
+                    '1.data',
+                    'wire.1.7'
                 ],
                 payload: 'z',
                 path: [
-                    1343.0088584815594,
-                    469.26971703921714,
-                    1328,
-                    205,
-                    1063,
-                    212
+                    1153.0017437997726,
+                    200,
+                    1304.0023790671219,
+                    200,
+                    1329.9973762771072,
+                    530.8087617567346
                 ]
             },
             {
@@ -184,12 +184,16 @@ export default {
                     '7.out',
                     '0.inc'
                 ],
-                payload: 'z',
+                payload: 0,
                 path: [
-                    111,
-                    127,
-                    257,
-                    151
+                    75.00001820250284,
+                    48,
+                    117.00021843003414,
+                    47,
+                    115.00021478953357,
+                    144,
+                    164.00028941979525,
+                    145
                 ]
             },
             {
@@ -199,12 +203,12 @@ export default {
                     '8.out',
                     '0.en'
                 ],
-                payload: 'z',
+                payload: 1,
                 path: [
-                    107,
-                    267,
-                    257,
-                    251
+                    73.00001456200228,
+                    248,
+                    164.00028941979525,
+                    245
                 ]
             },
             {
@@ -214,12 +218,12 @@ export default {
                     '9.out',
                     '1.readAddr'
                 ],
-                payload: 'z',
+                payload: 0,
                 path: [
-                    702,
-                    188,
-                    873,
-                    182
+                    728.0012068259385,
+                    161,
+                    963.0017437997725,
+                    170
                 ]
             },
             {
@@ -229,12 +233,12 @@ export default {
                     '10.out',
                     '1.en'
                 ],
-                payload: 'z',
+                payload: 0,
                 path: [
-                    701,
-                    272,
-                    873,
-                    242
+                    731.0012122866895,
+                    247,
+                    963.0017437997725,
+                    230
                 ]
             },
             {
@@ -244,16 +248,12 @@ export default {
                     '11.out',
                     '1.r/!w'
                 ],
-                payload: 'z',
+                payload: 0,
                 path: [
-                    707,
-                    373,
-                    770,
-                    374,
-                    770,
-                    308,
-                    873,
-                    302
+                    736.0012213879409,
+                    347,
+                    963.0017437997725,
+                    290
                 ]
             },
             {
@@ -261,18 +261,14 @@ export default {
                 globalId: '15',
                 connections: [
                     '12.out',
-                    '2.en'
+                    '3.en'
                 ],
-                payload: 'z',
+                payload: 0,
                 path: [
-                    1611,
-                    650,
-                    1660,
-                    649,
-                    1660,
-                    527,
-                    1712,
-                    517
+                    277.0003858930603,
+                    633,
+                    548.0009883959044,
+                    631
                 ]
             },
             {
@@ -280,14 +276,14 @@ export default {
                 globalId: '16',
                 connections: [
                     '13.out',
-                    '3.en'
+                    '4.en'
                 ],
-                payload: 'z',
+                payload: 0,
                 path: [
-                    425,
-                    645,
-                    654.0004295790671,
-                    638
+                    280.00039135381115,
+                    795,
+                    546.0009847554039,
+                    795
                 ]
             },
             {
@@ -295,14 +291,18 @@ export default {
                 globalId: '17',
                 connections: [
                     '14.out',
-                    '4.en'
+                    '6.en'
                 ],
-                payload: 'z',
+                payload: 0,
                 path: [
-                    431.99999817974975,
-                    845,
-                    653.000429579067,
-                    837
+                    927.0015690557452,
+                    822,
+                    985.0017984072811,
+                    823,
+                    984.0017965870308,
+                    710,
+                    1091.0019767918088,
+                    708
                 ]
             },
             {
@@ -310,18 +310,18 @@ export default {
                 globalId: '18',
                 connections: [
                     '15.out',
-                    '5.oEn'
+                    '6.oEn'
                 ],
-                payload: 'z',
+                payload: 0,
                 path: [
-                    870,
-                    931,
-                    909,
-                    929,
-                    902,
-                    754,
-                    963.0004368600682,
-                    752.5
+                    930.001574516496,
+                    913,
+                    1028.0018766780433,
+                    912,
+                    1028.0018766780433,
+                    737,
+                    1091.0019767918088,
+                    733
                 ]
             },
             {
@@ -329,18 +329,18 @@ export default {
                 globalId: '19',
                 connections: [
                     '16.out',
-                    '6.en'
+                    '2.en'
                 ],
-                payload: 'z',
+                payload: 0,
                 path: [
-                    1168,
-                    795,
-                    1215,
-                    794,
-                    1220,
-                    713,
-                    1324.0003931740612,
-                    711
+                    1355.002348122867,
+                    668,
+                    1415.0025811149033,
+                    665,
+                    1409.0025701934017,
+                    577,
+                    1503.0027267349262,
+                    577
                 ]
             },
             {
@@ -348,91 +348,91 @@ export default {
                 globalId: '20',
                 connections: [
                     '17.out',
-                    '6.oEn'
+                    '5.oEn'
                 ],
                 payload: 'z',
                 path: [
-                    1210,
-                    892,
-                    1260,
-                    893,
-                    1264,
-                    740,
-                    1324.0003931740612,
-                    736
+                    631.001030261661,
+                    923,
+                    718.001312400455,
+                    924,
+                    722.0013196814563,
+                    737,
+                    797.0014416382254,
+                    734.5
                 ]
             }
         ],
             wireConnections: [
             {
                 position: {
-                    x: 573,
-                    y: 202
+                    x: 459.7450610288844,
+                    y: 198.64635573419577
                 },
                 id: 'wire.0.0',
                 wireId: '0',
-                connectionIndex: 2,
-                firstPartToLengthRatio: 0.017018965440026172
+                connectionIndex: 0,
+                firstPartToLengthRatio: 0.7292711468391508
             },
             {
                 position: {
-                    x: 575.4141868086496,
-                    y: 473.9913011356234
+                    x: 458.00082220429516,
+                    y: 520.0066920473997
                 },
                 id: 'wire.1.2',
                 wireId: '1',
                 connectionIndex: 2,
-                firstPartToLengthRatio: 0.0012426949109399
+                firstPartToLengthRatio: 0.0009560067713825812
             },
             {
                 position: {
-                    x: 577.9978983859806,
-                    y: 617.9352017650137
+                    x: 463.41468285553304,
+                    y: 604.0328798629074
                 },
                 id: 'wire.2.3',
                 wireId: '2',
                 connectionIndex: 2,
-                firstPartToLengthRatio: 0.012959646997240592
+                firstPartToLengthRatio: 0.016439931453687873
             },
             {
                 position: {
-                    x: 1102.9984989028476,
-                    y: 470.7460549276626
+                    x: 918.0011094581788,
+                    y: 523.0850822906174
                 },
                 id: 'wire.1.4',
                 wireId: '1',
                 connectionIndex: 2,
-                firstPartToLengthRatio: 0.4648492960481965
+                firstPartToLengthRatio: 0.44072604151676936
             },
             {
                 position: {
-                    x: 1220.0001626883688,
-                    y: 470.026361037945
+                    x: 1007.0122438022798,
+                    y: 523.6807580219054
                 },
                 id: 'wire.1.5',
                 wireId: '1',
                 connectionIndex: 2,
-                firstPartToLengthRatio: 0.567662708864999
+                firstPartToLengthRatio: 0.5258225745579042
             },
             {
                 position: {
-                    x: 1492.0093210756654,
-                    y: 468.3531939828386
+                    x: 1242.0006062749799,
+                    y: 525.2533350448983
                 },
                 id: 'wire.1.6',
                 wireId: '1',
                 connectionIndex: 2,
-                firstPartToLengthRatio: 0.8066865738801982
+                firstPartToLengthRatio: 0.7504764349854846
             },
             {
                 position: {
-                    x: 1343.0088584815594,
-                    y: 469.26971703921714
+                    x: 1324.9973762771072,
+                    y: 525.8087617567346
                 },
                 id: 'wire.1.7',
                 wireId: '1',
                 connectionIndex: 2,
-                firstPartToLengthRatio: 0.6757547086832683
+                firstPartToLengthRatio: 0.8298231081049419
             }
         ],
             activeConnection: null,
@@ -446,8 +446,8 @@ export default {
                 type: 'rom',
                 name: 'Rom',
                 position: {
-                    x: 257,
-                    y: 56
+                    x: 159.00028941979525,
+                    y: 45
                 },
                 connections: [
                     {
@@ -483,15 +483,16 @@ export default {
                             y: 145
                         }
                     }
-                ]
+                ],
+                payload: 0
             },
             {
                 id: '1',
                 type: 'ram',
                 name: 'Ram',
                 position: {
-                    x: 873,
-                    y: 67
+                    x: 958.0017437997725,
+                    y: 50
                 },
                 connections: [
                     {
@@ -549,15 +550,16 @@ export default {
                             y: 145
                         }
                     }
-                ]
+                ],
+                payload: 0
             },
             {
                 id: '2',
                 type: 'instruction-register',
                 name: 'Instr. Reg.',
                 position: {
-                    x: 1712,
-                    y: 422
+                    x: 1498.0027267349262,
+                    y: 477
                 },
                 connections: [
                     {
@@ -574,7 +576,7 @@ export default {
                     {
                         id: '2.en',
                         name: 'en',
-                        connectedTo: '15',
+                        connectedTo: '19',
                         type: 'in',
                         blockId: 2,
                         position: {
@@ -582,15 +584,16 @@ export default {
                             y: 95
                         }
                     }
-                ]
+                ],
+                payload: 0
             },
             {
                 id: '3',
                 type: 'register',
                 name: 'rvh',
                 position: {
-                    x: 654.0004295790671,
-                    y: 593
+                    x: 543.0009883959044,
+                    y: 581
                 },
                 connections: [
                     {
@@ -607,7 +610,7 @@ export default {
                     {
                         id: '3.en',
                         name: 'en',
-                        connectedTo: '16',
+                        connectedTo: '15',
                         type: 'in',
                         blockId: 3,
                         position: {
@@ -638,15 +641,16 @@ export default {
                             y: 45
                         }
                     }
-                ]
+                ],
+                payload: 0
             },
             {
                 id: '4',
                 type: 'register',
                 name: 'regAcc',
                 position: {
-                    x: 653.000429579067,
-                    y: 792
+                    x: 541.0009847554039,
+                    y: 745
                 },
                 connections: [
                     {
@@ -663,7 +667,7 @@ export default {
                     {
                         id: '4.en',
                         name: 'en',
-                        connectedTo: '17',
+                        connectedTo: '16',
                         type: 'in',
                         blockId: 4,
                         position: {
@@ -694,15 +698,16 @@ export default {
                             y: 45
                         }
                     }
-                ]
+                ],
+                payload: 0
             },
             {
                 id: '5',
                 type: 'sum',
                 name: 'Sum',
                 position: {
-                    x: 963.0004368600682,
-                    y: 690
+                    x: 792.0014416382254,
+                    y: 667
                 },
                 connections: [
                     {
@@ -730,7 +735,7 @@ export default {
                     {
                         id: '5.oEn',
                         name: 'oEn',
-                        connectedTo: '18',
+                        connectedTo: '20',
                         type: 'in',
                         blockId: 5,
                         position: {
@@ -749,15 +754,16 @@ export default {
                             y: 40
                         }
                     }
-                ]
+                ],
+                payload: 0
             },
             {
                 id: '6',
                 type: 'register',
-                name: 'accum',
+                name: 'Accum',
                 position: {
-                    x: 1324.0003931740612,
-                    y: 666
+                    x: 1086.0019767918088,
+                    y: 658
                 },
                 connections: [
                     {
@@ -774,7 +780,7 @@ export default {
                     {
                         id: '6.en',
                         name: 'en',
-                        connectedTo: '19',
+                        connectedTo: '17',
                         type: 'in',
                         blockId: 6,
                         position: {
@@ -785,7 +791,7 @@ export default {
                     {
                         id: '6.oEn',
                         name: 'oEn',
-                        connectedTo: '20',
+                        connectedTo: '18',
                         type: 'in',
                         blockId: 6,
                         position: {
@@ -804,15 +810,16 @@ export default {
                             y: 45
                         }
                     }
-                ]
+                ],
+                payload: '3'
             },
             {
                 id: '7',
                 type: 'global-sig',
                 name: 'romInc',
                 position: {
-                    x: 51,
-                    y: 97
+                    x: 10.000018202502844,
+                    y: 13
                 },
                 connections: [
                     {
@@ -826,15 +833,16 @@ export default {
                             y: 30
                         }
                     }
-                ]
+                ],
+                payload: 0
             },
             {
                 id: '8',
                 type: 'global-sig',
                 name: 'romEn',
                 position: {
-                    x: 47,
-                    y: 237
+                    x: 8.000014562002276,
+                    y: 213
                 },
                 connections: [
                     {
@@ -848,15 +856,16 @@ export default {
                             y: 30
                         }
                     }
-                ]
+                ],
+                payload: 0
             },
             {
                 id: '9',
                 type: 'global-sig',
                 name: 'ramRdAddr',
                 position: {
-                    x: 642,
-                    y: 158
+                    x: 663.0012068259385,
+                    y: 126
                 },
                 connections: [
                     {
@@ -870,15 +879,16 @@ export default {
                             y: 30
                         }
                     }
-                ]
+                ],
+                payload: 0
             },
             {
                 id: '10',
                 type: 'global-sig',
                 name: 'ramEn',
                 position: {
-                    x: 641,
-                    y: 242
+                    x: 666.0012122866895,
+                    y: 212
                 },
                 connections: [
                     {
@@ -892,15 +902,16 @@ export default {
                             y: 30
                         }
                     }
-                ]
+                ],
+                payload: 0
             },
             {
                 id: '11',
                 type: 'global-sig',
                 name: 'ramRnW',
                 position: {
-                    x: 647,
-                    y: 343
+                    x: 671.0012213879409,
+                    y: 312
                 },
                 connections: [
                     {
@@ -914,15 +925,16 @@ export default {
                             y: 30
                         }
                     }
-                ]
+                ],
+                payload: 0
             },
             {
                 id: '12',
                 type: 'global-sig',
-                name: 'instRegEn',
+                name: 'rvhEn',
                 position: {
-                    x: 1551,
-                    y: 620
+                    x: 212.0003858930603,
+                    y: 598
                 },
                 connections: [
                     {
@@ -936,15 +948,16 @@ export default {
                             y: 30
                         }
                     }
-                ]
+                ],
+                payload: 0
             },
             {
                 id: '13',
                 type: 'global-sig',
-                name: 'rvhEn',
+                name: 'regAccEn',
                 position: {
-                    x: 365,
-                    y: 615
+                    x: 215.00039135381115,
+                    y: 760
                 },
                 connections: [
                     {
@@ -958,15 +971,16 @@ export default {
                             y: 30
                         }
                     }
-                ]
+                ],
+                payload: 0
             },
             {
                 id: '14',
                 type: 'global-sig',
-                name: 'regAccEn',
+                name: 'accumEn',
                 position: {
-                    x: 371.99999817974975,
-                    y: 815
+                    x: 862.0015690557452,
+                    y: 787
                 },
                 connections: [
                     {
@@ -980,15 +994,16 @@ export default {
                             y: 30
                         }
                     }
-                ]
+                ],
+                payload: 0
             },
             {
                 id: '15',
                 type: 'global-sig',
-                name: 'sumEn',
+                name: 'accumOEn',
                 position: {
-                    x: 810,
-                    y: 901
+                    x: 865.001574516496,
+                    y: 878
                 },
                 connections: [
                     {
@@ -1002,15 +1017,16 @@ export default {
                             y: 30
                         }
                     }
-                ]
+                ],
+                payload: 0
             },
             {
                 id: '16',
                 type: 'global-sig',
-                name: 'accumEn',
+                name: 'instRegEn',
                 position: {
-                    x: 1108,
-                    y: 765
+                    x: 1290.002348122867,
+                    y: 633
                 },
                 connections: [
                     {
@@ -1024,15 +1040,16 @@ export default {
                             y: 30
                         }
                     }
-                ]
+                ],
+                payload: 0
             },
             {
                 id: '17',
                 type: 'global-sig',
-                name: 'accumOEn',
+                name: 'sumEn',
                 position: {
-                    x: 1150,
-                    y: 862
+                    x: 566.001030261661,
+                    y: 888
                 },
                 connections: [
                     {
@@ -1046,10 +1063,11 @@ export default {
                             y: 30
                         }
                     }
-                ]
+                ],
+                payload: 0
             }
         ],
-            selectedBlockId: '17',
+            selectedBlockId: null,
             globalSignals: [
             {
                 name: 'romInc',
