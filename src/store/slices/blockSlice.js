@@ -93,6 +93,12 @@ export const blockSlice = createSlice({
             const signal = state.globalSignals.find(signal => signal.blockId === action.payload.blockId);
             signal.value = action.payload.value;
         },
+        changeCommandCode: (state, action) => {
+            state.commands[action.payload.commandIndex].commandCode = action.payload.commandCode;
+            state.globalSignals.forEach(signal => {
+                signal.commands[action.payload.commandIndex].commandCode = action.payload.commandCode;
+            });
+        },
         setCommands: (state, action) => {
             state.commands = action.payload;
             state.commands.forEach(command => {
@@ -129,6 +135,7 @@ export const {
     updateGlobalSignal,
     setCommands,
     setCommandsAmount,
+    changeCommandCode,
 } = blockSlice.actions
 
 export default blockSlice.reducer

@@ -5,461 +5,432 @@ export default {
                 id: '0',
                 globalId: '0',
                 connections: [
-                    '4.q',
-                    '3.in1'
-                ],
-                payload: 5,
-                path: [
-                    617.0009501706486,
-                    601,
-                    647.0011831626849,
-                    600,
-                    650.0011886234357,
-                    677,
-                    856.0015490329919,
-                    683.5
-                ],
-                prevPayload: 5
-            },
-            {
-                id: '1',
-                globalId: '1',
-                connections: [
-                    '5.q',
-                    '3.in2'
-                ],
-                payload: 5,
-                path: [
-                    602.0009228668943,
-                    800,
-                    633.0011576791809,
-                    797,
-                    629.0011503981798,
-                    704,
-                    856.0015490329919,
-                    706
-                ],
-                prevPayload: 5
-            },
-            {
-                id: '2',
-                globalId: '2',
-                connections: [
                     '0.out',
                     '1.addr'
                 ],
-                payload: 10,
+                payload: 'z',
                 path: [
-                    412.0003949943117,
-                    222,
-                    562.0010284414108,
-                    220,
-                    558.0010211604096,
-                    120,
-                    1102.0019968145618,
-                    130
+                    421.0004113765643,
+                    232,
+                    619.001132195677,
+                    229,
+                    615.0011249146758,
+                    117,
+                    1529.0027740614332,
+                    138
+                ]
+            },
+            {
+                id: '1',
+                globalId: '0',
+                connections: [
+                    'wire.0.0',
+                    '3.in'
                 ],
-                prevPayload: 10
+                payload: 'z',
+                path: [
+                    572.9977667735919,
+                    234.7727754506815,
+                    577.001055745165,
+                    542,
+                    1836.0033328782706,
+                    592
+                ]
+            },
+            {
+                id: '2',
+                globalId: '0',
+                connections: [
+                    '1.data',
+                    'wire.1.2'
+                ],
+                payload: 'z',
+                path: [
+                    1719.0027740614332,
+                    228,
+                    1812.0033037542662,
+                    218,
+                    1757.9754967516974,
+                    593.7026335998519
+                ]
             },
             {
                 id: '3',
-                globalId: '2',
+                globalId: '0',
                 connections: [
-                    'wire.2.0',
-                    '2.in'
+                    'wire.1.3',
+                    '5.d'
                 ],
-                payload: 10,
+                payload: 'z',
                 path: [
-                    519.9917831229976,
-                    225.62678729066823,
-                    522.0009556313994,
-                    467,
-                    1374.0025064846418,
-                    482,
-                    1378.0025137656428,
-                    612,
-                    1713.0031089874858,
-                    600
-                ],
-                prevPayload: 10
+                    583.0002753516629,
+                    547.0396829944094,
+                    530.0009701934016,
+                    543,
+                    532.0009738339022,
+                    665,
+                    598.0010794084187,
+                    666
+                ]
             },
             {
                 id: '4',
-                globalId: '2',
+                globalId: '0',
                 connections: [
-                    'wire.3.2',
-                    '4.d'
+                    'wire.3.4',
+                    '6.d'
                 ],
-                payload: 10,
+                payload: 'z',
                 path: [
-                    526.716344255056,
-                    437.8080319164404,
-                    398.00072992036405,
-                    444,
-                    405.00074266211607,
-                    572,
-                    527.0009501706486,
-                    576
-                ],
-                prevPayload: 10
+                    537.0009792940265,
+                    670.000000082729,
+                    530.0009701934016,
+                    833,
+                    599.0010812286689,
+                    830
+                ]
             },
             {
                 id: '5',
-                globalId: '2',
+                globalId: '5',
                 connections: [
-                    'wire.4.3',
-                    '5.d'
+                    '5.q',
+                    '4.in1'
                 ],
-                payload: 10,
+                payload: 'z',
                 path: [
-                    410.0007481199342,
-                    577.0000001789446,
-                    410.0007517633675,
-                    775,
-                    512.0009228668943,
-                    775
-                ],
-                prevPayload: 10
+                    688.0010794084187,
+                    691,
+                    788.001439817975,
+                    685,
+                    790.0014434584756,
+                    740,
+                    898.001625483504,
+                    738.5
+                ]
             },
             {
                 id: '6',
-                globalId: '2',
+                globalId: '6',
                 connections: [
-                    '3.out',
-                    'wire.3.4'
+                    '6.q',
+                    '4.in2'
                 ],
-                payload: 10,
+                payload: 'z',
                 path: [
-                    936.0015490329919,
-                    706,
-                    988.0018038680319,
-                    704,
-                    988.0017893060297,
-                    480
-                ],
-                prevPayload: 10
+                    689.0010812286689,
+                    855,
+                    763.001394311718,
+                    852,
+                    758.0013852104664,
+                    767,
+                    898.001625483504,
+                    761
+                ]
             },
             {
                 id: '7',
-                globalId: '2',
+                globalId: '7',
                 connections: [
-                    'wire.3.5',
-                    '6.d'
+                    '13.out',
+                    '5.en'
                 ],
-                payload: 10,
+                payload: 'z',
                 path: [
-                    1083.0019622298066,
-                    483,
-                    1099.0020059158135,
-                    702,
-                    1168.0021169510808,
-                    703
-                ],
-                prevPayload: 10
+                    365.0005460750853,
+                    695,
+                    598.0010794084187,
+                    691
+                ]
             },
             {
                 id: '8',
-                globalId: '2',
+                globalId: '8',
                 connections: [
-                    '6.q',
-                    'wire.3.6'
+                    '14.out',
+                    '6.en'
                 ],
-                payload: 10,
+                payload: 'z',
                 path: [
-                    1258.0021169510808,
-                    728,
-                    1488.0027139931742,
-                    730,
-                    1485.015667883568,
-                    613.3458039571409
-                ],
-                prevPayload: 10
+                    359.0005351535836,
+                    868,
+                    599.0010812286689,
+                    855
+                ]
             },
             {
                 id: '9',
-                globalId: '2',
+                globalId: '9',
                 connections: [
-                    '1.data',
-                    'wire.3.7'
+                    '15.out',
+                    '4.oEn'
                 ],
-                payload: 10,
+                payload: 'z',
                 path: [
-                    1292.0019968145618,
-                    220,
-                    1374.0025064846418,
-                    219,
-                    1377.0024973833902,
-                    487
-                ],
-                prevPayload: 10
+                    811.0013579067122,
+                    927,
+                    842.0015381114904,
+                    925,
+                    839.0015326507395,
+                    792,
+                    898.001625483504,
+                    783.5
+                ]
             },
             {
                 id: '10',
                 globalId: '10',
                 connections: [
-                    '7.out',
-                    '0.inc'
+                    '16.out',
+                    '7.en'
                 ],
-                payload: 0,
+                payload: 'z',
                 path: [
-                    76.00002002275313,
-                    71,
-                    138.00025665529012,
-                    70,
-                    144.00026757679183,
-                    173,
-                    222.0003949943117,
-                    172
-                ],
-                prevPayload: 0
+                    1062.0018147895335,
+                    888,
+                    1143.002086006826,
+                    889,
+                    1148.0020951080774,
+                    793,
+                    1303.0023626848695,
+                    794
+                ]
             },
             {
                 id: '11',
                 globalId: '11',
                 connections: [
-                    '8.out',
-                    '0.en'
+                    '17.out',
+                    '7.oEn'
                 ],
-                payload: 0,
+                payload: 'z',
                 path: [
-                    80.00002730375427,
-                    286,
-                    222.0003949943117,
-                    272
-                ],
-                prevPayload: 0
+                    1148.001971331058,
+                    975,
+                    1204.0021970420933,
+                    975,
+                    1208.0022043230945,
+                    825,
+                    1303.0023626848695,
+                    819
+                ]
             },
             {
                 id: '12',
-                globalId: '12',
+                globalId: '0',
                 connections: [
-                    '9.out',
-                    '4.en'
+                    '4.out',
+                    'wire.1.5'
                 ],
-                payload: 0,
+                payload: 'z',
                 path: [
-                    226.0002930602958,
-                    611,
-                    527.0009501706486,
-                    601
-                ],
-                prevPayload: 0
+                    978.001625483504,
+                    761,
+                    1073.001958589306,
+                    760,
+                    1082.0076497769114,
+                    566.8572553486686
+                ]
             },
             {
                 id: '13',
                 globalId: '13',
                 connections: [
-                    '10.out',
-                    '5.en'
+                    '18.out',
+                    '3.en'
                 ],
-                payload: 0,
+                payload: 'z',
                 path: [
-                    231.0003021615472,
-                    812,
-                    512.0009228668943,
-                    800
-                ],
-                prevPayload: 0
+                    1706.0029870307167,
+                    851,
+                    1778.0032418657565,
+                    852,
+                    1782.0032491467578,
+                    648,
+                    1836.0033328782706,
+                    642
+                ]
             },
             {
                 id: '14',
-                globalId: '14',
+                globalId: '0',
                 connections: [
-                    '11.out',
-                    '3.oEn'
+                    '7.q',
+                    'wire.1.6'
                 ],
-                payload: 0,
+                payload: 'z',
                 path: [
-                    752.0012505119454,
-                    867,
-                    802.001465301479,
-                    865,
-                    790.0014434584756,
-                    729,
-                    856.0015490329919,
-                    728.5
-                ],
-                prevPayload: 0
+                    1393.0023626848695,
+                    794,
+                    1477.002693970421,
+                    793,
+                    1473.0272602022935,
+                    582.3862030530278
+                ]
             },
             {
                 id: '15',
-                globalId: '15',
+                globalId: '0',
                 connections: [
-                    '12.out',
-                    '6.en'
+                    '7.d',
+                    'wire.1.7'
                 ],
-                payload: 0,
+                payload: 'z',
                 path: [
-                    998.0016982935153,
-                    816,
-                    1049.0019149032992,
-                    817,
-                    1057.0019294653016,
-                    730,
-                    1168.0021169510808,
-                    728
-                ],
-                prevPayload: 0
+                    1303.0023626848695,
+                    769,
+                    1207.0022025028443,
+                    765,
+                    1212.0014099911918,
+                    572.0198258449782
+                ]
             },
             {
                 id: '16',
                 globalId: '16',
                 connections: [
-                    '13.out',
-                    '6.oEn'
+                    '10.out',
+                    '1.readAddr'
                 ],
-                payload: 0,
+                payload: 'z',
                 path: [
-                    998.0016982935153,
-                    911,
-                    1115.002035039818,
-                    905,
-                    1110.0020259385667,
-                    759,
-                    1168.0021169510808,
-                    753
-                ],
-                prevPayload: 0
+                    1222.0021060295792,
+                    216,
+                    1529.0027740614332,
+                    198
+                ]
             },
             {
                 id: '17',
                 globalId: '17',
                 connections: [
-                    '14.out',
-                    '2.en'
+                    '11.out',
+                    '1.en'
                 ],
-                payload: 0,
+                payload: 'z',
                 path: [
-                    1561.0027230944256,
-                    833,
-                    1644.0029979522185,
-                    828,
-                    1642.0029943117179,
-                    650,
-                    1713.0031089874858,
-                    650
-                ],
-                prevPayload: 0
+                    1137.0019513083048,
+                    266,
+                    1529.0027740614332,
+                    258
+                ]
             },
             {
                 id: '18',
                 globalId: '18',
                 connections: [
-                    '15.out',
-                    '1.readAddr'
+                    '12.out',
+                    '1.r/!w'
                 ],
-                payload: 0,
+                payload: 'z',
                 path: [
-                    818.0013706484643,
-                    186,
-                    1102.0019968145618,
-                    190
-                ],
-                prevPayload: 0
+                    1054.0018002275312,
+                    328,
+                    1529.0027740614332,
+                    318
+                ]
             },
             {
                 id: '19',
                 globalId: '19',
                 connections: [
-                    '16.out',
-                    '1.en'
+                    '8.out',
+                    '0.inc'
                 ],
-                payload: 0,
+                payload: 'z',
                 path: [
-                    822.0013779294653,
-                    267,
-                    1102.0019968145618,
-                    250
-                ],
-                prevPayload: 0
+                    93.00005096700797,
+                    132,
+                    231.00041137656427,
+                    182
+                ]
             },
             {
                 id: '20',
                 globalId: '20',
                 connections: [
-                    '17.out',
-                    '1.r/!w'
+                    '9.out',
+                    '0.en'
                 ],
-                payload: 0,
+                payload: 'z',
                 path: [
-                    822.0013779294653,
-                    367,
-                    1102.0019968145618,
-                    310
-                ],
-                prevPayload: 0
+                    95.00005460750853,
+                    295,
+                    231.00041137656427,
+                    282
+                ]
             }
         ],
             wireConnections: [
             {
                 position: {
-                    x: 514.9917831229976,
-                    y: 220.62678729066823
+                    x: 567.9977667735919,
+                    y: 229.7727754506815
                 },
-                id: 'wire.2.0',
-                wireId: '2',
+                id: 'wire.0.0',
+                wireId: '0',
                 connectionIndex: 0,
-                firstPartToLengthRatio: 0.6866063546658824
+                firstPartToLengthRatio: 0.742408183106161
             },
             {
                 position: {
-                    x: 521.716344255056,
-                    y: 432.8080319164404
+                    x: 1752.9754967516974,
+                    y: 588.7026335998519
                 },
-                id: 'wire.3.2',
-                wireId: '3',
-                connectionIndex: 0,
-                firstPartToLengthRatio: 0.8583439823343839
+                id: 'wire.1.2',
+                wireId: '1',
+                connectionIndex: 2,
+                firstPartToLengthRatio: 0.9340526719970379
             },
             {
                 position: {
-                    x: 405.0007481199342,
-                    y: 572.0000001789446
+                    x: 578.0002753516629,
+                    y: 542.0396829944094
                 },
-                id: 'wire.4.3',
-                wireId: '4',
-                connectionIndex: 4,
-                firstPartToLengthRatio: 4.4736138102399694e-8
+                id: 'wire.1.3',
+                wireId: '1',
+                connectionIndex: 2,
+                firstPartToLengthRatio: 0.0007936598881880433
             },
             {
                 position: {
-                    x: 983.0017893060297,
-                    y: 475
+                    x: 532.0009792940265,
+                    y: 665.000000082729
                 },
                 id: 'wire.3.4',
                 wireId: '3',
-                connectionIndex: 2,
-                firstPartToLengthRatio: 0.5410774226433859
-            },
-            {
-                position: {
-                    x: 1078.0019622298066,
-                    y: 478
-                },
-                id: 'wire.3.5',
-                wireId: '3',
-                connectionIndex: 2,
-                firstPartToLengthRatio: 0.6526087224318734
-            },
-            {
-                position: {
-                    x: 1480.015667883568,
-                    y: 608.3458039571409
-                },
-                id: 'wire.3.6',
-                wireId: '3',
-                connectionIndex: 6,
-                firstPartToLengthRatio: 0.3045163369049254
-            },
-            {
-                position: {
-                    x: 1372.0024973833902,
-                    y: 482
-                },
-                id: 'wire.3.7',
-                wireId: '3',
                 connectionIndex: 4,
-                firstPartToLengthRatio: 0.015377407843522742
+                firstPartToLengthRatio: 8.272902243427223e-8
+            },
+            {
+                position: {
+                    x: 1077.0076497769114,
+                    y: 561.8572553486686
+                },
+                id: 'wire.1.5',
+                wireId: '1',
+                connectionIndex: 2,
+                firstPartToLengthRatio: 0.3971451069733722
+            },
+            {
+                position: {
+                    x: 1468.0272602022935,
+                    y: 577.3862030530278
+                },
+                id: 'wire.1.6',
+                wireId: '1',
+                connectionIndex: 2,
+                firstPartToLengthRatio: 0.7077240610605556
+            },
+            {
+                position: {
+                    x: 1207.0014099911918,
+                    y: 567.0198258449782
+                },
+                id: 'wire.1.7',
+                wireId: '1',
+                connectionIndex: 2,
+                firstPartToLengthRatio: 0.5003965168995649
             }
         ],
             activeConnection: null,
@@ -473,14 +444,14 @@ export default {
                 type: 'rom',
                 name: 'Rom',
                 position: {
-                    x: 217.0003949943117,
-                    y: 72
+                    x: 226.00041137656427,
+                    y: 82
                 },
                 connections: [
                     {
                         id: '0.inc',
                         name: 'inc',
-                        connectedTo: '10',
+                        connectedTo: '19',
                         type: 'in',
                         blockId: 0,
                         position: {
@@ -491,7 +462,7 @@ export default {
                     {
                         id: '0.en',
                         name: 'en',
-                        connectedTo: '11',
+                        connectedTo: '20',
                         type: 'in',
                         blockId: 0,
                         position: {
@@ -502,7 +473,7 @@ export default {
                     {
                         id: '0.out',
                         name: 'out',
-                        connectedTo: '2',
+                        connectedTo: '0',
                         type: 'out',
                         blockId: 0,
                         position: {
@@ -512,8 +483,8 @@ export default {
                     }
                 ],
                 payload: {
-                    address: 1,
-                    value: 2,
+                    address: 0,
+                    value: '0',
                     activeAddress: 0
                 }
             },
@@ -522,14 +493,14 @@ export default {
                 type: 'ram',
                 name: 'Ram',
                 position: {
-                    x: 1097.0019968145618,
-                    y: 70
+                    x: 1524.0027740614332,
+                    y: 78
                 },
                 connections: [
                     {
                         id: '1.addr',
                         name: 'addr',
-                        connectedTo: '2',
+                        connectedTo: '0',
                         type: 'in',
                         blockId: 1,
                         position: {
@@ -540,7 +511,7 @@ export default {
                     {
                         id: '1.readAddr',
                         name: 'readAddr',
-                        connectedTo: '18',
+                        connectedTo: '16',
                         type: 'in',
                         blockId: 1,
                         position: {
@@ -551,7 +522,7 @@ export default {
                     {
                         id: '1.en',
                         name: 'en',
-                        connectedTo: '19',
+                        connectedTo: '17',
                         type: 'in',
                         blockId: 1,
                         position: {
@@ -562,7 +533,7 @@ export default {
                     {
                         id: '1.r/!w',
                         name: 'r/!w',
-                        connectedTo: '20',
+                        connectedTo: '18',
                         type: 'in',
                         blockId: 1,
                         position: {
@@ -573,7 +544,7 @@ export default {
                     {
                         id: '1.data',
                         name: 'data',
-                        connectedTo: '9',
+                        connectedTo: '2',
                         type: 'inout',
                         blockId: 1,
                         position: {
@@ -583,37 +554,48 @@ export default {
                     }
                 ],
                 payload: {
-                    address: 2,
-                    value: 5,
+                    address: 0,
+                    value: '0',
                     activeAddress: 0
                 }
             },
             {
                 id: '2',
+                type: 'control-unit',
+                name: 'Control unit',
+                position: {
+                    x: 1889.0034384527873,
+                    y: 158
+                },
+                connections: [],
+                payload: 0
+            },
+            {
+                id: '3',
                 type: 'instruction-register',
                 name: 'Instr. Reg.',
                 position: {
-                    x: 1708.0031089874858,
-                    y: 550
+                    x: 1831.0033328782706,
+                    y: 542
                 },
                 connections: [
                     {
-                        id: '2.in',
+                        id: '3.in',
                         name: 'in',
-                        connectedTo: '3',
+                        connectedTo: '1',
                         type: 'in',
-                        blockId: 2,
+                        blockId: 3,
                         position: {
                             x: 0,
                             y: 45
                         }
                     },
                     {
-                        id: '2.en',
+                        id: '3.en',
                         name: 'en',
-                        connectedTo: '17',
+                        connectedTo: '13',
                         type: 'in',
-                        blockId: 2,
+                        blockId: 3,
                         position: {
                             x: 0,
                             y: 95
@@ -623,53 +605,53 @@ export default {
                 payload: 0
             },
             {
-                id: '3',
+                id: '4',
                 type: 'sum',
                 name: 'Sum',
                 position: {
-                    x: 851.0015490329919,
-                    y: 661
+                    x: 893.001625483504,
+                    y: 716
                 },
                 connections: [
                     {
-                        id: '3.in1',
+                        id: '4.in1',
                         name: 'in1',
-                        connectedTo: '0',
+                        connectedTo: '5',
                         type: 'in',
-                        blockId: 3,
+                        blockId: 4,
                         position: {
                             x: 0,
                             y: 17.5
                         }
                     },
                     {
-                        id: '3.in2',
+                        id: '4.in2',
                         name: 'in2',
-                        connectedTo: '1',
+                        connectedTo: '6',
                         type: 'in',
-                        blockId: 3,
+                        blockId: 4,
                         position: {
                             x: 0,
                             y: 40
                         }
                     },
                     {
-                        id: '3.oEn',
+                        id: '4.oEn',
                         name: 'oEn',
-                        connectedTo: '14',
+                        connectedTo: '9',
                         type: 'in',
-                        blockId: 3,
+                        blockId: 4,
                         position: {
                             x: 0,
                             y: 62.5
                         }
                     },
                     {
-                        id: '3.out',
+                        id: '4.out',
                         name: 'out',
-                        connectedTo: '6',
+                        connectedTo: '12',
                         type: 'out',
-                        blockId: 3,
+                        blockId: 4,
                         position: {
                             x: 80,
                             y: 40
@@ -679,75 +661,18 @@ export default {
                 payload: 0
             },
             {
-                id: '4',
-                type: 'register',
-                name: 'rvh',
-                position: {
-                    x: 522.0009501706486,
-                    y: 551
-                },
-                connections: [
-                    {
-                        id: '4.d',
-                        name: 'd',
-                        connectedTo: '4',
-                        type: 'in',
-                        blockId: 4,
-                        position: {
-                            x: 0,
-                            y: 20
-                        }
-                    },
-                    {
-                        id: '4.en',
-                        name: 'en',
-                        connectedTo: '12',
-                        type: 'in',
-                        blockId: 4,
-                        position: {
-                            x: 0,
-                            y: 45
-                        }
-                    },
-                    {
-                        id: '4.oEn',
-                        name: 'oEn',
-                        connectedTo: null,
-                        connectedToType: null,
-                        type: 'in',
-                        blockId: 4,
-                        position: {
-                            x: 0,
-                            y: 70
-                        }
-                    },
-                    {
-                        id: '4.q',
-                        name: 'q',
-                        connectedTo: '0',
-                        type: 'out',
-                        blockId: 4,
-                        position: {
-                            x: 90,
-                            y: 45
-                        }
-                    }
-                ],
-                payload: 0
-            },
-            {
                 id: '5',
                 type: 'register',
-                name: 'regAcc',
+                name: 'regAccum',
                 position: {
-                    x: 507.00092286689426,
-                    y: 750
+                    x: 593.0010794084187,
+                    y: 641
                 },
                 connections: [
                     {
                         id: '5.d',
                         name: 'd',
-                        connectedTo: '5',
+                        connectedTo: '3',
                         type: 'in',
                         blockId: 5,
                         position: {
@@ -758,7 +683,7 @@ export default {
                     {
                         id: '5.en',
                         name: 'en',
-                        connectedTo: '13',
+                        connectedTo: '7',
                         type: 'in',
                         blockId: 5,
                         position: {
@@ -781,7 +706,7 @@ export default {
                     {
                         id: '5.q',
                         name: 'q',
-                        connectedTo: '1',
+                        connectedTo: '5',
                         type: 'out',
                         blockId: 5,
                         position: {
@@ -795,16 +720,16 @@ export default {
             {
                 id: '6',
                 type: 'register',
-                name: 'accum',
+                name: 'rvh',
                 position: {
-                    x: 1163.0021169510808,
-                    y: 678
+                    x: 594.0010812286689,
+                    y: 805
                 },
                 connections: [
                     {
                         id: '6.d',
                         name: 'd',
-                        connectedTo: '7',
+                        connectedTo: '4',
                         type: 'in',
                         blockId: 6,
                         position: {
@@ -815,7 +740,7 @@ export default {
                     {
                         id: '6.en',
                         name: 'en',
-                        connectedTo: '15',
+                        connectedTo: '8',
                         type: 'in',
                         blockId: 6,
                         position: {
@@ -826,7 +751,8 @@ export default {
                     {
                         id: '6.oEn',
                         name: 'oEn',
-                        connectedTo: '16',
+                        connectedTo: null,
+                        connectedToType: null,
                         type: 'in',
                         blockId: 6,
                         position: {
@@ -837,7 +763,7 @@ export default {
                     {
                         id: '6.q',
                         name: 'q',
-                        connectedTo: '8',
+                        connectedTo: '6',
                         type: 'out',
                         blockId: 6,
                         position: {
@@ -846,26 +772,59 @@ export default {
                         }
                     }
                 ],
-                payload: 7
+                payload: 0
             },
             {
                 id: '7',
-                type: 'global-sig',
-                name: 'romInc',
+                type: 'register',
+                name: 'accum',
                 position: {
-                    x: 11.000020022753128,
-                    y: 36
+                    x: 1298.0023626848695,
+                    y: 744
                 },
                 connections: [
                     {
-                        id: '7.out',
-                        name: 'out',
+                        id: '7.d',
+                        name: 'd',
+                        connectedTo: '15',
+                        type: 'in',
+                        blockId: 7,
+                        position: {
+                            x: 0,
+                            y: 20
+                        }
+                    },
+                    {
+                        id: '7.en',
+                        name: 'en',
                         connectedTo: '10',
+                        type: 'in',
+                        blockId: 7,
+                        position: {
+                            x: 0,
+                            y: 45
+                        }
+                    },
+                    {
+                        id: '7.oEn',
+                        name: 'oEn',
+                        connectedTo: '11',
+                        type: 'in',
+                        blockId: 7,
+                        position: {
+                            x: 0,
+                            y: 70
+                        }
+                    },
+                    {
+                        id: '7.q',
+                        name: 'q',
+                        connectedTo: '14',
                         type: 'out',
                         blockId: 7,
                         position: {
-                            x: 60,
-                            y: 30
+                            x: 90,
+                            y: 45
                         }
                     }
                 ],
@@ -874,16 +833,16 @@ export default {
             {
                 id: '8',
                 type: 'global-sig',
-                name: 'romEn',
+                name: 'romInc',
                 position: {
-                    x: 15.000027303754267,
-                    y: 251
+                    x: 28.000050967007965,
+                    y: 97
                 },
                 connections: [
                     {
                         id: '8.out',
                         name: 'out',
-                        connectedTo: '11',
+                        connectedTo: '19',
                         type: 'out',
                         blockId: 8,
                         position: {
@@ -897,16 +856,16 @@ export default {
             {
                 id: '9',
                 type: 'global-sig',
-                name: 'rvhEn',
+                name: 'romEn',
                 position: {
-                    x: 161.0002930602958,
-                    y: 576
+                    x: 30.000054607508535,
+                    y: 260
                 },
                 connections: [
                     {
                         id: '9.out',
                         name: 'out',
-                        connectedTo: '12',
+                        connectedTo: '20',
                         type: 'out',
                         blockId: 9,
                         position: {
@@ -920,16 +879,16 @@ export default {
             {
                 id: '10',
                 type: 'global-sig',
-                name: 'regAccEn',
+                name: 'ramRdAddr',
                 position: {
-                    x: 166.0003021615472,
-                    y: 777
+                    x: 1157.0021060295792,
+                    y: 181
                 },
                 connections: [
                     {
                         id: '10.out',
                         name: 'out',
-                        connectedTo: '13',
+                        connectedTo: '16',
                         type: 'out',
                         blockId: 10,
                         position: {
@@ -943,16 +902,16 @@ export default {
             {
                 id: '11',
                 type: 'global-sig',
-                name: 'sumEn',
+                name: 'ramEn',
                 position: {
-                    x: 687.0012505119454,
-                    y: 832
+                    x: 1072.0019513083048,
+                    y: 231
                 },
                 connections: [
                     {
                         id: '11.out',
                         name: 'out',
-                        connectedTo: '14',
+                        connectedTo: '17',
                         type: 'out',
                         blockId: 11,
                         position: {
@@ -966,16 +925,16 @@ export default {
             {
                 id: '12',
                 type: 'global-sig',
-                name: 'accumEn',
+                name: 'ramRnW',
                 position: {
-                    x: 933.0016982935153,
-                    y: 781
+                    x: 989.0018002275312,
+                    y: 293
                 },
                 connections: [
                     {
                         id: '12.out',
                         name: 'out',
-                        connectedTo: '15',
+                        connectedTo: '18',
                         type: 'out',
                         blockId: 12,
                         position: {
@@ -989,16 +948,16 @@ export default {
             {
                 id: '13',
                 type: 'global-sig',
-                name: 'accumOEn',
+                name: 'regAccEn',
                 position: {
-                    x: 933.0016982935153,
-                    y: 876
+                    x: 300.0005460750853,
+                    y: 660
                 },
                 connections: [
                     {
                         id: '13.out',
                         name: 'out',
-                        connectedTo: '16',
+                        connectedTo: '7',
                         type: 'out',
                         blockId: 13,
                         position: {
@@ -1012,16 +971,16 @@ export default {
             {
                 id: '14',
                 type: 'global-sig',
-                name: 'instrRegEn',
+                name: 'rvhEn',
                 position: {
-                    x: 1496.0027230944256,
-                    y: 798
+                    x: 294.0005351535836,
+                    y: 833
                 },
                 connections: [
                     {
                         id: '14.out',
                         name: 'out',
-                        connectedTo: '17',
+                        connectedTo: '8',
                         type: 'out',
                         blockId: 14,
                         position: {
@@ -1035,16 +994,16 @@ export default {
             {
                 id: '15',
                 type: 'global-sig',
-                name: 'ramReadAddr',
+                name: 'sumEn',
                 position: {
-                    x: 753.0013706484643,
-                    y: 151
+                    x: 746.0013579067122,
+                    y: 892
                 },
                 connections: [
                     {
                         id: '15.out',
                         name: 'out',
-                        connectedTo: '18',
+                        connectedTo: '9',
                         type: 'out',
                         blockId: 15,
                         position: {
@@ -1058,16 +1017,16 @@ export default {
             {
                 id: '16',
                 type: 'global-sig',
-                name: 'ramEn',
+                name: 'accumEn',
                 position: {
-                    x: 757.0013779294653,
-                    y: 232
+                    x: 997.0018147895336,
+                    y: 853
                 },
                 connections: [
                     {
                         id: '16.out',
                         name: 'out',
-                        connectedTo: '19',
+                        connectedTo: '10',
                         type: 'out',
                         blockId: 16,
                         position: {
@@ -1081,16 +1040,16 @@ export default {
             {
                 id: '17',
                 type: 'global-sig',
-                name: 'ramRnW',
+                name: 'accumOEn',
                 position: {
-                    x: 757.0013779294653,
-                    y: 332
+                    x: 1083.001971331058,
+                    y: 940
                 },
                 connections: [
                     {
                         id: '17.out',
                         name: 'out',
-                        connectedTo: '20',
+                        connectedTo: '11',
                         type: 'out',
                         blockId: 17,
                         position: {
@@ -1103,221 +1062,99 @@ export default {
             },
             {
                 id: '18',
-                type: 'control-unit',
-                name: 'Control unit',
+                type: 'global-sig',
+                name: 'InstrRegEn',
                 position: {
-                    x: 1647.0029979522185,
-                    y: 171
+                    x: 1641.0029870307167,
+                    y: 816
                 },
-                connections: [],
+                connections: [
+                    {
+                        id: '18.out',
+                        name: 'out',
+                        connectedTo: '13',
+                        type: 'out',
+                        blockId: 18,
+                        position: {
+                            x: 60,
+                            y: 30
+                        }
+                    }
+                ],
                 payload: 0
             }
         ],
-            selectedBlockId: '2',
+            selectedBlockId: '18',
             globalSignals: [
             {
                 name: 'romInc',
-                blockId: '7',
-                value: 0,
-                commands: [
-                    {
-                        commandCode: 0,
-                        ones: []
-                    },
-                    {
-                        commandCode: 1,
-                        ones: [
-                            1, 11
-                        ]
-                    }
-                ]
+                blockId: '8',
+                value: 'z',
+                commands: []
             },
             {
                 name: 'romEn',
-                blockId: '8',
-                value: 0,
-                commands: [
-                    {
-                        commandCode: 0,
-                        ones: [
-                            1
-                        ]
-                    },
-                    {
-                        commandCode: 1,
-                        ones: [
-                            2
-                        ]
-                    }
-                ]
-            },
-            {
-                name: 'rvhEn',
                 blockId: '9',
-                value: 0,
-                commands: [
-                    {
-                        commandCode: 0,
-                        ones: []
-                    },
-                    {
-                        commandCode: 1,
-                        ones: [
-                            5
-                        ]
-                    }
-                ]
+                value: 'z',
+                commands: []
             },
             {
-                name: 'regAccEn',
+                name: 'ramRdAddr',
                 blockId: '10',
-                value: 0,
-                commands: [
-                    {
-                        commandCode: 0,
-                        ones: []
-                    },
-                    {
-                        commandCode: 1,
-                        ones: [
-                            7
-                        ]
-                    }
-                ]
-            },
-            {
-                name: 'sumEn',
-                blockId: '11',
-                value: 0,
-                commands: [
-                    {
-                        commandCode: 0,
-                        ones: []
-                    },
-                    {
-                        commandCode: 1,
-                        ones: [
-                            9
-                        ]
-                    }
-                ]
-            },
-            {
-                name: 'accumEn',
-                blockId: '12',
-                value: 0,
-                commands: [
-                    {
-                        commandCode: 0,
-                        ones: []
-                    },
-                    {
-                        commandCode: 1,
-                        ones: [
-                            10
-                        ]
-                    }
-                ]
-            },
-            {
-                name: 'accumOEn',
-                blockId: '13',
-                value: 0,
-                commands: [
-                    {
-                        commandCode: 0,
-                        ones: []
-                    },
-                    {
-                        commandCode: 1,
-                        ones: [
-                            6
-                        ]
-                    }
-                ]
-            },
-            {
-                name: 'instrRegEn',
-                blockId: '14',
-                value: 0,
-                commands: [
-                    {
-                        commandCode: 0,
-                        ones: [
-                            2
-                        ]
-                    },
-                    {
-                        commandCode: 1,
-                        ones: []
-                    }
-                ]
-            },
-            {
-                name: 'ramReadAddr',
-                blockId: '15',
-                value: 0,
-                commands: [
-                    {
-                        commandCode: 0,
-                        ones: []
-                    },
-                    {
-                        commandCode: 1,
-                        ones: [
-                            3
-                        ]
-                    }
-                ]
+                value: 'z',
+                commands: []
             },
             {
                 name: 'ramEn',
-                blockId: '16',
-                value: 0,
-                commands: [
-                    {
-                        commandCode: 0,
-                        ones: []
-                    },
-                    {
-                        commandCode: 1,
-                        ones: [
-                            4
-                        ]
-                    }
-                ]
+                blockId: '11',
+                value: 'z',
+                commands: []
             },
             {
                 name: 'ramRnW',
-                blockId: '17',
-                value: 0,
-                commands: [
-                    {
-                        commandCode: 0,
-                        ones: []
-                    },
-                    {
-                        commandCode: 1,
-                        ones: [
-                            4
-                        ]
-                    }
-                ]
-            }
-        ],
-            commands: [
-            {
-                name: 'nope',
-                commandCode: 0,
-                length: 10
+                blockId: '12',
+                value: 'z',
+                commands: []
             },
             {
-                name: 'Add A <direct>',
-                commandCode: 1,
-                length: 20
+                name: 'regAccEn',
+                blockId: '13',
+                value: 'z',
+                commands: []
+            },
+            {
+                name: 'rvhEn',
+                blockId: '14',
+                value: 'z',
+                commands: []
+            },
+            {
+                name: 'sumEn',
+                blockId: '15',
+                value: 'z',
+                commands: []
+            },
+            {
+                name: 'accumEn',
+                blockId: '16',
+                value: 'z',
+                commands: []
+            },
+            {
+                name: 'accumOEn',
+                blockId: '17',
+                value: 'z',
+                commands: []
+            },
+            {
+                name: 'InstrRegEn',
+                blockId: '18',
+                value: 'z',
+                commands: []
             }
         ],
-            commandsAmount: '2'
+            commands: [],
+            commandsAmount: 0
     },
     clkReducer: {
         clk: 0,
@@ -1327,7 +1164,7 @@ export default {
     globalStateReducer: {
         globalState: 1,
             statePayload: {
-            blockType: 'control-unit',
+            blockType: 'global-sig',
                 alreadyMoving: false
         }
     },
@@ -1335,7 +1172,7 @@ export default {
         activeBlockType: null
     },
     commandReducer: {
-        currentCommand: 1,
+        currentCommand: 0,
             isCommandModalOpened: false,
             commandLength: 0,
             commandCode: 11111111

@@ -61,8 +61,6 @@ export default function Sidebar() {
             clonedPayload = fromHex(payload);
         } else {
             clonedPayload.address = fromHex(payload.address);
-            console.log(payload.value);
-            console.log(fromHex(payload.value));
             clonedPayload.value = fromHex(payload.value);
             clonedPayload.activeAddress = fromHex(payload.activeAddress);
         }

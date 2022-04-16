@@ -2,7 +2,7 @@ import './commandModal.css';
 import {useRef, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {closeCommandModal} from "../../store/slices/commandSlice";
-import {setGlobalSignalOnes, setCommands, setCommandsAmount} from "../../store/slices/blockSlice";
+import {setGlobalSignalOnes, setCommands, setCommandsAmount, changeCommandCode} from "../../store/slices/blockSlice";
 import {useEffect} from "react";
 import { range, difference, cloneDeep } from 'lodash';
 import fromHex from "../../utils/fromHex";
@@ -36,10 +36,13 @@ export default function CommandModal() {
             for (let i = 0; i < commandAmount - commands.length; i++) {
                 newCommands.push({
                     name: '',
-                    commandCode: '',
+                    commandCode: i,
                     length: 10,
                 });
             }
+            setCommandCodes([...commands, ...newCommands].map((command, i) => command.commandCode === '' ? i : command.commandCode))
+
+
             dispatch(setCommands([...commands, ...newCommands]));
         }
     }, [commandAmount]);
@@ -70,13 +73,11 @@ export default function CommandModal() {
     };
 
     const handleCommandCodeChange = (event, commandIndex) => {
-        const commandsCopy = cloneDeep(commands);
-        console.log(commandsCopy);
-        const commandToChange = commandsCopy[commandIndex];
-        commandToChange.commandCode = fromHex(event.target.value);
-        console.log(commandsCopy);
+        const commandCodesCopy = cloneDeep(commandCodes);
+        commandCodesCopy[commandIndex] = event.target.value;
+        setCommandCodes(commandCodesCopy);
 
-        dispatch(setCommands(commandsCopy));
+        dispatch(changeCommandCode({commandCode: fromHex(event.target.value), commandIndex: commandIndex}));
     }
 
     const handleCommandNameChange = (event, commandIndex) => {
@@ -152,7 +153,7 @@ export default function CommandModal() {
                                         <div className="values-rows">
                                             {
                                                 globalSignals.map((signal, index) => {
-                                                    return <div className="values-row" key={{index}}>
+                                                    return <div className="values-row" key={index}>
                                                         {
                                                             range(1, +command.length + 1).map((edgeNumber, index2) => {
                                                                 return (

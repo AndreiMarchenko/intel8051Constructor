@@ -106,7 +106,6 @@ export const wireSlice = createSlice({
         updateWirePayload: (state, action) => {
             const wireIndex = state.wires.findIndex(wire => wire.id === action.payload.id);
             const updatedWire =  state.wires[wireIndex];
-            updatedWire.prevPayload = updatedWire.payload;
             updatedWire.payload = action.payload.payload;
 
             state.wires.forEach(wire => {

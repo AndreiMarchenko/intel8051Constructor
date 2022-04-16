@@ -15,6 +15,7 @@ export default function ClkPanel() {
     const [linePoints, setLinePoints] = useState([50, 50]);
     const [drawCounter, setDrawCounter] = useState(1);
     const [clk, setClk] = useState(0);
+    const clkFromStorage = useSelector(state => state.clkReducer.clk);
 
     useEffect(() => {
         if (clkState === RESET_CLK_STATE) {

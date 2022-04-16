@@ -16,6 +16,7 @@ export default function InstructionRegister({id, x, y, name}) {
 
     const block = useSelector(state => state.blockReducer.blocks.find(block => block.id === id));
     const clk = useSelector(state => state.clkReducer.clk);
+    const clkPosition = useSelector(state => state.clkReducer.clkPosition);
     const wires = useSelector(state => state.wireReducer.wires.filter(wire => {
             return wire.connections.find(connection => connection.split('.')[0] === id);
         })
@@ -42,7 +43,8 @@ export default function InstructionRegister({id, x, y, name}) {
     }, [clk]);
 
     useEffect(() => {
-        dispatch(setClkPosition(1));
+        console.log((clkPosition - 1) % 4 + 1);
+        dispatch(setClkPosition((clkPosition - 1) % 4 + 1));
         dispatch(changeCurrentCommand(block.payload));
     }, [block.payload]);
 
