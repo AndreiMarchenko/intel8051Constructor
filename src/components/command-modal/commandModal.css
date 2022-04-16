@@ -1,0 +1,128 @@
+.command-modal {
+    display: none;
+}
+
+.command-modal_opened {
+    display: block;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff;
+    z-index: 100;
+}
+
+.close-cross {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+    cursor: pointer;
+    margin-top: 25px;
+    margin-right: 30px;
+}
+
+.close-cross:hover {
+    opacity: 1;
+}
+
+.close-cross:before, .close-cross:after {
+    position: absolute;
+    left: 15px;
+    content: '';
+    height: 33px;
+    width: 2px;
+    background-color: red;
+}
+
+.close-cross:before {
+    transform: rotate(45deg);
+}
+
+.close-cross:after {
+    transform: rotate(-45deg);
+}
+
+.close-cross_active {
+    opacity: 1;
+}
+
+.command-modal__content {
+}
+
+.command-content {
+    margin-top: 30px;
+}
+
+.command-name-label {
+    margin-right: 20px;
+}
+
+.command-input,
+.commands-amount-input {
+    margin-left: 5px;
+}
+
+.command-modal__table {
+    display: flex;
+    margin-top: 10px;
+}
+
+.signals-column {
+    margin-top: 20px;
+}
+
+.signal-row {
+    height: 20px;
+    border-top: 1px solid #000000;
+    border-right: 1px solid #000000;
+}
+
+.signal-row:last-child {
+    border-bottom: 1px solid #000000;
+}
+
+.values-head-row {
+    display: flex;
+    margin-bottom: 1px;
+}
+
+.values-row {
+    display: flex;
+}
+
+.head-cell {
+    font-weight: 700;
+    border-top: 1px solid #000000;
+}
+
+.head-cell:first-child {
+    border-left: 1px solid #000000;
+}
+
+.cell {
+    width: 30px;
+    text-align: center;
+    height: 20px;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

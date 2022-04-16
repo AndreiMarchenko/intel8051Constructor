@@ -49,6 +49,24 @@
     margin-bottom: 5px;
 }
 
-.clk-button {
+.memory-btn,
+.clk-button,
+.reset-clk-button {
     margin: 0 5px 5px;
+}
+
+.memory-btn {
+    margin-top: 10px;
+}
+
+.value-group {
+    margin-top: 5px;
+}
+
+.active-address-group {
+    margin-top: 5px;
+}
+
+.memory__input {
+    margin-left: 3px;
 }

@@ -52,6 +52,11 @@ export const GLOBAL_SIG_BLOCK_WIDTH = 70;
 export const GLOBAL_SIG_BLOCK_HEIGHT = 70;
 export const GLOBAL_SIG_BLOCK_COLOR = 'purple';
 
+export const CONTROL_UNIT_BLOCK_TYPE = 'control-unit';
+export const CONTROL_UNIT_BLOCK_WIDTH = 150;
+export const CONTROL_UNIT_BLOCK_HEIGHT = 200;
+export const CONTROL_UNIT_BLOCK_COLOR = 'slateGray';
+
 export const INSTRUCTION_REGISTER_BLOCK_TYPE = 'instruction-register';
 export const INSTRUCTION_REGISTER_BLOCK_WIDTH = 150;
 export const INSTRUCTION_REGISTER_BLOCK_HEIGHT = 150;
@@ -91,6 +96,10 @@ export const BLOCK_SIZES = {
         height: GLOBAL_SIG_BLOCK_HEIGHT,
         width: GLOBAL_SIG_BLOCK_WIDTH,
     },
+    [CONTROL_UNIT_BLOCK_TYPE]: {
+        height: CONTROL_UNIT_BLOCK_HEIGHT,
+        width: CONTROL_UNIT_BLOCK_WIDTH,
+    },
     [INSTRUCTION_REGISTER_BLOCK_TYPE]: {
         height: INSTRUCTION_REGISTER_BLOCK_HEIGHT,
         width: INSTRUCTION_REGISTER_BLOCK_WIDTH,
@@ -106,6 +115,7 @@ export const BLOCK_TYPE_NAME_MAP = {
     [RAM_BLOCK_TYPE]: 'Ram',
     [SUM_BLOCK_TYPE]: 'Sum',
     [GLOBAL_SIG_BLOCK_TYPE]: 'Sig',
+    [CONTROL_UNIT_BLOCK_TYPE]: 'Control unit',
     [INSTRUCTION_REGISTER_BLOCK_TYPE]: 'Instr. Reg.',
 };
 

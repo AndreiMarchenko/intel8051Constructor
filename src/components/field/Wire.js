@@ -1,4 +1,4 @@
-import { Group, Line, Text } from 'react-konva';
+import { Group, Line, Ellipse, Text } from 'react-konva';
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {STATES} from "../../globals/globalStates";
@@ -8,11 +8,11 @@ import {
     startWire,
     changeWireConnectionPosition,
     updateWirePath,
-    updateWirePayload,
     deleteWire,
     deleteWireConnections, setWireToStorage
 } from "../../store/slices/wireSlice";
 import usePrevious from "../../hooks/usePrevious";
+import toHex from "../../utils/toHex";
 
 export default function Wire({points, id}) {
     const wire = useSelector(state => state.wireReducer.wires.find(wire => wire.id === id));
@@ -48,7 +48,7 @@ export default function Wire({points, id}) {
         setText({
             x: isNaN(x) ? 0 : x,
             y: isNaN(y) ? 0 : y,
-            content: payload
+            content: toHex(payload)
         });
     }, [points, payload]);
 
@@ -119,14 +119,6 @@ export default function Wire({points, id}) {
             dispatch(deleteWire({ wireId: id }));
             return;
         }
-
-
-        // if (wireFromWire && wireFromWire.payload !== payload) {
-        //     dispatch(updateWirePayload({
-        //         id: id,
-        //         payload: wireFromWire.payload
-        //     }));
-        // }
 
         let wireStartCoords;
 
@@ -253,6 +245,17 @@ export default function Wire({points, id}) {
                 lineCap='round'
                 lineJoin='round'
             />
+            { wire && wire.prevPayload !== undefined && wire.payload !== wire.prevPayload &&
+                <Ellipse
+                    x={text.x + 5 + (text.content?.length*3 ?? 0)}
+                    y={text.y + 10}
+                    width={30 + (text.content?.length ?? 0)*12}
+                    height={20 + (text.content?.length ?? 0)}
+                    strokeWidth={2}
+                    opacity={0.9}
+                    stroke='blue'
+                />
+            }
             <Text
                 x={text.x}
                 y={text.y}

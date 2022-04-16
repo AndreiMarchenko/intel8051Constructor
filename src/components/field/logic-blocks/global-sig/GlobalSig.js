@@ -5,6 +5,7 @@ import getConnections from './connections';
 import {useSelector, useDispatch} from "react-redux";
 import {useEffect, useState} from "react";
 import {updateWirePayload} from "../../../../store/slices/wireSlice";
+import {addGlobalSignal} from "../../../../store/slices/blockSlice";
 import {Text} from "react-konva";
 
 export default function GlobalSig({id, x, y, name}) {
@@ -15,15 +16,8 @@ export default function GlobalSig({id, x, y, name}) {
             return wire.connections.find(connection => connection.split('.')[0] === id);
         })
     );
-    const globalSignals = useSelector(state => state.blockReducer.globalSignals);
-
-    let [signal, setSignal] = useState(null);
-
+    const signal = useSelector(state => state.blockReducer.globalSignals.find(signal => signal.name === name));
     const connections = getConnections(id);
-
-    useEffect(() => {
-        setSignal(globalSignals.find(signal => signal.name === name));
-    }, [name, globalSignals]);
 
     useEffect(() => {
         // if (clk === 1) {
@@ -40,6 +34,12 @@ export default function GlobalSig({id, x, y, name}) {
         // }
     }, [signal]);
 
+    useEffect(() => {
+        dispatch(addGlobalSignal({
+            name: name,
+            blockId: id,
+        }));
+    }, [name]);
 
     const slot = (
         <Text

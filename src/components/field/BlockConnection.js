@@ -80,7 +80,7 @@ export default function BlockConnection({id, x, y, name, input, connectedTo, con
             />
             <Text
                 x={input ? x - name.length * 5 - 10 : x + 20}
-                y={y}
+                y={y + 10}
                 text={name}
                 fontSize={12}
                 fontFamily='Calibri'

@@ -41,10 +41,12 @@ import {
     RAM_BLOCK_TYPE,
     SUM_BLOCK_TYPE,
     GLOBAL_SIG_BLOCK_TYPE,
+    CONTROL_UNIT_BLOCK_TYPE,
     INSTRUCTION_REGISTER_BLOCK_TYPE,
 
     BLOCK_TYPE_NAME_MAP
 } from "../../globals/globals";
+import ControlUnit from "./logic-blocks/control-unit/ControlUnit";
 
 
 export default function Field() {
@@ -298,6 +300,14 @@ export default function Field() {
                                                 />;
                                             case GLOBAL_SIG_BLOCK_TYPE:
                                                 return <GlobalSig
+                                                    id={block.id}
+                                                    key={block.id}
+                                                    x={block.position.x}
+                                                    y={block.position.y}
+                                                    name={block.name}
+                                                />;
+                                            case CONTROL_UNIT_BLOCK_TYPE:
+                                                return <ControlUnit
                                                     id={block.id}
                                                     key={block.id}
                                                     x={block.position.x}

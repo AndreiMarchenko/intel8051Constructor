@@ -52,6 +52,7 @@ export const wireSlice = createSlice({
             }
             state.activeConnection = null;
             state.activePath = null;
+            state.activePathNodesCount = 1;
         },
         setWireToStorage: (state, action) => {
             state.activeConnection = null;
@@ -105,6 +106,7 @@ export const wireSlice = createSlice({
         updateWirePayload: (state, action) => {
             const wireIndex = state.wires.findIndex(wire => wire.id === action.payload.id);
             const updatedWire =  state.wires[wireIndex];
+            updatedWire.prevPayload = updatedWire.payload;
             updatedWire.payload = action.payload.payload;
 
             state.wires.forEach(wire => {
@@ -112,21 +114,6 @@ export const wireSlice = createSlice({
                     wire.payload = action.payload.payload;
                 }
             });
-
-
-            // const wiresFromWire = state.wires.filter(wire => {
-            //     return wire.connections[0].includes('wire') &&
-            //         wire.connections[0].split('.')[1] === updateWire.id;
-            // });
-            //
-            // const wiresToWire = state.wires.filter(wire => {
-            //     return updateWire.connections[0].includes('wire') &&
-            //         updateWire.connections[0].split('.')[1] === wire.id;
-            // });
-            //
-            // [...wiresFromWire, ...wiresToWire].forEach(wire => {
-            //     wire.payload = action.payload.payload;
-            // });
         },
         updateActiveWirePath: (state, action) => {
             state.activePath = state.activePath ? state.activePath.slice(0, state.activePathNodesCount * 2) : [];

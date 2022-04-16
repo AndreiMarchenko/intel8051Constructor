@@ -1,13 +1,13 @@
 import {Line, Group, Text, Rect, Layer, Stage} from 'react-konva';
 import { useEffect, useState } from "react";
-import { setClk as setClkToStorage } from "../../../store/slices/clkSlice";
+import { setClk as setClkToStorage, setClkState } from "../../../store/slices/clkSlice";
 import {Provider, useDispatch, useSelector, ReactReduxContext} from "react-redux";
 import BeforeRisingEdge  from './BeforeRisingEdge';
-import { STOP_CLK_STATE } from "../../../globals/clkStates";
+import { STOP_CLK_STATE, RESET_CLK_STATE } from "../../../globals/clkStates";
 import { incrementClkPosition } from '../../../store/slices/clkSlice';
 import { CLK_PANEL_WIDTH, CLK_PANEL_HEIGHT} from "../../../globals/globals";
 
-const CLK_PERIOD = 1000;
+const CLK_PERIOD = 4000;
 
 export default function ClkPanel() {
     const dispatch = useDispatch();
@@ -15,6 +15,14 @@ export default function ClkPanel() {
     const [linePoints, setLinePoints] = useState([50, 50]);
     const [drawCounter, setDrawCounter] = useState(1);
     const [clk, setClk] = useState(0);
+
+    useEffect(() => {
+        if (clkState === RESET_CLK_STATE) {
+            setLinePoints([50, 50]);
+            setDrawCounter(1);
+            dispatch(setClkState(STOP_CLK_STATE));
+        }
+    }, [clkState]);
 
     useEffect(() => {
         const clkDrawInterval = setInterval(() => {

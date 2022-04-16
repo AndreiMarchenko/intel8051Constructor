@@ -12,62 +12,9 @@ export const blockSlice = createSlice({
     initialState: {
         blocks: [],
         selectedBlockId: null,
-        globalSignals: [
-            {
-                name: 'romInc',
-                value: 0,
-            },
-            {
-                name: 'romEn',
-                value: 0,
-            },
-
-            {
-                name: 'instRegEn',
-                value: 0,
-            },
-
-            {
-                name: 'ramEn',
-                value: 0,
-            },
-            {
-                name: 'ramRdAddr',
-                value: 0,
-            },
-            {
-                name: 'ramRnW',
-                value: 0,
-            },
-            {
-                name: 'regAccEn',
-                value: 0,
-            },
-            {
-                name: 'regAccOEn',
-                value: 0,
-            },
-            {
-                name: 'rvhEn',
-                value: 0,
-            },
-            {
-                name: 'rvhOEn',
-                value: 0,
-            },
-            {
-                name: 'sumEn',
-                value: 0,
-            },
-            {
-                name: 'accumEn',
-                value: 0,
-            },
-            {
-                name: 'accumOEn',
-                value: 0,
-            },
-        ],
+        globalSignals: [],
+        commands: [],
+        commandsAmount: 0,
     },
     reducers: {
         changeBlockPosition: (state, action) => {
@@ -116,9 +63,54 @@ export const blockSlice = createSlice({
             const block = state.blocks.find(block => block.id === action.payload.blockId);
             block.name = action.payload.name;
         },
+        addGlobalSignal: (state, action) => {
+            const existingSignal = state.globalSignals.find(signal => signal.blockId === action.payload.blockId);
+
+            if (!existingSignal) {
+                const commands = state.commands.map(command => {
+                    return {
+                        commandCode: command.commandCode,
+                        ones: [],
+                    };
+                });
+
+                state.globalSignals.push({
+                    name: action.payload.name,
+                    blockId: action.payload.blockId,
+                    value: 'z',
+                    commands: commands,
+                });
+            } else {
+                existingSignal.name = action.payload.name;
+            }
+        },
+        setGlobalSignalOnes: (state, action) => {
+            const signal = state.globalSignals.find(signal => signal.blockId === action.payload.blockId);
+            const command = signal.commands.find(command => command.commandCode === action.payload.commandCode);
+            command.ones = action.payload.ones;
+        },
         updateGlobalSignal: (state, action) => {
-            const signal = state.globalSignals.find(signal => signal.name === action.payload.signalName);
+            const signal = state.globalSignals.find(signal => signal.blockId === action.payload.blockId);
             signal.value = action.payload.value;
+        },
+        setCommands: (state, action) => {
+            state.commands = action.payload;
+            state.commands.forEach(command => {
+               state.globalSignals.forEach(signal => {
+                   if (!signal.commands.find(signalCommand => signalCommand.commandCode === command.commandCode)) {
+                       signal.commands.push({
+                           commandCode: command.commandCode,
+                           ones: [],
+                       });
+                   }
+                   signal.commands = signal.commands.filter(signalCommand => {
+                       return state.commands.map(command => command.commandCode).includes(signalCommand.commandCode);
+                   });
+               });
+            });
+        },
+        setCommandsAmount: (state, action) => {
+            state.commandsAmount = action.payload;
         },
     }
 })
@@ -132,7 +124,11 @@ export const {
     deleteBlock,
     setSelectedBlockId,
     changeBlockName,
-    updateGlobalSignal
+    setGlobalSignalOnes,
+    addGlobalSignal,
+    updateGlobalSignal,
+    setCommands,
+    setCommandsAmount,
 } = blockSlice.actions
 
 export default blockSlice.reducer

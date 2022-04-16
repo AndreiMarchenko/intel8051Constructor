@@ -1,0 +1,12 @@
+.control-unit {
+}
+.control-unit-body {
+    width: var(--default-block-dimensions);
+    height: var(--default-block-dimensions);
+
+    background-color: slateGray;
+}
+.control-unit-label {
+    font-size: 12px;
+    font-family: 'Lato', 'sans-serif';
+}

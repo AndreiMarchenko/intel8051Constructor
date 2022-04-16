@@ -7,17 +7,19 @@ import {Fragment, useEffect, useState} from "react";
 import {Text} from "react-konva";
 import StateDisplayRectangle from "./StateDisplayRectangle";
 import { changeCurrentCommand } from '../../../../store/slices/commandSlice';
-import { commandsMap } from "../../../../globals/commands";
+import { setClkPosition } from '../../../../store/slices/clkSlice';
+import { changeBlockPayload } from '../../../../store/slices/blockSlice';
+import toHex from "../../../../utils/toHex";
 
 export default function InstructionRegister({id, x, y, name}) {
     const dispatch = useDispatch();
 
+    const block = useSelector(state => state.blockReducer.blocks.find(block => block.id === id));
     const clk = useSelector(state => state.clkReducer.clk);
     const wires = useSelector(state => state.wireReducer.wires.filter(wire => {
             return wire.connections.find(connection => connection.split('.')[0] === id);
         })
     );
-    const [state, setState] = useState('0000000');
 
     const connections = getConnections(id);
 
@@ -31,19 +33,23 @@ export default function InstructionRegister({id, x, y, name}) {
             }
 
             if (enWire.payload === 1) {
-                setState(inWire.payload);
+                dispatch(changeBlockPayload({
+                    payload: inWire.payload,
+                    blockId: id,
+                }));
             }
         }
     }, [clk]);
 
     useEffect(() => {
-        dispatch(changeCurrentCommand(state));
-    }, [state]);
+        dispatch(setClkPosition(1));
+        dispatch(changeCurrentCommand(block.payload));
+    }, [block.payload]);
 
 
     const slot = (
         <Fragment>
-            <StateDisplayRectangle state={commandsMap[state]} />
+            <StateDisplayRectangle state={toHex(block.payload)} />
             <Text
                 x={0}
                 y={0}

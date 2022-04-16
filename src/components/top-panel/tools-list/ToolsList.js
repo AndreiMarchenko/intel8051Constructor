@@ -8,7 +8,7 @@ export default function ToolsList() {
 
     return (
         <div className="tools-list">
-            { tools}
+            { tools }
         </div>
     );
 }

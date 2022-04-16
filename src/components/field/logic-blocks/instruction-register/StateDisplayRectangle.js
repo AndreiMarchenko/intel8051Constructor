@@ -16,10 +16,10 @@ export default function StateDisplayRectangle({ state }) {
         shadowBlur={5}
       />
       <Text
-        x={0}
-        y={20}
+        x={28}
+        y={15}
         text={state}
-        fontSize={14}
+        fontSize={22}
         fontFamily='Calibri'
         fill='black'
       />

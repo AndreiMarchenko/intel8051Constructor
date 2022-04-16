@@ -8,25 +8,49 @@ import { fill } from 'lodash';
 import {useDispatch, useSelector} from "react-redux";
 import {updateWirePayload} from "../../../../store/slices/wireSlice";
 import { cloneDeep } from 'lodash';
+import {changeBlockPayload} from "../../../../store/slices/blockSlice";
+import toHex from "../../../../utils/toHex";
+import fromHex from "../../../../utils/fromHex";
 
 export default function Ram({id, x, y, name}) {
     const ramSize = 100;
     const ramData = fill(Array(ramSize), '0');
-    ramData[12] = 5;
 
     let [lines, setLines] = useState(ramData);
-    let [currentLineNumber, setCurrentLineNumber] = useState(2);
+    let [currentLineNumber, setCurrentLineNumber] = useState(1);
 
     let [raoAddr, setRaoAddr] = useState(0);
 
     const dispatch = useDispatch();
     const clk = useSelector(state => state.clkReducer.clk);
+    const block = useSelector(state => state.blockReducer.blocks.find(block => block.id === id));
     const wires = useSelector(state => state.wireReducer.wires.filter(wire => {
             return wire.connections.find(connection => {
                 return connection.split('.')[0] === id
             });
         })
     );
+
+    useEffect(() => {
+        dispatch(changeBlockPayload({
+            blockId: id,
+            payload: {
+                address: raoAddr,
+                value: lines[raoAddr],
+                activeAddress: raoAddr,
+            },
+        }));
+    }, []);
+
+    useEffect(() => {
+        if (block.payload) {
+            setLines(lines => {
+                lines[block.payload.address] = block.payload.value;
+                return lines;
+            });
+            setRaoAddr(+block.payload.activeAddress);
+        }
+    }, [block]);
 
     useEffect(() => {
         if (clk === 1) {
@@ -64,16 +88,11 @@ export default function Ram({id, x, y, name}) {
     }, [clk]);
 
     const handleLineNumberInput = event => {
-        console.log(event.target.value);
-        if (+event.target.value + 1 >= ramSize) {
-            event.target.value = ramSize - 2;
+        if (isNaN(fromHex(event.target.value))) {
+            setCurrentLineNumber('0x01');
+        } else {
+            setCurrentLineNumber(fromHex(event.target.value));
         }
-
-        if (+event.target.value - 1 < 0) {
-            event.target.value = 1;
-        }
-
-        setCurrentLineNumber(isNaN(+event.target.value) ? 1: +event.target.value);
     };
 
     const slot = (
@@ -92,12 +111,12 @@ export default function Ram({id, x, y, name}) {
                     marginLeft: '20px',
                 },
             }}>
-                <input type={'text'} value={currentLineNumber} onInput={handleLineNumberInput}/>
+                <input type={'text'} onInput={handleLineNumberInput}/>
             </Html>
             <Text
                 x={50}
                 y={70}
-                text={`${currentLineNumber - 1}: ${lines[currentLineNumber - 1]}` }
+                text={`${toHex(currentLineNumber - 1)}: ${toHex(lines[currentLineNumber - 1])}` }
                 fontSize={22}
                 fontFamily='Calibri'
                 fill={raoAddr ===  currentLineNumber - 1 ? 'red' : 'black'}
@@ -105,7 +124,7 @@ export default function Ram({id, x, y, name}) {
             <Text
                 x={50}
                 y={90}
-                text={`${currentLineNumber}: ${lines[currentLineNumber]}`}
+                text={`${toHex(currentLineNumber)}: ${toHex(lines[currentLineNumber])}`}
                 fontSize={22}
                 fontFamily='Calibri'
                 fill={raoAddr ===  currentLineNumber ? 'red' : 'black'}
@@ -113,7 +132,7 @@ export default function Ram({id, x, y, name}) {
             <Text
                 x={50}
                 y={110}
-                text={`${currentLineNumber + 1}: ${lines[currentLineNumber + 1]}`}
+                text={`${toHex(currentLineNumber + 1)}: ${toHex(lines[currentLineNumber + 1])}`}
                 fontSize={22}
                 fontFamily='Calibri'
                 fill={raoAddr ===  currentLineNumber + 1 ? 'red' : 'black'}

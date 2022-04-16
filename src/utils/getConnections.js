@@ -6,6 +6,7 @@ import RomConnections from '../components/field/logic-blocks/rom/connections';
 import RamConnections from '../components/field/logic-blocks/ram/connections';
 import SumConnections from '../components/field/logic-blocks/sum/connections';
 import globalSigConnections from '../components/field/logic-blocks/global-sig/connections';
+import controlUnitConnections from '../components/field/logic-blocks/control-unit/connections';
 import instructionRegisterConnections from '../components/field/logic-blocks/instruction-register/connections';
 
 import {
@@ -17,6 +18,7 @@ import {
     RAM_BLOCK_TYPE,
     SUM_BLOCK_TYPE,
     GLOBAL_SIG_BLOCK_TYPE,
+    CONTROL_UNIT_BLOCK_TYPE,
     INSTRUCTION_REGISTER_BLOCK_TYPE,
 } from "../globals/globals";
 
@@ -39,6 +41,8 @@ export default function(type, id) {
             return SumConnections(id);
         case GLOBAL_SIG_BLOCK_TYPE:
             return globalSigConnections(id);
+        case CONTROL_UNIT_BLOCK_TYPE:
+            return controlUnitConnections(id);
         case INSTRUCTION_REGISTER_BLOCK_TYPE:
             return instructionRegisterConnections(id);
     }

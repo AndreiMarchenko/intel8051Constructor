@@ -7,12 +7,12 @@ import {Text} from "react-konva";
 import { fill } from 'lodash';
 import {useDispatch, useSelector} from "react-redux";
 import {updateWirePayload} from "../../../../store/slices/wireSlice";
+import {changeBlockPayload} from "../../../../store/slices/blockSlice";
+import toHex from "../../../../utils/toHex";
+import fromHex from "../../../../utils/fromHex";
 
 export default function Rom({id, x, y, name}) {
-
-    const romData = fill(Array(100), '0000000');
-    romData[0] = '00110101'; // ADDC A,<direct>
-    romData[1] = 12; // <direct>
+    const romData = fill(Array(100), '0');
 
     let [lines, setLines] = useState(romData);
 
@@ -21,12 +21,34 @@ export default function Rom({id, x, y, name}) {
 
     const dispatch = useDispatch();
     const clk = useSelector(state => state.clkReducer.clk);
+    const block = useSelector(state => state.blockReducer.blocks.find(block => block.id === id));
     const wires = useSelector(state => state.wireReducer.wires.filter(wire => {
             return wire.connections.find(connection => {
                 return connection.split('.')[0] === id
             });
         })
     );
+
+    useEffect(() => {
+        dispatch(changeBlockPayload({
+            blockId: id,
+            payload: {
+                address: executingLineNumber,
+                value: lines[executingLineNumber],
+                activeAddress: executingLineNumber,
+            },
+        }));
+    }, []);
+
+    useEffect(() => {
+        if (block.payload) {
+            setLines(lines => {
+                lines[block.payload.address] = block.payload.value;
+                return lines;
+            });
+            setExecutingLineNumber(+block.payload.activeAddress);
+        }
+    }, [block]);
 
     useEffect(() => {
         if (clk === 1) {
@@ -52,7 +74,11 @@ export default function Rom({id, x, y, name}) {
     }, [clk]);
 
     const handleLineNumberInput = event => {
-        setCurrentLineNumber(+event.target.value);
+        if (isNaN(fromHex(event.target.value))) {
+            setCurrentLineNumber('0x01');
+        } else {
+            setCurrentLineNumber(fromHex(event.target.value));
+        }
     };
 
     const slot = (
@@ -71,12 +97,12 @@ export default function Rom({id, x, y, name}) {
                     marginLeft: '20px',
                 },
             }}>
-                <input type={'text'} value={currentLineNumber} onInput={handleLineNumberInput} />
+                <input type={'text'} onInput={handleLineNumberInput} />
             </Html>
             <Text
                 x={50}
                 y={70}
-                text={`${currentLineNumber - 1}: ${lines[currentLineNumber - 1]}` }
+                text={`${toHex(currentLineNumber - 1)}: ${toHex(lines[currentLineNumber - 1])}` }
                 fontSize={22}
                 fontFamily='Calibri'
                 fill={executingLineNumber ===  currentLineNumber - 1 ? 'red' : 'black'}
@@ -84,7 +110,7 @@ export default function Rom({id, x, y, name}) {
             <Text
                 x={50}
                 y={90}
-                text={`${currentLineNumber}: ${lines[currentLineNumber]}`}
+                text={`${toHex(currentLineNumber)}: ${toHex(lines[currentLineNumber])}`}
                 fontSize={22}
                 fontFamily='Calibri'
                 fill={executingLineNumber ===  currentLineNumber ? 'red' : 'black'}
@@ -92,7 +118,7 @@ export default function Rom({id, x, y, name}) {
             <Text
                 x={50}
                 y={110}
-                text={`${currentLineNumber + 1}: ${lines[currentLineNumber + 1]}`}
+                text={`${toHex(currentLineNumber + 1)}: ${toHex(lines[currentLineNumber + 1])}`}
                 fontSize={22}
                 fontFamily='Calibri'
                 fill={executingLineNumber ===  currentLineNumber + 1 ? 'red' : 'black'}

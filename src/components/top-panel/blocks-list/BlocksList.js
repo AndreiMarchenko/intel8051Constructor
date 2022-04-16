@@ -9,6 +9,7 @@ import Ram from "./blocks/ram/Ram";
 import Sum from "./blocks/sum/Sum";
 import GlobalSig from "./blocks/globalSig/globalSig";
 import InstructionRegister from "./blocks/instructionRegister/instructionRegister";
+import ControlUnit from "./blocks/controlUnit/controlUnit";
 
 export default function BlocksList() {
     const blocks = [
@@ -20,7 +21,8 @@ export default function BlocksList() {
         <Ram key={6} />,
         <Sum key={7} />,
         <GlobalSig key={8} />,
-        <InstructionRegister key={9} />,
+        <ControlUnit key={9} />,
+        <InstructionRegister key={10} />,
     ];
 
 

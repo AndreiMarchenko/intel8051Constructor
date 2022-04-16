@@ -8,6 +8,7 @@ import {Fragment, useEffect, useState} from "react";
 import {updateWirePayload} from "../../../../store/slices/wireSlice";
 import { changeBlockPayload } from "../../../../store/slices/blockSlice";
 import {Text} from "react-konva";
+import toHex from '../../../../utils/toHex';
 
 export default function Register({id, x, y, name}) {
     const dispatch = useDispatch();
@@ -54,7 +55,8 @@ export default function Register({id, x, y, name}) {
                     }));
                 }
             }
-            if (enWire?.payload && dWire) {
+
+            if (enWire && enWire.payload === 1 && dWire) {
                 if (dWire.payload !== 'z') {
                     setState(dWire.payload);
                 }
@@ -64,7 +66,7 @@ export default function Register({id, x, y, name}) {
 
     const slot = (
       <Fragment>
-          <StateDisplayRectangle state={state} />
+          <StateDisplayRectangle state={toHex(state)} />
           <Text
               x={0}
               y={0}

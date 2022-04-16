@@ -1,0 +1,8 @@
+.open-command-modal-button {
+    width: 100px;
+}
+
+.control-unit__inputs {
+    display: flex;
+    flex-direction: column;
+}
