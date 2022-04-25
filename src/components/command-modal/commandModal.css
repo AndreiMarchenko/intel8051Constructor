@@ -64,6 +64,11 @@
     margin-left: 5px;
 }
 
+.commands-amount-btn,
+.command-settings-btn {
+    margin-left: 5px;
+}
+
 .command-modal__table {
     display: flex;
     margin-top: 10px;

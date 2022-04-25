@@ -23,7 +23,11 @@ export const blockSlice = createSlice({
         },
         changeBlockPayload: (state, action) => {
             const block = state.blocks.find(block => block.id === action.payload.blockId);
-            block.payload = action.payload.payload;
+            if (typeof action.payload.payload === 'object') {
+                block.payload = {...block.payload, ...action.payload.payload};
+            } else {
+                block.payload = action.payload.payload;
+            }
         },
         changeBlockConnection: (state, action) => {
             let blockIndex = state.blocks.findIndex(block => block.id === action.payload.blockId);

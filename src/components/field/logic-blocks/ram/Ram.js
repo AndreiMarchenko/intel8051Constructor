@@ -1,7 +1,7 @@
 import Block from "../../Block";
 import {RAM_BLOCK_COLOR, RAM_BLOCK_WIDTH, RAM_BLOCK_HEIGHT} from "../../../../globals/globals";
 import getConnections from "./connections";
-import {Fragment, useEffect, useState} from "react";
+import {Fragment, useEffect} from "react";
 import { Html } from 'react-konva-utils';
 import {Text} from "react-konva";
 import { fill } from 'lodash';
@@ -13,13 +13,7 @@ import toHex from "../../../../utils/toHex";
 import fromHex from "../../../../utils/fromHex";
 
 export default function Ram({id, x, y, name}) {
-    const ramSize = 100;
-    const ramData = fill(Array(ramSize), '0');
-
-    let [lines, setLines] = useState(ramData);
-    let [currentLineNumber, setCurrentLineNumber] = useState(1);
-
-    let [raoAddr, setRaoAddr] = useState(0);
+    const initialRamData = fill(Array(100), '0');
 
     const dispatch = useDispatch();
     const clk = useSelector(state => state.clkReducer.clk);
@@ -31,26 +25,22 @@ export default function Ram({id, x, y, name}) {
         })
     );
 
-    useEffect(() => {
-        dispatch(changeBlockPayload({
-            blockId: id,
-            payload: {
-                address: raoAddr,
-                value: lines[raoAddr],
-                activeAddress: raoAddr,
-            },
-        }));
-    }, []);
+    let executingAddress = block.payload.executingAddress;
+    let activeAddress = block.payload.activeAddress;
+    let ramData = block.payload.data;
 
     useEffect(() => {
-        if (block.payload) {
-            setLines(lines => {
-                lines[block.payload.address] = block.payload.value;
-                return lines;
-            });
-            setRaoAddr(+block.payload.activeAddress);
+        if (!block.payload) {
+            dispatch(changeBlockPayload({
+                blockId: id,
+                payload: {
+                    executingAddress: 0,
+                    activeAddress: 1,
+                    data: initialRamData,
+                },
+            }));
         }
-    }, [block]);
+    }, []);
 
     useEffect(() => {
         if (clk === 1) {
@@ -65,21 +55,30 @@ export default function Ram({id, x, y, name}) {
             }
 
             if (readAddr.payload === 1) {
-                setRaoAddr(addr.payload);
+                dispatch(changeBlockPayload({
+                    blockId: id,
+                    payload: {
+                        executingAddress: addr.payload,
+                    },
+                }));
             }
 
             if (en.payload === 1) {
                 if (rNw.payload === 1) {
                     dispatch(updateWirePayload({
                         id: data.id,
-                        payload: lines[raoAddr],
+                        payload: ramData[executingAddress],
                     }));
                 } else if (rNw.payload === 0) {
-                    setLines(prev => {
-                        let prevCopy = cloneDeep(prev);
-                        prevCopy[raoAddr] = data.payload;
-                        return prevCopy;
-                    });
+                    let dataCopy = cloneDeep(ramData);
+                    dataCopy[executingAddress] = data.payload;
+
+                    dispatch(changeBlockPayload({
+                        blockId: id,
+                        payload: {
+                            data: dataCopy,
+                        },
+                    }));
                 }
             }
 
@@ -89,56 +88,70 @@ export default function Ram({id, x, y, name}) {
 
     const handleLineNumberInput = event => {
         if (isNaN(fromHex(event.target.value))) {
-            setCurrentLineNumber('0x01');
+            dispatch(changeBlockPayload({
+                blockId: id,
+                payload: {
+                    activeAddress: 1,
+                },
+            }));
         } else {
-            setCurrentLineNumber(fromHex(event.target.value));
+            dispatch(changeBlockPayload({
+                blockId: id,
+                payload: {
+                    activeAddress: fromHex(event.target.value),
+                },
+            }));
         }
     };
 
-    const slot = (
-        <Fragment>
-            <Text
-                x={70}
-                y={10}
-                text={name}
-                fontSize={22}
-                fontFamily='Calibri'
-                fill='black'
-            />
-            <Html divProps={{
-                style: {
-                    marginTop: '35px',
-                    marginLeft: '20px',
-                },
-            }}>
-                <input type={'text'} onInput={handleLineNumberInput}/>
-            </Html>
-            <Text
-                x={50}
-                y={70}
-                text={`${toHex(currentLineNumber - 1)}: ${toHex(lines[currentLineNumber - 1])}` }
-                fontSize={22}
-                fontFamily='Calibri'
-                fill={raoAddr ===  currentLineNumber - 1 ? 'red' : 'black'}
-            />
-            <Text
-                x={50}
-                y={90}
-                text={`${toHex(currentLineNumber)}: ${toHex(lines[currentLineNumber])}`}
-                fontSize={22}
-                fontFamily='Calibri'
-                fill={raoAddr ===  currentLineNumber ? 'red' : 'black'}
-            />
-            <Text
-                x={50}
-                y={110}
-                text={`${toHex(currentLineNumber + 1)}: ${toHex(lines[currentLineNumber + 1])}`}
-                fontSize={22}
-                fontFamily='Calibri'
-                fill={raoAddr ===  currentLineNumber + 1 ? 'red' : 'black'}
-            />
-        </Fragment>
-    );
+    let slot;
+    if (typeof block.payload === 'object') {
+        slot = (
+            <Fragment>
+                <Text
+                    x={70}
+                    y={10}
+                    text={name}
+                    fontSize={22}
+                    fontFamily='Calibri'
+                    fill='black'
+                />
+                <Html divProps={{
+                    style: {
+                        marginTop: '35px',
+                        marginLeft: '20px',
+                    },
+                }}>
+                    <input type={'text'} onInput={handleLineNumberInput}/>
+                </Html>
+                <Text
+                    x={50}
+                    y={70}
+                    text={`${toHex(activeAddress - 1)}: ${toHex(ramData[activeAddress - 1])}` }
+                    fontSize={22}
+                    fontFamily='Calibri'
+                    fill={executingAddress ===  activeAddress - 1 ? 'red' : 'black'}
+                />
+                <Text
+                    x={50}
+                    y={90}
+                    text={`${toHex(activeAddress)}: ${toHex(ramData[activeAddress])}`}
+                    fontSize={22}
+                    fontFamily='Calibri'
+                    fill={executingAddress ===  activeAddress ? 'red' : 'black'}
+                />
+                <Text
+                    x={50}
+                    y={110}
+                    text={`${toHex(activeAddress + 1)}: ${toHex(ramData[activeAddress + 1])}`}
+                    fontSize={22}
+                    fontFamily='Calibri'
+                    fill={executingAddress ===  activeAddress + 1 ? 'red' : 'black'}
+                />
+            </Fragment>
+        );
+
+    }
 
     return (
         <Block

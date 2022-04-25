@@ -1,5 +1,5 @@
 import './commandModal.css';
-import {useRef, useState} from 'react';
+import {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {closeCommandModal} from "../../store/slices/commandSlice";
 import {setGlobalSignalOnes, setCommands, setCommandsAmount, changeCommandCode} from "../../store/slices/blockSlice";
@@ -13,6 +13,8 @@ export default function CommandModal() {
     const commands = useSelector(state => state.blockReducer.commands);
     const commandAmount = useSelector(state => state.blockReducer.commandsAmount);
     const dispatch = useDispatch();
+
+    const [localCommandAmount, setLocalCommandAmount] = useState(commandAmount);
 
     let isOpened = useSelector(state => state.commandReducer.isCommandModalOpened);
     const closeModal = () => {
@@ -65,30 +67,33 @@ export default function CommandModal() {
         }
     };
 
-    const handleCommandLengthChange = (event, commandIndex) => {
-        const commandsCopy = cloneDeep(commands);
-        const commandToChange = commandsCopy[commandIndex];
-        commandToChange.length = +event.target.value;
-        dispatch(setCommands(commandsCopy));
+    const handleLocalCommandAmountChange = event => {
+        setLocalCommandAmount(event.target.value);
     };
 
-    const handleCommandCodeChange = (event, commandIndex) => {
+    const handleCommandAmountChange = () => {
+        dispatch(setCommandsAmount(localCommandAmount));
+    };
+
+    const handleCommandSettingsChange = (event, commandIndex) => {
+        const parentNode = event.target.parentNode;
+
+        const nameInput = parentNode.querySelector('.name-input');
+        const codeInput = parentNode.querySelector('.code-input');
+        const lengthInput = parentNode.querySelector('.length-input');
+
+        const commandsCopy = cloneDeep(commands);
+        const commandToChange = commandsCopy[commandIndex];
+        commandToChange.name = nameInput.value;
+
         const commandCodesCopy = cloneDeep(commandCodes);
-        commandCodesCopy[commandIndex] = event.target.value;
+        commandCodesCopy[commandIndex] = codeInput.value;
         setCommandCodes(commandCodesCopy);
 
-        dispatch(changeCommandCode({commandCode: fromHex(event.target.value), commandIndex: commandIndex}));
-    }
+        commandToChange.length = +lengthInput.value;
 
-    const handleCommandNameChange = (event, commandIndex) => {
-        const commandsCopy = cloneDeep(commands);
-        const commandToChange = commandsCopy[commandIndex];
-        commandToChange.name = event.target.value;
         dispatch(setCommands(commandsCopy));
-    };
-
-    const handleCommandAmountChange = event => {
-        dispatch(setCommandsAmount(event.target.value));
+        dispatch(changeCommandCode({commandCode: fromHex(codeInput.value), commandIndex: commandIndex}));
     };
 
     return (
@@ -97,7 +102,8 @@ export default function CommandModal() {
             <div className="command-modal__content">
                 <label className="commands-amount-label">
                     Commands amount
-                    <input type="text" className="commands-amount-input" value={commandAmount} onChange={handleCommandAmountChange}/>
+                    <input type="text" className="commands-amount-input" value={localCommandAmount} onChange={handleLocalCommandAmountChange}/>
+                    <button className="commands-amount-btn" onClick={handleCommandAmountChange}>Change command amount</button>
                 </label>
                 {
                     commands.map((command, commandIndex) => {
@@ -106,30 +112,30 @@ export default function CommandModal() {
                                 <label className={'command-name-label'}>
                                     Command name
                                     <input
-                                        className="command-input"
+                                        className="command-input name-input"
                                         type="text"
-                                        value={command.name}
-                                        onChange={(event) => handleCommandNameChange(event, commandIndex)}
+                                        defaultValue={command.name}
                                     />
                                 </label>
                                 <label className={'command-name-label'}>
                                     Command code
                                     <input
-                                        className="command-input"
+                                        className="command-input code-input"
                                         type="text"
-                                        value={commandCodes[commandIndex]}
-                                        onChange={(event) => handleCommandCodeChange(event, commandIndex)}
+                                        defaultValue={toHex(commandCodes[commandIndex])}
                                     />
                                 </label>
                                 <label>
                                     Command length
                                     <input
-                                        className="command-input"
+                                        className="command-input length-input"
                                         type="text"
-                                        value={command.length}
-                                        onChange={(event) => handleCommandLengthChange(event, commandIndex)}
+                                        defaultValue={command.length}
                                     />
                                 </label>
+                                <button className="command-settings-btn" onClick={(e) => handleCommandSettingsChange(e, commandIndex)}>
+                                    Change command settings
+                                </button>
                                 <div className="command-modal__table">
                                     <div className="signals-column">
                                         {

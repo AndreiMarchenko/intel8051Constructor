@@ -29,7 +29,6 @@ export default function Sidebar() {
         }
 
         setSelectedBlockState(event.target.value)
-        handlePayloadChange(event.target.value);
     };
 
     useEffect(() => {
@@ -59,9 +58,8 @@ export default function Sidebar() {
 
         if ([REGISTER_BLOCK_TYPE, INSTRUCTION_REGISTER_BLOCK_TYPE].includes(selectedBlock.type)) {
             clonedPayload = fromHex(payload);
-        } else {
-            clonedPayload.address = fromHex(payload.address);
-            clonedPayload.value = fromHex(payload.value);
+        } else if ([ROM_BLOCK_TYPE, RAM_BLOCK_TYPE].includes(selectedBlock.type)) {
+            clonedPayload.data[fromHex(payload.address)] = fromHex(payload.value);
             clonedPayload.activeAddress = fromHex(payload.activeAddress);
         }
 
@@ -91,6 +89,7 @@ export default function Sidebar() {
                         type="text"
                         onChange={event => handleRegisterStateChange(event)}
                     />
+                    <button className="memory-btn" onClick={() => handlePayloadChange(selectedBlockState)}>Save</button>
                 </>
             );
         }
