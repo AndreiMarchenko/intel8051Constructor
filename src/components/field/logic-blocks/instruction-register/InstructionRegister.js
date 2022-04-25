@@ -43,7 +43,6 @@ export default function InstructionRegister({id, x, y, name}) {
     }, [clk]);
 
     useEffect(() => {
-        console.log((clkPosition - 1) % 4 + 1);
         dispatch(setClkPosition((clkPosition - 1) % 4 + 1));
         dispatch(changeCurrentCommand(block.payload));
     }, [block.payload]);

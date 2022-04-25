@@ -1,0 +1,21 @@
+.clear-field-btn {
+    margin-right: 20px;
+}
+
+.btn {
+    padding: 16px 50px;
+    font-size: 26px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    color: #ffffff;
+}
+
+.confirm-clear-btn {
+    background-color: #00B73E;
+}
+
+.dismiss-clear-btn {
+    margin-right: 25px;
+    background-color: #E8003E;
+}

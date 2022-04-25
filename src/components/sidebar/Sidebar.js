@@ -43,7 +43,7 @@ export default function Sidebar() {
         } else if ([RAM_BLOCK_TYPE, ROM_BLOCK_TYPE].includes(selectedBlock.type)) {
             clonedPayload.address = toHex(clonedPayload.address);
             clonedPayload.value = toHex(clonedPayload.value);
-            clonedPayload.activeAddress = toHex(clonedPayload.activeAddress);
+            clonedPayload.executingAddress = toHex(clonedPayload.executingAddress);
         }
 
         setSelectedBlockState(clonedPayload);
@@ -60,7 +60,7 @@ export default function Sidebar() {
             clonedPayload = fromHex(payload);
         } else if ([ROM_BLOCK_TYPE, RAM_BLOCK_TYPE].includes(selectedBlock.type)) {
             clonedPayload.data[fromHex(payload.address)] = fromHex(payload.value);
-            clonedPayload.activeAddress = fromHex(payload.activeAddress);
+            clonedPayload.executingAddress = fromHex(payload.executingAddress);
         }
 
         dispatch(changeBlockPayload({blockId: selectedBlockId, payload: clonedPayload}));
@@ -129,7 +129,7 @@ export default function Sidebar() {
                             type="text"
                             onChange={event => setSelectedBlockState({
                                 ...selectedBlockState,
-                                activeAddress: event.target.value,
+                                executingAddress: event.target.value,
                             })}
                         />
                     </div>
@@ -170,7 +170,7 @@ export default function Sidebar() {
 
 
     return (
-        <div className={'sidebar'}>
+        <div className={'sidebar'} key={selectedBlockId}>
             {content}
         </div>
     );

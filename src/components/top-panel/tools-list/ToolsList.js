@@ -1,13 +1,15 @@
 import './ToolsList.css';
 import SaveState from "./tools/saveState/SaveState";
-import DeleteState from "./tools/deleteState/DeleteState";
+import LoadState from "./tools/loadState/LoadState";
+import ClearField from "./tools/clearField/ClearField";
 import Delete from "./tools/delete/Delete";
 
 export default function ToolsList() {
     const tools = [
         <SaveState key={1} />,
-        <DeleteState key={2} />,
-        <Delete key={3} />
+        <LoadState key={2} />,
+        <ClearField key={3} />,
+        <Delete key={4} />
     ];
 
     return (
