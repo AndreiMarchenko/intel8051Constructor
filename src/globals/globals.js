@@ -50,7 +50,7 @@ export const SUM_BLOCK_COLOR = 'wheat';
 export const GLOBAL_SIG_BLOCK_TYPE = 'global-sig';
 export const GLOBAL_SIG_BLOCK_WIDTH = 70;
 export const GLOBAL_SIG_BLOCK_HEIGHT = 70;
-export const GLOBAL_SIG_BLOCK_COLOR = 'purple';
+export const GLOBAL_SIG_BLOCK_COLOR = '#d645d6';
 
 export const CONTROL_UNIT_BLOCK_TYPE = 'control-unit';
 export const CONTROL_UNIT_BLOCK_WIDTH = 150;

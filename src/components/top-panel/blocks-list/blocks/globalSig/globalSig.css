@@ -4,7 +4,7 @@
     width: var(--default-block-dimensions);
     height: var(--default-block-dimensions);
 
-    background-color: purple;
+    background-color: #d645d6;
 }
 .global-sig-label {
     font-size: 12px;

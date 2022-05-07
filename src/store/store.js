@@ -6,7 +6,6 @@ import globalStateReducer from "./slices/globalStateSlice";
 import topPanelReducer from "./slices/topPanelSlice";
 import commandReducer from "./slices/commandSlice";
 import loadState from "./localstorageApi/loadState";
-import AddAdirectPreloadedState from './preloadedStates/AddAdirectPreloadedState';
 
 const preloadedState = loadState();
 

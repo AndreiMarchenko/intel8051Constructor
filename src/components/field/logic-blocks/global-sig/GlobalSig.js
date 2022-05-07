@@ -3,7 +3,7 @@ import Block from "../../Block";
 import {GLOBAL_SIG_BLOCK_WIDTH, GLOBAL_SIG_BLOCK_HEIGHT, GLOBAL_SIG_BLOCK_COLOR} from "../../../../globals/globals";
 import getConnections from './connections';
 import {useSelector, useDispatch} from "react-redux";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {updateWirePayload} from "../../../../store/slices/wireSlice";
 import {addGlobalSignal} from "../../../../store/slices/blockSlice";
 import {Text} from "react-konva";
@@ -20,19 +20,19 @@ export default function GlobalSig({id, x, y, name}) {
     const connections = getConnections(id);
 
     useEffect(() => {
-        // if (clk === 1) {
-            const outWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.out`));
+        const outWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.out`));
 
-            if (!outWire || !signal) {
-                return;
-            }
+        if (!outWire || !signal) {
+            return;
+        }
 
+        if (signal.value !== 'z' && signal.touched) {
             dispatch(updateWirePayload({
                 id: outWire.id,
                 payload: signal.value,
             }));
-        // }
-    }, [signal]);
+        }
+    }, [signal?.touched]);
 
     useEffect(() => {
         dispatch(addGlobalSignal({
@@ -45,8 +45,9 @@ export default function GlobalSig({id, x, y, name}) {
         <Text
             x={0}
             y={0}
+            width={GLOBAL_SIG_BLOCK_WIDTH}
             text={name}
-            fontSize={22}
+            fontSize={20}
             fontFamily='Calibri'
             fill='black'
         />

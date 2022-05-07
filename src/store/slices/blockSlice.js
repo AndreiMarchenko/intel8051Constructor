@@ -83,6 +83,7 @@ export const blockSlice = createSlice({
                     blockId: action.payload.blockId,
                     value: 'z',
                     commands: commands,
+                    touched: false,
                 });
             } else {
                 existingSignal.name = action.payload.name;
@@ -95,6 +96,7 @@ export const blockSlice = createSlice({
         },
         updateGlobalSignal: (state, action) => {
             const signal = state.globalSignals.find(signal => signal.blockId === action.payload.blockId);
+            signal.touched = action.payload.touched;
             signal.value = action.payload.value;
         },
         changeCommandCode: (state, action) => {
@@ -122,6 +124,11 @@ export const blockSlice = createSlice({
         setCommandsAmount: (state, action) => {
             state.commandsAmount = action.payload;
         },
+        resetSignalTouch: (state) => {
+            state.globalSignals.forEach(signal => {
+                signal.touched = false;
+            });
+        },
     }
 })
 
@@ -140,6 +147,7 @@ export const {
     setCommands,
     setCommandsAmount,
     changeCommandCode,
+    resetSignalTouch,
 } = blockSlice.actions
 
 export default blockSlice.reducer

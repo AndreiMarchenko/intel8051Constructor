@@ -1,0 +1,1560 @@
+{
+  "wireReducer": {
+    "wires": [
+      {
+        "id": "0",
+        "globalId": "0",
+        "connections": [
+          "8.out",
+          "0.inc"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          82.00003094425483,
+          233,
+          219.00038953356096,
+          222
+        ]
+      },
+      {
+        "id": "1",
+        "globalId": "1",
+        "connections": [
+          "9.out",
+          "0.en"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          88.00004186575654,
+          348,
+          219.00038953356096,
+          322
+        ]
+      },
+      {
+        "id": "2",
+        "globalId": "2",
+        "connections": [
+          "10.out",
+          "1.readAddr"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          846.0014216154722,
+          270,
+          1071.0019403868032,
+          244
+        ]
+      },
+      {
+        "id": "3",
+        "globalId": "3",
+        "connections": [
+          "11.out",
+          "1.en"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          850.0014288964733,
+          358,
+          1071.0019403868032,
+          304
+        ]
+      },
+      {
+        "id": "4",
+        "globalId": "4",
+        "connections": [
+          "12.out",
+          "1.r/!w"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          852.0014325369738,
+          446,
+          1071.0019403868032,
+          364
+        ]
+      },
+      {
+        "id": "5",
+        "globalId": "5",
+        "connections": [
+          "13.out",
+          "5.en"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          313.00045142207057,
+          766,
+          537.0009683731513,
+          740
+        ]
+      },
+      {
+        "id": "6",
+        "globalId": "6",
+        "connections": [
+          "14.out",
+          "6.en"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          315.0004550625711,
+          897,
+          536.0009665529011,
+          903
+        ]
+      },
+      {
+        "id": "7",
+        "globalId": "7",
+        "connections": [
+          "15.out",
+          "4.oEn"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          781.0013032992036,
+          917,
+          812.0014835039818,
+          914,
+          809.001478043231,
+          844,
+          851.0015399317406,
+          832.5
+        ]
+      },
+      {
+        "id": "8",
+        "globalId": "8",
+        "connections": [
+          "16.out",
+          "7.en"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          1037.0017692832766,
+          892,
+          1064.0019422070536,
+          889,
+          1058.0019312855518,
+          794,
+          1166.0021133105804,
+          788
+        ]
+      },
+      {
+        "id": "9",
+        "globalId": "9",
+        "connections": [
+          "17.out",
+          "7.oEn"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          1042.0017783845278,
+          981,
+          1115.002035039818,
+          974,
+          1098.0020040955633,
+          825,
+          1166.0021133105804,
+          813
+        ]
+      },
+      {
+        "id": "10",
+        "globalId": "10",
+        "connections": [
+          "18.out",
+          "2.en"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          1511.0026320819113,
+          800,
+          1562.0028486916951,
+          795,
+          1549.0028250284415,
+          640,
+          1603.0029087599544,
+          637
+        ]
+      },
+      {
+        "id": "11",
+        "globalId": "11",
+        "connections": [
+          "0.out",
+          "1.addr"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          409.00038953356096,
+          272,
+          595.0010885096701,
+          268,
+          594.0010866894198,
+          178,
+          1071.0019403868032,
+          184
+        ]
+      },
+      {
+        "id": "12",
+        "globalId": "11",
+        "connections": [
+          "wire.11.0",
+          "5.d"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          465.98881877948526,
+          275.8819734650007,
+          463.0008482366326,
+          722,
+          537.0009683731513,
+          715
+        ]
+      },
+      {
+        "id": "13",
+        "globalId": "11",
+        "connections": [
+          "wire.12.2",
+          "6.d"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          486.0311567282772,
+          725.2944330467482,
+          490.0008973833902,
+          880,
+          536.0009665529011,
+          878
+        ]
+      },
+      {
+        "id": "14",
+        "globalId": "11",
+        "connections": [
+          "wire.12.3",
+          "2.in"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          468.8737759120093,
+          596.6678008495196,
+          1603.0029087599544,
+          587
+        ]
+      },
+      {
+        "id": "15",
+        "globalId": "15",
+        "connections": [
+          "5.q",
+          "4.in1"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          627.0009683731513,
+          740,
+          734.0013415244597,
+          737,
+          738.0013488054608,
+          790,
+          851.0015399317406,
+          787.5
+        ]
+      },
+      {
+        "id": "16",
+        "globalId": "16",
+        "connections": [
+          "6.q",
+          "4.in2"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          626.0009665529011,
+          903,
+          670.0012250284415,
+          903,
+          670.0012250284415,
+          822,
+          851.0015399317406,
+          810
+        ]
+      },
+      {
+        "id": "17",
+        "globalId": "11",
+        "connections": [
+          "4.out",
+          "wire.14.4"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          931.0015399317406,
+          810,
+          969.0017692832765,
+          809,
+          957.3528845628523,
+          597.5464185466049
+        ]
+      },
+      {
+        "id": "18",
+        "globalId": "11",
+        "connections": [
+          "7.d",
+          "wire.14.5"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          1166.0021133105804,
+          763,
+          1105.002016837315,
+          765,
+          1096.4822861949128,
+          596.3604201374873
+        ]
+      },
+      {
+        "id": "19",
+        "globalId": "11",
+        "connections": [
+          "7.q",
+          "wire.14.6"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          1256.0021133105804,
+          788,
+          1324.0024154721275,
+          788,
+          1320.7052113831421,
+          594.449048210048
+        ]
+      },
+      {
+        "id": "20",
+        "globalId": "11",
+        "connections": [
+          "1.data",
+          "wire.14.7"
+        ],
+        "payload": "z",
+        "updatedOnCurrentEdgeCount": 0,
+        "path": [
+          1261.0019403868032,
+          274,
+          1382.002521046644,
+          273,
+          1416.8188780361534,
+          593.6297342878449
+        ]
+      }
+    ],
+    "wireConnections": [
+      {
+        "position": {
+          "x": 460.98881877948526,
+          "y": 270.8819734650007
+        },
+        "id": "wire.11.0",
+        "wireId": "11",
+        "connectionIndex": 0,
+        "firstPartToLengthRatio": 0.27950663374981144
+      },
+      {
+        "position": {
+          "x": 481.0311567282772,
+          "y": 720.2944330467482
+        },
+        "id": "wire.12.2",
+        "wireId": "12",
+        "connectionIndex": 2,
+        "firstPartToLengthRatio": 0.24365242189312017
+      },
+      {
+        "position": {
+          "x": 463.8737759120093,
+          "y": 591.6678008495196
+        },
+        "id": "wire.12.3",
+        "wireId": "12",
+        "connectionIndex": 0,
+        "firstPartToLengthRatio": 0.707852650199385
+      },
+      {
+        "position": {
+          "x": 952.3528845628523,
+          "y": 592.5464185466049
+        },
+        "id": "wire.14.4",
+        "wireId": "14",
+        "connectionIndex": 0,
+        "firstPartToLengthRatio": 0.4262998759557162
+      },
+      {
+        "position": {
+          "x": 1091.4822861949128,
+          "y": 591.3604201374873
+        },
+        "id": "wire.14.5",
+        "wireId": "14",
+        "connectionIndex": 0,
+        "firstPartToLengthRatio": 0.548974973175632
+      },
+      {
+        "position": {
+          "x": 1315.7052113831421,
+          "y": 589.449048210048
+        },
+        "id": "wire.14.6",
+        "wireId": "14",
+        "connectionIndex": 0,
+        "firstPartToLengthRatio": 0.7466799070266623
+      },
+      {
+        "position": {
+          "x": 1411.8188780361534,
+          "y": 588.6297342878449
+        },
+        "id": "wire.14.7",
+        "wireId": "14",
+        "connectionIndex": 0,
+        "firstPartToLengthRatio": 0.8314265764042996
+      }
+    ],
+    "activeConnection": null,
+    "activePath": null,
+    "activePathNodesCount": 1
+  },
+  "blockReducer": {
+    "blocks": [
+      {
+        "id": "0",
+        "type": "rom",
+        "name": "Rom",
+        "position": {
+          "x": 214.00038953356096,
+          "y": 122
+        },
+        "connections": [
+          {
+            "id": "0.inc",
+            "name": "inc",
+            "connectedTo": "0",
+            "type": "in",
+            "blockId": 0,
+            "position": {
+              "x": 0,
+              "y": 95
+            }
+          },
+          {
+            "id": "0.en",
+            "name": "en",
+            "connectedTo": "1",
+            "type": "in",
+            "blockId": 0,
+            "position": {
+              "x": 0,
+              "y": 195
+            }
+          },
+          {
+            "id": "0.out",
+            "name": "out",
+            "connectedTo": "11",
+            "type": "out",
+            "blockId": 0,
+            "position": {
+              "x": 190,
+              "y": 145
+            }
+          }
+        ],
+        "payload": {
+          "executingAddress": 0,
+          "activeAddress": 1,
+          "data": [
+            170,
+            18,
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "address": "1",
+          "value": "12"
+        }
+      },
+      {
+        "id": "1",
+        "type": "ram",
+        "name": "Ram",
+        "position": {
+          "x": 1066.0019403868032,
+          "y": 124
+        },
+        "connections": [
+          {
+            "id": "1.addr",
+            "name": "addr",
+            "connectedTo": "11",
+            "type": "in",
+            "blockId": 1,
+            "position": {
+              "x": 0,
+              "y": 55
+            }
+          },
+          {
+            "id": "1.readAddr",
+            "name": "readAddr",
+            "connectedTo": "2",
+            "type": "in",
+            "blockId": 1,
+            "position": {
+              "x": 0,
+              "y": 115
+            }
+          },
+          {
+            "id": "1.en",
+            "name": "en",
+            "connectedTo": "3",
+            "type": "in",
+            "blockId": 1,
+            "position": {
+              "x": 0,
+              "y": 175
+            }
+          },
+          {
+            "id": "1.r/!w",
+            "name": "r/!w",
+            "connectedTo": "4",
+            "type": "in",
+            "blockId": 1,
+            "position": {
+              "x": 0,
+              "y": 235
+            }
+          },
+          {
+            "id": "1.data",
+            "name": "data",
+            "connectedTo": "20",
+            "type": "inout",
+            "blockId": 1,
+            "position": {
+              "x": 190,
+              "y": 145
+            }
+          }
+        ],
+        "payload": {
+          "executingAddress": 0,
+          "activeAddress": 18,
+          "data": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            4,
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "address": "12",
+          "value": "4"
+        }
+      },
+      {
+        "id": "2",
+        "type": "instruction-register",
+        "name": "Instr. Reg.",
+        "position": {
+          "x": 1598.0029087599544,
+          "y": 537
+        },
+        "connections": [
+          {
+            "id": "2.in",
+            "name": "in",
+            "connectedTo": "14",
+            "type": "in",
+            "blockId": 2,
+            "position": {
+              "x": 0,
+              "y": 45
+            }
+          },
+          {
+            "id": "2.en",
+            "name": "en",
+            "connectedTo": "10",
+            "type": "in",
+            "blockId": 2,
+            "position": {
+              "x": 0,
+              "y": 95
+            }
+          }
+        ],
+        "payload": 0
+      },
+      {
+        "id": "3",
+        "type": "control-unit",
+        "name": "Control unit",
+        "position": {
+          "x": 1956.0035604095565,
+          "y": 63
+        },
+        "connections": [],
+        "payload": 0
+      },
+      {
+        "id": "4",
+        "type": "sum",
+        "name": "Sum",
+        "position": {
+          "x": 846.0015399317406,
+          "y": 765
+        },
+        "connections": [
+          {
+            "id": "4.in1",
+            "name": "in1",
+            "connectedTo": "15",
+            "type": "in",
+            "blockId": 4,
+            "position": {
+              "x": 0,
+              "y": 17.5
+            }
+          },
+          {
+            "id": "4.in2",
+            "name": "in2",
+            "connectedTo": "16",
+            "type": "in",
+            "blockId": 4,
+            "position": {
+              "x": 0,
+              "y": 40
+            }
+          },
+          {
+            "id": "4.oEn",
+            "name": "oEn",
+            "connectedTo": "7",
+            "type": "in",
+            "blockId": 4,
+            "position": {
+              "x": 0,
+              "y": 62.5
+            }
+          },
+          {
+            "id": "4.out",
+            "name": "out",
+            "connectedTo": "17",
+            "type": "out",
+            "blockId": 4,
+            "position": {
+              "x": 80,
+              "y": 40
+            }
+          }
+        ],
+        "payload": 0
+      },
+      {
+        "id": "5",
+        "type": "register",
+        "name": "rvh",
+        "position": {
+          "x": 532.0009683731513,
+          "y": 690
+        },
+        "connections": [
+          {
+            "id": "5.d",
+            "name": "d",
+            "connectedTo": "12",
+            "type": "in",
+            "blockId": 5,
+            "position": {
+              "x": 0,
+              "y": 20
+            }
+          },
+          {
+            "id": "5.en",
+            "name": "en",
+            "connectedTo": "5",
+            "type": "in",
+            "blockId": 5,
+            "position": {
+              "x": 0,
+              "y": 45
+            }
+          },
+          {
+            "id": "5.oEn",
+            "name": "oEn",
+            "connectedTo": null,
+            "connectedToType": null,
+            "type": "in",
+            "blockId": 5,
+            "position": {
+              "x": 0,
+              "y": 70
+            }
+          },
+          {
+            "id": "5.q",
+            "name": "q",
+            "connectedTo": "15",
+            "type": "out",
+            "blockId": 5,
+            "position": {
+              "x": 90,
+              "y": 45
+            }
+          }
+        ],
+        "payload": 0
+      },
+      {
+        "id": "6",
+        "type": "register",
+        "name": "regAcc",
+        "position": {
+          "x": 531.0009665529011,
+          "y": 853
+        },
+        "connections": [
+          {
+            "id": "6.d",
+            "name": "d",
+            "connectedTo": "13",
+            "type": "in",
+            "blockId": 6,
+            "position": {
+              "x": 0,
+              "y": 20
+            }
+          },
+          {
+            "id": "6.en",
+            "name": "en",
+            "connectedTo": "6",
+            "type": "in",
+            "blockId": 6,
+            "position": {
+              "x": 0,
+              "y": 45
+            }
+          },
+          {
+            "id": "6.oEn",
+            "name": "oEn",
+            "connectedTo": null,
+            "connectedToType": null,
+            "type": "in",
+            "blockId": 6,
+            "position": {
+              "x": 0,
+              "y": 70
+            }
+          },
+          {
+            "id": "6.q",
+            "name": "q",
+            "connectedTo": "16",
+            "type": "out",
+            "blockId": 6,
+            "position": {
+              "x": 90,
+              "y": 45
+            }
+          }
+        ],
+        "payload": 0
+      },
+      {
+        "id": "7",
+        "type": "register",
+        "name": "acc",
+        "position": {
+          "x": 1161.0021133105804,
+          "y": 738
+        },
+        "connections": [
+          {
+            "id": "7.d",
+            "name": "d",
+            "connectedTo": "18",
+            "type": "in",
+            "blockId": 7,
+            "position": {
+              "x": 0,
+              "y": 20
+            }
+          },
+          {
+            "id": "7.en",
+            "name": "en",
+            "connectedTo": "8",
+            "type": "in",
+            "blockId": 7,
+            "position": {
+              "x": 0,
+              "y": 45
+            }
+          },
+          {
+            "id": "7.oEn",
+            "name": "oEn",
+            "connectedTo": "9",
+            "type": "in",
+            "blockId": 7,
+            "position": {
+              "x": 0,
+              "y": 70
+            }
+          },
+          {
+            "id": "7.q",
+            "name": "q",
+            "connectedTo": "19",
+            "type": "out",
+            "blockId": 7,
+            "position": {
+              "x": 90,
+              "y": 45
+            }
+          }
+        ],
+        "payload": 5
+      },
+      {
+        "id": "8",
+        "type": "global-sig",
+        "name": "romInc",
+        "position": {
+          "x": 17.000030944254835,
+          "y": 198
+        },
+        "connections": [
+          {
+            "id": "8.out",
+            "name": "out",
+            "connectedTo": "0",
+            "type": "out",
+            "blockId": 8,
+            "position": {
+              "x": 60,
+              "y": 30
+            }
+          }
+        ],
+        "payload": 0
+      },
+      {
+        "id": "9",
+        "type": "global-sig",
+        "name": "romEn",
+        "position": {
+          "x": 23.000041865756543,
+          "y": 313
+        },
+        "connections": [
+          {
+            "id": "9.out",
+            "name": "out",
+            "connectedTo": "1",
+            "type": "out",
+            "blockId": 9,
+            "position": {
+              "x": 60,
+              "y": 30
+            }
+          }
+        ],
+        "payload": 0
+      },
+      {
+        "id": "10",
+        "type": "global-sig",
+        "name": "ramRdAddr",
+        "position": {
+          "x": 781.0014216154722,
+          "y": 235
+        },
+        "connections": [
+          {
+            "id": "10.out",
+            "name": "out",
+            "connectedTo": "2",
+            "type": "out",
+            "blockId": 10,
+            "position": {
+              "x": 60,
+              "y": 30
+            }
+          }
+        ],
+        "payload": 0
+      },
+      {
+        "id": "11",
+        "type": "global-sig",
+        "name": "ramEn",
+        "position": {
+          "x": 785.0014288964733,
+          "y": 323
+        },
+        "connections": [
+          {
+            "id": "11.out",
+            "name": "out",
+            "connectedTo": "3",
+            "type": "out",
+            "blockId": 11,
+            "position": {
+              "x": 60,
+              "y": 30
+            }
+          }
+        ],
+        "payload": 0
+      },
+      {
+        "id": "12",
+        "type": "global-sig",
+        "name": "ramRNw",
+        "position": {
+          "x": 787.0014325369738,
+          "y": 411
+        },
+        "connections": [
+          {
+            "id": "12.out",
+            "name": "out",
+            "connectedTo": "4",
+            "type": "out",
+            "blockId": 12,
+            "position": {
+              "x": 60,
+              "y": 30
+            }
+          }
+        ],
+        "payload": 0
+      },
+      {
+        "id": "13",
+        "type": "global-sig",
+        "name": "rvhEn",
+        "position": {
+          "x": 248.00045142207054,
+          "y": 731
+        },
+        "connections": [
+          {
+            "id": "13.out",
+            "name": "out",
+            "connectedTo": "5",
+            "type": "out",
+            "blockId": 13,
+            "position": {
+              "x": 60,
+              "y": 30
+            }
+          }
+        ],
+        "payload": 0
+      },
+      {
+        "id": "14",
+        "type": "global-sig",
+        "name": "regAccEn",
+        "position": {
+          "x": 250.00045506257112,
+          "y": 862
+        },
+        "connections": [
+          {
+            "id": "14.out",
+            "name": "out",
+            "connectedTo": "6",
+            "type": "out",
+            "blockId": 14,
+            "position": {
+              "x": 60,
+              "y": 30
+            }
+          }
+        ],
+        "payload": 0
+      },
+      {
+        "id": "15",
+        "type": "global-sig",
+        "name": "sumEn",
+        "position": {
+          "x": 716.0013032992036,
+          "y": 882
+        },
+        "connections": [
+          {
+            "id": "15.out",
+            "name": "out",
+            "connectedTo": "7",
+            "type": "out",
+            "blockId": 15,
+            "position": {
+              "x": 60,
+              "y": 30
+            }
+          }
+        ],
+        "payload": 0
+      },
+      {
+        "id": "16",
+        "type": "global-sig",
+        "name": "accEn",
+        "position": {
+          "x": 972.0017692832765,
+          "y": 857
+        },
+        "connections": [
+          {
+            "id": "16.out",
+            "name": "out",
+            "connectedTo": "8",
+            "type": "out",
+            "blockId": 16,
+            "position": {
+              "x": 60,
+              "y": 30
+            }
+          }
+        ],
+        "payload": 0
+      },
+      {
+        "id": "17",
+        "type": "global-sig",
+        "name": "accOEn",
+        "position": {
+          "x": 977.0017783845279,
+          "y": 946
+        },
+        "connections": [
+          {
+            "id": "17.out",
+            "name": "out",
+            "connectedTo": "9",
+            "type": "out",
+            "blockId": 17,
+            "position": {
+              "x": 60,
+              "y": 30
+            }
+          }
+        ],
+        "payload": 0
+      },
+      {
+        "id": "18",
+        "type": "global-sig",
+        "name": "instRegEn",
+        "position": {
+          "x": 1446.0026320819113,
+          "y": 765
+        },
+        "connections": [
+          {
+            "id": "18.out",
+            "name": "out",
+            "connectedTo": "10",
+            "type": "out",
+            "blockId": 18,
+            "position": {
+              "x": 60,
+              "y": 30
+            }
+          }
+        ],
+        "payload": 0
+      }
+    ],
+    "selectedBlockId": null,
+    "globalSignals": [
+      {
+        "name": "romInc",
+        "blockId": "8",
+        "value": "z",
+        "commands": [
+          {
+            "commandCode": 0,
+            "ones": []
+          },
+          {
+            "commandCode": 170,
+            "ones": [
+              1,
+              2
+            ]
+          }
+        ],
+        "touched": false
+      },
+      {
+        "name": "romEn",
+        "blockId": "9",
+        "value": "z",
+        "commands": [
+          {
+            "commandCode": 0,
+            "ones": [
+              1,
+              2
+            ]
+          },
+          {
+            "commandCode": 170,
+            "ones": [
+              2,
+              3
+            ]
+          }
+        ],
+        "touched": false
+      },
+      {
+        "name": "ramRdAddr",
+        "blockId": "10",
+        "value": "z",
+        "commands": [
+          {
+            "commandCode": 0,
+            "ones": []
+          },
+          {
+            "commandCode": 170,
+            "ones": [
+              3,
+              4
+            ]
+          }
+        ],
+        "touched": false
+      },
+      {
+        "name": "ramEn",
+        "blockId": "11",
+        "value": "z",
+        "commands": [
+          {
+            "commandCode": 0,
+            "ones": []
+          },
+          {
+            "commandCode": 170,
+            "ones": [
+              4,
+              5
+            ]
+          }
+        ],
+        "touched": false
+      },
+      {
+        "name": "ramRNw",
+        "blockId": "12",
+        "value": "z",
+        "commands": [
+          {
+            "commandCode": 0,
+            "ones": []
+          },
+          {
+            "commandCode": 170,
+            "ones": [
+              4,
+              5
+            ]
+          }
+        ],
+        "touched": false
+      },
+      {
+        "name": "rvhEn",
+        "blockId": "13",
+        "value": "z",
+        "commands": [
+          {
+            "commandCode": 0,
+            "ones": []
+          },
+          {
+            "commandCode": 170,
+            "ones": [
+              5,
+              6
+            ]
+          }
+        ],
+        "touched": false
+      },
+      {
+        "name": "regAccEn",
+        "blockId": "14",
+        "value": "z",
+        "commands": [
+          {
+            "commandCode": 0,
+            "ones": []
+          },
+          {
+            "commandCode": 170,
+            "ones": [
+              7,
+              8
+            ]
+          }
+        ],
+        "touched": false
+      },
+      {
+        "name": "sumEn",
+        "blockId": "15",
+        "value": "z",
+        "commands": [
+          {
+            "commandCode": 0,
+            "ones": []
+          },
+          {
+            "commandCode": 170,
+            "ones": [
+              8,
+              9
+            ]
+          }
+        ],
+        "touched": false
+      },
+      {
+        "name": "accEn",
+        "blockId": "16",
+        "value": "z",
+        "commands": [
+          {
+            "commandCode": 0,
+            "ones": []
+          },
+          {
+            "commandCode": 170,
+            "ones": [
+              9,
+              10
+            ]
+          }
+        ],
+        "touched": false
+      },
+      {
+        "name": "accOEn",
+        "blockId": "17",
+        "value": "z",
+        "commands": [
+          {
+            "commandCode": 0,
+            "ones": []
+          },
+          {
+            "commandCode": 170,
+            "ones": [
+              6,
+              7
+            ]
+          }
+        ],
+        "touched": false
+      },
+      {
+        "name": "instRegEn",
+        "blockId": "18",
+        "value": "z",
+        "commands": [
+          {
+            "commandCode": 0,
+            "ones": [
+              2,
+              3
+            ]
+          },
+          {
+            "commandCode": 170,
+            "ones": []
+          }
+        ],
+        "touched": false
+      }
+    ],
+    "commands": [
+      {
+        "name": "",
+        "commandCode": 0,
+        "length": 10
+      },
+      {
+        "name": "",
+        "commandCode": 170,
+        "length": 10
+      }
+    ],
+    "commandsAmount": "2"
+  },
+  "clkReducer": {
+    "clk": 0,
+    "clkState": 0,
+    "clkPosition": 1
+  },
+  "globalStateReducer": {
+    "globalState": 1,
+    "statePayload": {
+      "blockType": "global-sig",
+      "alreadyMoving": false
+    }
+  },
+  "topPanelReducer": {
+    "activeBlockType": null
+  },
+  "commandReducer": {
+    "currentCommand": 0,
+    "isCommandModalOpened": false,
+    "commandLength": 0,
+    "commandCode": 11111111
+  }
+}

@@ -2,6 +2,7 @@ import './sidebar.css';
 import {useDispatch, useSelector} from 'react-redux';
 import { changeBlockName, changeBlockPayload } from '../../store/slices/blockSlice';
 import { setClkState, resetClk } from "../../store/slices/clkSlice";
+import { setWiresPayloadToZ } from "../../store/slices/wireSlice";
 import { STOP_CLK_STATE, START_CLK_STATE} from "../../globals/clkStates";
 import {
     REGISTER_BLOCK_TYPE,
@@ -72,6 +73,7 @@ export default function Sidebar() {
 
     const handleResetClk = () => {
         dispatch(resetClk());
+        dispatch(setWiresPayloadToZ());
     };
 
     let blockInfo = null;

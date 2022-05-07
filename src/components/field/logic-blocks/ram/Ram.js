@@ -1,7 +1,7 @@
 import Block from "../../Block";
 import {RAM_BLOCK_COLOR, RAM_BLOCK_WIDTH, RAM_BLOCK_HEIGHT} from "../../../../globals/globals";
 import getConnections from "./connections";
-import {Fragment, useEffect} from "react";
+import {Fragment, useEffect, useRef} from "react";
 import { Html } from 'react-konva-utils';
 import {Text} from "react-konva";
 import { fill } from 'lodash';
@@ -24,10 +24,15 @@ export default function Ram({id, x, y, name}) {
             });
         })
     );
+    const wiresRef = useRef([]);
 
     let executingAddress = block.payload.executingAddress;
     let activeAddress = block.payload.activeAddress;
     let ramData = block.payload.data;
+
+    useEffect(() => {
+        wiresRef.current = wires;
+    }, [wires]);
 
     useEffect(() => {
         if (!block.payload) {
@@ -44,44 +49,50 @@ export default function Ram({id, x, y, name}) {
 
     useEffect(() => {
         if (clk === 1) {
-            const addr = wires.find(wire => wire.connections.find(connection => connection === `${id}.addr`));
-            const readAddr = wires.find(wire => wire.connections.find(connection => connection === `${id}.readAddr`));
-            const en = wires.find(wire => wire.connections.find(connection => connection === `${id}.en`));
-            const rNw = wires.find(wire => wire.connections.find(connection => connection === `${id}.r/!w`));
-            const data = wires.find(wire => wire.connections.find(connection => connection === `${id}.data`));
+            setTimeout(() => {
+                const addr = wiresRef.current.find(wire => wire.connections.find(connection => connection === `${id}.addr`));
+                const readAddr = wiresRef.current.find(wire => wire.connections.find(connection => connection === `${id}.readAddr`));
+                const en = wiresRef.current.find(wire => wire.connections.find(connection => connection === `${id}.en`));
+                const rNw = wiresRef.current.find(wire => wire.connections.find(connection => connection === `${id}.r/!w`));
+                const data = wiresRef.current.find(wire => wire.connections.find(connection => connection === `${id}.data`));
 
-            if (!addr || !readAddr || !en || !rNw || !data) {
-                return;
-            }
+                if (!addr || !readAddr || !en || !rNw || !data) {
+                    return;
+                }
 
-            if (readAddr.payload === 1) {
-                dispatch(changeBlockPayload({
-                    blockId: id,
-                    payload: {
-                        executingAddress: addr.payload,
-                    },
-                }));
-            }
+                const isReadAddrStable = readAddr.payload === 1 && readAddr.prevPayload === 1;
 
-            if (en.payload === 1) {
-                if (rNw.payload === 1) {
-                    dispatch(updateWirePayload({
-                        id: data.id,
-                        payload: ramData[executingAddress],
-                    }));
-                } else if (rNw.payload === 0) {
-                    let dataCopy = cloneDeep(ramData);
-                    dataCopy[executingAddress] = data.payload;
-
+                if (isReadAddrStable) {
                     dispatch(changeBlockPayload({
                         blockId: id,
                         payload: {
-                            data: dataCopy,
+                            executingAddress: addr.payload,
                         },
                     }));
                 }
-            }
 
+                const isEnStable = en.payload === 1 && en.prevPayload === 1;
+                const isRnwStable = (rNw.payload === 1 && rNw.prevPayload === 1) || (rNw.payload === 0 && rNw.prevPayload === 0);
+
+                if (isEnStable) {
+                    if (isRnwStable && rNw.payload === 1) {
+                        dispatch(updateWirePayload({
+                            id: data.id,
+                            payload: ramData[executingAddress],
+                        }));
+                    } else if (isRnwStable && rNw.payload === 0) {
+                        let dataCopy = cloneDeep(ramData);
+                        dataCopy[executingAddress] = data.payload;
+
+                        dispatch(changeBlockPayload({
+                            blockId: id,
+                            payload: {
+                                data: dataCopy,
+                            },
+                        }));
+                    }
+                }
+            }, 0);
         }
 
     }, [clk]);

@@ -1,10 +1,11 @@
 import {Line, Group, Text, Rect, Layer, Stage} from 'react-konva';
 import { useEffect, useState } from "react";
-import { setClk as setClkToStorage, setClkState } from "../../../store/slices/clkSlice";
+import { setClk as setClkToStorage, setClkState, incrementClkPosition } from "../../../store/slices/clkSlice";
+import { resetUpdatedOnCurrentEdgeCount, setZtoNonTouchedWires } from '../../../store/slices/wireSlice';
+import { resetSignalTouch } from '../../../store/slices/blockSlice';
 import {Provider, useDispatch, useSelector, ReactReduxContext} from "react-redux";
 import BeforeRisingEdge  from './BeforeRisingEdge';
 import { STOP_CLK_STATE, RESET_CLK_STATE } from "../../../globals/clkStates";
-import { incrementClkPosition } from '../../../store/slices/clkSlice';
 import { CLK_PANEL_WIDTH, CLK_PANEL_HEIGHT} from "../../../globals/globals";
 
 const CLK_PERIOD = 4000;
@@ -38,6 +39,15 @@ export default function ClkPanel() {
                 const horizontalLinePoint = [lastPointX + 20, lastPointY];
                 const risingLinePoint = [lastPointX, lastPointY - 20];
                 const fallingLinePoint = [lastPointX, lastPointY + 20];
+
+                if (drawCounter === 2) {
+                   setTimeout(() => {
+                       dispatch(setZtoNonTouchedWires());
+                       dispatch(resetUpdatedOnCurrentEdgeCount());
+                       dispatch(resetSignalTouch());
+                   }, 100);
+                }
+
 
                 if ([2, 3].includes(drawCounter)) {
                     setClk(1);

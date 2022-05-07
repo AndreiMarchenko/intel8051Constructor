@@ -7,6 +7,10 @@ export default function toHex(number) {
         return 'z';
     }
 
+    if (number === 'x') {
+        return 'x';
+    }
+
     const withoutPrefix = number.toString(16).length === 1
         ? (`0${number.toString(16)}`).replace('0x', '')
         : number.toString(16).replace('0x', '');

@@ -1,7 +1,7 @@
 import Block from "../../Block";
 import {ROM_BLOCK_COLOR, ROM_BLOCK_WIDTH, ROM_BLOCK_HEIGHT} from "../../../../globals/globals";
 import getConnections from "./connections";
-import {Fragment, useEffect} from "react";
+import {Fragment, useEffect, useRef} from "react";
 import { Html } from 'react-konva-utils';
 import {Text} from "react-konva";
 import { fill } from 'lodash';
@@ -23,6 +23,7 @@ export default function Rom({id, x, y, name}) {
             });
         })
     );
+    const wiresRef = useRef([]);
 
     let executingAddress = block.payload.executingAddress;
     let activeAddress = block.payload.activeAddress;
@@ -42,29 +43,41 @@ export default function Rom({id, x, y, name}) {
     }, []);
 
     useEffect(() => {
+        wiresRef.current = wires;
+    }, [wires]);
+
+    useEffect(() => {
         if (clk === 1) {
-            const incWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.inc`));
-            const enWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.en`));
-            const outWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.out`));
+            setTimeout(() => {
+                const incWire = wiresRef.current.find(wire => wire.connections.find(connection => connection === `${id}.inc`));
+                const enWire = wiresRef.current.find(wire => wire.connections.find(connection => connection === `${id}.en`));
+                const outWire = wiresRef.current.find(wire => wire.connections.find(connection => connection === `${id}.out`));
 
-            if (!incWire || !enWire || !outWire) {
-                return;
-            }
+                if (!incWire || !enWire || !outWire) {
+                    return;
+                }
 
-            if (enWire && enWire.payload === 1) {
-                dispatch(updateWirePayload({
-                    id: outWire.id,
-                    payload: block.payload.data[executingAddress],
-                }));
-            }
-            if (incWire && incWire.payload === 1) {
-                dispatch(changeBlockPayload({
-                    blockId: id,
-                    payload: {
-                        executingAddress: executingAddress + 1,
-                    },
-                }));
-            }
+
+                const isEnWireStable = enWire.payload === 1 && enWire.prevPayload === 1;
+
+                if (enWire && isEnWireStable) {
+                    dispatch(updateWirePayload({
+                        id: outWire.id,
+                        payload: block.payload.data[executingAddress],
+                    }));
+                }
+
+                const isIncWireStable = incWire.payload === 1 && incWire.prevPayload === 1;
+
+                if (incWire && isIncWireStable) {
+                    dispatch(changeBlockPayload({
+                        blockId: id,
+                        payload: {
+                            executingAddress: executingAddress + 1,
+                        },
+                    }));
+                }
+            }, 0);
         }
 
     }, [clk]);

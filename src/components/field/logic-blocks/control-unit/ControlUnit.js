@@ -12,6 +12,7 @@ export default function ControlUnit({id, x, y, name}) {
     const dispatch = useDispatch();
 
     const globalSignals = useSelector(state => state.blockReducer.globalSignals);
+    const commands = useSelector(state => state.blockReducer.commands);
     const clk = useSelector(state => state.clkReducer.clk);
     const clkPosition = useSelector(state => state.clkReducer.clkPosition);
     const currentCommand = useSelector(state => state.commandReducer.currentCommand);
@@ -25,16 +26,22 @@ export default function ControlUnit({id, x, y, name}) {
             return;
         }
 
+        if (!commands.find(command => command.commandCode === currentCommand)) {
+            return;
+        }
+
         globalSignals.forEach(signal => {
             if (signal.commands.find(command => command.commandCode === currentCommand).ones.map(one => one * 4 - 1).includes(clkPosition)) {
                 dispatch(updateGlobalSignal({
                     blockId: signal.blockId,
-                    value: 1
+                    value: 1,
+                    touched: true,
                 }));
             } else if (!signal.commands.find(command => +command.commandCode === +currentCommand).ones.map(one => one * 4 - 1).includes(clkPosition)) {
                 dispatch(updateGlobalSignal({
                     blockId: signal.blockId,
-                    value: 0
+                    value: 0,
+                    touched: true,
                 }));
             }
         });

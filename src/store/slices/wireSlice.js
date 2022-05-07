@@ -97,6 +97,7 @@ export const wireSlice = createSlice({
                 globalId: globalId,
                 connections: [firstConnection, secondConnection],
                 payload: 'z',
+                updatedOnCurrentEdgeCount: 0,
                 path: [
                     ...wirePath.slice(0, -2),
                     ...destinationPoint
@@ -106,11 +107,22 @@ export const wireSlice = createSlice({
         updateWirePayload: (state, action) => {
             const wireIndex = state.wires.findIndex(wire => wire.id === action.payload.id);
             const updatedWire =  state.wires[wireIndex];
-            updatedWire.payload = action.payload.payload;
+            updatedWire.updatedOnCurrentEdgeCount = updatedWire.updatedOnCurrentEdgeCount + 1;
+
+            if (updatedWire.updatedOnCurrentEdgeCount === 1) {
+                updatedWire.payload = action.payload.payload;
+            } else {
+                updatedWire.payload = 'x';
+            }
 
             state.wires.forEach(wire => {
-                if (wire.globalId === updatedWire.globalId) {
-                    wire.payload = action.payload.payload;
+                if (wire.globalId === updatedWire.globalId && wire.id !== action.payload.id) {
+                    wire.updatedOnCurrentEdgeCount = wire.updatedOnCurrentEdgeCount + 1;
+                    if (updatedWire.updatedOnCurrentEdgeCount === 1) {
+                        wire.payload = action.payload.payload;
+                    } else {
+                        wire.payload = 'x';
+                    }
                 }
             });
         },
@@ -150,6 +162,23 @@ export const wireSlice = createSlice({
                 return connection.wireId !== action.payload.wireId;
             });
         },
+        resetUpdatedOnCurrentEdgeCount: (state) => {
+            state.wires.forEach(wire => {
+                wire.updatedOnCurrentEdgeCount = 0;
+            });
+        },
+        setZtoNonTouchedWires: (state) => {
+            state.wires.forEach(wire => {
+                if (wire.updatedOnCurrentEdgeCount === 0) {
+                    wire.payload = 'z';
+                }
+            });
+        },
+        setWiresPayloadToZ: (state) => {
+            state.wires.forEach(wire => {
+                wire.payload = 'z';
+            });
+        },
     }
 })
 
@@ -167,7 +196,10 @@ export const {
     changeWireConnectionPosition,
     updateWiresPaths,
     setActivePathNodesCount,
-    deleteWireConnections
+    deleteWireConnections,
+    resetUpdatedOnCurrentEdgeCount,
+    setZtoNonTouchedWires,
+    setWiresPayloadToZ
 } = wireSlice.actions
 
 export default wireSlice.reducer

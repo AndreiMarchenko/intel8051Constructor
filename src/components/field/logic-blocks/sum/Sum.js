@@ -3,7 +3,7 @@ import Block from "../../Block";
 import {SUM_BLOCK_WIDTH, SUM_BLOCK_HEIGHT, SUM_BLOCK_COLOR} from "../../../../globals/globals";
 import getConnections from './connections';
 import {useSelector, useDispatch} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
 import {updateWirePayload} from "../../../../store/slices/wireSlice";
 import {Text} from "react-konva";
 
@@ -15,15 +15,20 @@ export default function Sum({id, x, y, name}) {
             return wire.connections.find(connection => connection.split('.')[0] === id);
         })
     );
+    const wiresRef = useRef([]);
 
     const connections = getConnections(id);
 
     useEffect(() => {
+        wiresRef.current = wires;
+    }, [wires]);
+
+    useEffect(() => {
         if (clk === 1) {
-            const in1Wire = wires.find(wire => wire.connections.find(connection => connection === `${id}.in1`));
-            const in2Wire = wires.find(wire => wire.connections.find(connection => connection === `${id}.in2`));
-            const oEnWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.oEn`));
-            const outWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.out`));
+            const in1Wire = wiresRef.current.find(wire => wire.connections.find(connection => connection === `${id}.in1`));
+            const in2Wire = wiresRef.current.find(wire => wire.connections.find(connection => connection === `${id}.in2`));
+            const oEnWire = wiresRef.current.find(wire => wire.connections.find(connection => connection === `${id}.oEn`));
+            const outWire = wiresRef.current.find(wire => wire.connections.find(connection => connection === `${id}.out`));
 
             if (!in1Wire || !in2Wire || !outWire || !oEnWire) {
                 return;
@@ -33,7 +38,9 @@ export default function Sum({id, x, y, name}) {
                 return;
             }
 
-            if (oEnWire.payload === 1) {
+            const isOenStable = oEnWire.payload === 1 && oEnWire.prevPayload === 1;
+
+            if (isOenStable) {
                 dispatch(updateWirePayload({
                     id: outWire.id,
                     payload: +in1Wire.payload + +in2Wire.payload,

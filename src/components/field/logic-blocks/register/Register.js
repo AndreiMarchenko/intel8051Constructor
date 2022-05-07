@@ -4,7 +4,7 @@ import StateDisplayRectangle from "./StateDisplayRectangle";
 import {REGISTER_BLOCK_WIDTH, REGISTER_BLOCK_HEIGHT, REGISTER_BLOCK_COLOR} from "../../../../globals/globals";
 import getConnections from './connections';
 import {useSelector, useDispatch} from "react-redux";
-import {Fragment, useEffect, useState} from "react";
+import {Fragment, useEffect, useRef, useState} from "react";
 import {updateWirePayload} from "../../../../store/slices/wireSlice";
 import { changeBlockPayload } from "../../../../store/slices/blockSlice";
 import {Text} from "react-konva";
@@ -21,8 +21,13 @@ export default function Register({id, x, y, name}) {
             });
         })
     );
+    const wiresRef = useRef([]);
 
     const [state, setState] = useState(0);
+
+    useEffect(() => {
+        wiresRef.current = wires;
+    }, [wires]);
 
     useEffect(() => {
         changeBlockPayload({
@@ -42,13 +47,15 @@ export default function Register({id, x, y, name}) {
             const enWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.en`));
             const oEnWire = wires.find(wire => wire.connections.find(connection => connection === `${id}.oEn`));
 
+            const isOenWireStable = oEnWire && oEnWire.payload === 1 && oEnWire.prevPayload === 1;
+
             if (qWire) {
                 if (!oEnWire) {
                     dispatch(updateWirePayload({
                         id: qWire.id,
                         payload: state,
                     }));
-                } else if (oEnWire.payload === 1) {
+                } else if (isOenWireStable) {
                     dispatch(updateWirePayload({
                         id: qWire.id,
                         payload: state,
@@ -56,7 +63,9 @@ export default function Register({id, x, y, name}) {
                 }
             }
 
-            if (enWire && enWire.payload === 1 && dWire) {
+            const isEnWireStable = enWire && enWire.payload === 1 && enWire.prevPayload === 1;
+
+            if (isEnWireStable && dWire) {
                 if (dWire.payload !== 'z') {
                     setState(dWire.payload);
                 }
