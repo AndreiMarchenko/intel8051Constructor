@@ -96,6 +96,7 @@ export default function Block({id, x, y, width, height, connections, slot, color
 
                     id={id}
                 />
+                { slot }
                 {
                     connections.map(connection => {
                         return <BlockConnection
@@ -110,7 +111,6 @@ export default function Block({id, x, y, width, height, connections, slot, color
                         />
                     })
                 }
-                { slot }
             </Fragment>
         </Group>
     );
